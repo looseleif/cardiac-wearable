@@ -67,7 +67,8 @@ int main() {
   if (timer_flg) {
     rc = bh1790glc.get_val(val);
     if (rc == 0) {
-      sprintf(str, "%d, %d\n", val[1], val[0]);
+      sprintf(str, ">LEDON:%d\n>LEDOFF:%d\n", val[1], val[0]);
+      //Serial.print("reflected:");
       Serial.print(str);
     }
     timer_flg = false;
