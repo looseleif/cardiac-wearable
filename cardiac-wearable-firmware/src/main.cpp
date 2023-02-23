@@ -23,17 +23,55 @@
 ******************************************************************************/
 #include <Wire.h>
 #include <BH1790GLC.h>
-#include <FlexiTimer2.h>
+// #include <FlexiTimer2.h>
 #include <stdio.h>
 #include <Arduino.h>
+
+//#define GPIO_TOGGLE_PIN              (0)       /*!< gpio pin to toggle after delay. */
 
 BH1790GLC bh1790glc;
 volatile bool timer_flg;
 char str[100];
 
-void timer_isr(void);
+//void timer_isr(void);
+
+void start_timer(void)
+{		
+  NRF_TIMER2->MODE = TIMER_MODE_MODE_Timer;  // Set the timer in Counter Mode
+  NRF_TIMER2->TASKS_CLEAR = 1;               // clear the task first to be usable for later
+	NRF_TIMER2->PRESCALER = 6;                             //Set prescaler. Higher number gives slower timer. Prescaler = 0 gives 16MHz timer
+	NRF_TIMER2->BITMODE = TIMER_BITMODE_BITMODE_16Bit;		 //Set counter to 16 bit resolution
+	NRF_TIMER2->CC[0] = 60000;                             //Set value for TIMER2 compare register 0
+	NRF_TIMER2->CC[1] = 60000;                                 //Set value for TIMER2 compare register 1
+		
+  // Enable interrupt on Timer 2, both for CC[0] and CC[1] compare match events
+	NRF_TIMER2->INTENSET = (TIMER_INTENSET_COMPARE0_Enabled << TIMER_INTENSET_COMPARE0_Pos) | (TIMER_INTENSET_COMPARE1_Enabled << TIMER_INTENSET_COMPARE1_Pos);
+  NVIC_EnableIRQ(TIMER2_IRQn);
+		
+  NRF_TIMER2->TASKS_START = 1;               // Start TIMER2
+}
+
+void TIMER2_IRQHandler(void)
+{
+	if ((NRF_TIMER2->EVENTS_COMPARE[0] != 0) && ((NRF_TIMER2->INTENSET & TIMER_INTENSET_COMPARE0_Msk) != 0))
+  {
+		NRF_TIMER2->EVENTS_COMPARE[0] = 0;           //Clear compare register 0 event	
+		//digitalWrite(LED_BUILTIN, 0);           //Set LED
+  }
+	
+	if ((NRF_TIMER2->EVENTS_COMPARE[1] != 0) && ((NRF_TIMER2->INTENSET & TIMER_INTENSET_COMPARE1_Msk) != 0))
+  {
+		NRF_TIMER2->EVENTS_COMPARE[1] = 0;           //Clear compare register 1 event
+		//digitalWrite(LED_BUILTIN, 1);
+    timer_flg = true;         //Clear LED
+  }
+}
 
 void setup() {
+  
+  //pinMode(LED_BUILTIN, OUTPUT);
+  //digitalWrite(LED_BUILTIN, LOW);
+  nrf_gpio_cfg_output(LED_BUILTIN);
   byte rc;
   
   timer_flg = false;
@@ -48,9 +86,9 @@ void setup() {
     Serial.println("BH1790 initialize failed");
   } else {
     Serial.println("LEDON Data, LEDOFF Data");
-    FlexiTimer2::stop();
-    FlexiTimer2::set(250, 1.0/8000, timer_isr);  // 32Hz timer
-    FlexiTimer2::start();
+    // FlexiTimer2::stop();
+    // FlexiTimer2::set(250, 1.0/8000, timer_isr);  // 32Hz timer
+    // FlexiTimer2::start();
   }
 }
 
@@ -58,6 +96,7 @@ int main() {
 
   init();
   setup();
+  start_timer();
 
   while(1){
 
@@ -67,19 +106,16 @@ int main() {
   if (timer_flg) {
     rc = bh1790glc.get_val(val);
     if (rc == 0) {
-      sprintf(str, ">LEDON:%d\n>LEDOFF:%d\n", val[1], val[0]);
-      //Serial.print("reflected:");
+      sprintf(str, ">LEDON:%d\n>LEDOFF:%d\n", -val[1], val[0]);
       Serial.print(str);
     }
     timer_flg = false;
   }
 
+  nrf_gpio_pin_toggle(LED_BUILTIN);
+
   }
 
   return 0;
 
-}
-
-void timer_isr(void) {
-  timer_flg = true;
 }
