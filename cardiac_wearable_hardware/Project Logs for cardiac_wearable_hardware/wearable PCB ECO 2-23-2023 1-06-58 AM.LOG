@@ -1,0 +1,25 @@
+Added Component: Designator=LED?(LED_CMD17-21VGD_TR8)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'VCC'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "CMD17-21VGD-TR8"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=LED?(LED_CMD17-21VGD_TR8)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'VCC'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "CMD17-21VGD-TR8"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=U?(PQFN70P280X280X100-10N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Rohm'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "BH1790GLC-E2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Member To Class: ClassName=wearable Member=Component LED? CMD17-21VGD_TR8
+Added Member To Class: ClassName=wearable Member=Component LED? CMD17-21VGD_TR8
+Added Member To Class: ClassName=wearable Member=Component U? BH1790GLC-E2
+Added Room: Name=wearable
