@@ -1,0 +1,88 @@
+Change Component Comment : Designator=LED? Old Comment=CMD17-21VGD_TR8 New Comment=left
+Change Component Comment : Designator=LED? Old Comment=CMD17-21VGD_TR8 New Comment=right
+Change Component Designator: OldDesignator=LED? NewDesignator=LED1
+Added Component: Designator=ANT?(ANTENNA_W3008)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'PulseLarsen Antennas'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "W3008"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C?(CAPC1608X90N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'KEMET'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "C0603C105K8RACTU"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=R?(RES_ERJPA3D4701V)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Panasonic'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "ERJPA3D4701V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=R?(RES_ERJPA3D4701V)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Panasonic'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "ERJPA3D4701V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=U?(SOT230P700X180-4N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Texas Instruments'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "LM317DCY"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=+3 Pin=C?-1
+Added Pin To Net: NetName=+3 Pin=R?-2
+Added Pin To Net: NetName=+3 Pin=R?-2
+Added Pin To Net: NetName=+3 Pin=U?-1
+Added Pin To Net: NetName=+3 Pin=U?-7
+Added Pin To Net: NetName=+3 Pin=U?-8
+Added Pin To Net: NetName=+3 Pin=U?-8
+Added Pin To Net: NetName=+3 Pin=U?-20
+Added Pin To Net: NetName=+3 Pin=U?-23
+Added Pin To Net: NetName=+3 Pin=U?-31
+Added Pin To Net: NetName=+3 Pin=U?-33
+Added Pin To Net: NetName=+3 Pin=U?-34
+Added Pin To Net: NetName=+3 Pin=U?-35
+Added Pin To Net: NetName=+3 Pin=U?-40
+Added Pin To Net: NetName=+3 Pin=U?-48
+Added Net: Name=+3
+Added Pin To Net: NetName=+5 Pin=LED1-1
+Added Pin To Net: NetName=+5 Pin=LED?-1
+Added Net: Name=+5
+Added Pin To Net: NetName=GND Pin=C?-2
+Added Pin To Net: NetName=GND Pin=U?-2
+Added Pin To Net: NetName=GND Pin=U?-5
+Added Pin To Net: NetName=GND Pin=U?-22
+Added Pin To Net: NetName=GND Pin=U?-32
+Added Pin To Net: NetName=GND Pin=U?-49
+Added Net: Name=GND
+Added Pin To Net: NetName=NetANT?_FEED Pin=ANT?-FEED
+Added Pin To Net: NetName=NetANT?_FEED Pin=ANT?-G1
+Added Pin To Net: NetName=NetANT?_FEED Pin=ANT?-G2
+Added Pin To Net: NetName=NetANT?_FEED Pin=U?-21
+Added Net: Name=NetANT?_FEED
+Added Pin To Net: NetName=NetLED1_2 Pin=LED1-2
+Added Pin To Net: NetName=NetLED1_2 Pin=U?-3
+Added Net: Name=NetLED1_2
+Added Pin To Net: NetName=NetLED?_2 Pin=LED?-2
+Added Pin To Net: NetName=NetLED?_2 Pin=U?-4
+Added Net: Name=NetLED?_2
+Added Pin To Net: NetName=NetR?_1 Pin=R?-1
+Added Pin To Net: NetName=NetR?_1 Pin=U?-5
+Added Pin To Net: NetName=NetR?_1 Pin=U?-10
+Added Net: Name=NetR?_1
+Add Net: Net with name "NetR?_1" already exists
+Added Member To Class: ClassName=wearable Member=Component ANT? W3008
+Added Member To Class: ClassName=wearable Member=Component C? 1uF
+Added Member To Class: ClassName=wearable Member=Component LED? right
+Added Member To Class: ClassName=wearable Member=Component R? 4.7k
+Added Member To Class: ClassName=wearable Member=Component R? 4.7k
+Added Member To Class: ClassName=wearable Member=Component U? BH1790GLC-E2
+Added Member To Class: ClassName=wearable Member=Component U? STM32WB55CEU6TR
+Added Room: Name=wearable
