@@ -1,0 +1,9 @@
+Added Component: Designator=J?(VALCON_CSP-USC16-TR)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Valcon'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "CSP-USC16-TR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Member To Class: ClassName=wearable Member=Component J? CSP-USC16-TR
+Added Room: Name=wearable

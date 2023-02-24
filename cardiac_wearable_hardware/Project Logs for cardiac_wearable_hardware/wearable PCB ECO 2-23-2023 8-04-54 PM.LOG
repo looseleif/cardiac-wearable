@@ -1,0 +1,18 @@
+Added Component: Designator=J?(SOT95P280X145-5N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Microchip Technology'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "MCP73831T-5ACI/OT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J?(VALCON_CSP-USC16-TR)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Valcon'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "CSP-USC16-TR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Member To Class: ClassName=wearable Member=Component J? MCP73831T-5ACI/OT
+Added Member To Class: ClassName=wearable Member=Component J? CSP-USC16-TR
+Added Member To Class: ClassName=wearable Member=Component R1 4.7k
+Added Room: Name=wearable
