@@ -39,27 +39,27 @@ byte BH1790GLC::init(void)
 
   rc = read(BH1790GLC_PART_ID, &reg, sizeof(reg));
   if (rc != 0) {
-    //Serial.println(F("Can't access BH1790GLC"));
+    Serial.println(F("Can't access BH1790GLC"));
     return (rc);
   }
-  //Serial.print(F("BH1790GLC Part ID Value = 0x"));
-  //Serial.println(reg, HEX);
+  Serial.print(F("BH1790GLC Part ID Value = 0x"));
+  Serial.println(reg, HEX);
 
   if (reg != BH1790GLC_PID_VAL) {
-    //Serial.println(F("Can't find BH1790GLC"));
+    Serial.println(F("Can't find BH1790GLC"));
     return (rc);
   }
 
   rc = read(BH1790GLC_MANUFACTURER_ID, &reg, sizeof(reg));
   if (rc != 0) {
-    //Serial.println(F("Can't access BH1790GLC"));
+    Serial.println(F("Can't access BH1790GLC"));
     return (rc);
   }
-  //Serial.print(F("BH1790GLC MANUFACTURER ID Register Value = 0x"));
-  //Serial.println(reg, HEX);
+  Serial.print(F("BH1790GLC MANUFACTURER ID Register Value = 0x"));
+  Serial.println(reg, HEX);
 
   if (reg != BH1790GLC_MID_VAL) {
-    //Serial.println(F("Can't find BH1790GLC"));
+    Serial.println(F("Can't find BH1790GLC"));
     return (rc);
   }
 
@@ -68,7 +68,7 @@ byte BH1790GLC::init(void)
   val[2] = BH1790GLC_MEAS_START_VAL;  
   rc = write(BH1790GLC_MEAS_CONTROL1, val, sizeof(val));
   if (rc != 0) {
-    //Serial.println("Can't write BH1790GLC MEAS_CONTROL1-MEAS_START register");
+    Serial.println("Can't write BH1790GLC MEAS_CONTROL1-MEAS_START register");
   }
   
   return (rc);
@@ -80,7 +80,7 @@ byte BH1790GLC::get_rawval(unsigned char *data)
 
   rc = read(BH1790GLC_DATAOUT_LEDOFF, data, 4);
   if (rc != 0) {
-    //Serial.println(F("Can't get BH1790GLC value"));
+    Serial.println(F("Can't get BH1790GLC value"));
   }
 
   return (rc);
