@@ -1,0 +1,10 @@
+Removed Member From Class: ClassName=wearable Member=ANT1
+Added Component: Designator=U?(XCVR_STM32WB5MMGH6)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'STMicroelectronics'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "STM32WB5MMGH6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Member To Class: ClassName=wearable Member=Component U? STM32WB5MMGH6
+Added Room: Name=wearable

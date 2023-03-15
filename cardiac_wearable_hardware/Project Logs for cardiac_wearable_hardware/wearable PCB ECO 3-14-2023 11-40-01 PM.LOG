@@ -1,0 +1,93 @@
+Change Component Footprint: Designator=U4 Old Footprint=SOIC127P600X175-8N New Footprint=SOT95P280X145-6N
+Change Component Footprint: Designator=J1 Old Footprint=VALCON_CSP-USC16-TR New Footprint=MOLEX_1051330001
+Change Component Comment : Designator=J1 Old Comment=CSP-USC16-TR New Comment=microB
+Change Component Comment : Designator=U4 Old Comment=MB85RC64PNF-G-JNE1 New Comment=USBLC6-2SC6Y
+Change Component Designator: OldDesignator=U? NewDesignator=U1
+Change component parameters: Designator = "J1" ("J1"); Footprint = "VALCON_CSP-USC16-TR"; UniqueID = "\CKJQVNOO" ("\CKJQVNOO")
+Change component parameters (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Molex'}"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MP"; Value = "1051330001"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "U4" ("U4"); Footprint = "SOIC127P600X175-8N"; UniqueID = "\GIHZQGWI" ("\GIHZQGWI")
+Change component parameters (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MF"; Value = "{'manufacturer': u'STMicroelectronics'}"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MP"; Value = "USBLC6-2SC6Y"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C2(CAPC1608X92N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Vishay'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "VJ0603Y104KLXAC5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=R3(RESC1608X55N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Yageo'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "RT0603BRB07100KL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=S1(SW_TL3301AF160QG)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'E-Switch'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "TL3301AF160QG"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C2-1
+Added Pin To Net: NetName=GND Pin=J1-5
+Added Pin To Net: NetName=GND Pin=J1-S1
+Added Pin To Net: NetName=GND Pin=J1-S2
+Added Pin To Net: NetName=GND Pin=J1-S3
+Added Pin To Net: NetName=GND Pin=R3-1
+Added Pin To Net: NetName=GND Pin=S1-1
+Added Pin To Net: NetName=GND Pin=S1-2
+Added Pin To Net: NetName=+3 Pin=U1-4
+Added Pin To Net: NetName=GND Pin=U1-5
+Added Pin To Net: NetName=+3 Pin=U1-6
+Added Pin To Net: NetName=+3 Pin=U1-13
+Added Pin To Net: NetName=+3 Pin=U1-15
+Added Pin To Net: NetName=GND Pin=U1-16
+Added Pin To Net: NetName=+3 Pin=U1-17
+Added Pin To Net: NetName=GND Pin=U1-31
+Added Pin To Net: NetName=+3 Pin=U1-32
+Added Pin To Net: NetName=GND Pin=U1-57
+Added Pin To Net: NetName=GND Pin=U1-58
+Added Pin To Net: NetName=GND Pin=U1-59
+Added Pin To Net: NetName=GND Pin=U1-60
+Added Pin To Net: NetName=GND Pin=U1-84
+Added Pin To Net: NetName=GND Pin=U1-86
+Added Pin To Net: NetName=GND Pin=U4-2
+Change Net Name : Old Net Name=NetR1_1 New Net Name=SCL
+Change Net Name : Old Net Name=NetR2_1 New Net Name=SDA
+Added Pin To Net: NetName=D_M Pin=U4-1
+Added Net: Name=D_M
+Added Pin To Net: NetName=D_N Pin=J1-2
+Added Net: Name=D_N
+Added Pin To Net: NetName=D_P Pin=J1-3
+Added Pin To Net: NetName=D_P Pin=U4-3
+Added Net: Name=D_P
+Added Pin To Net: NetName=NetC2_2 Pin=C2-2
+Added Pin To Net: NetName=NetC2_2 Pin=S1-3
+Added Pin To Net: NetName=NetC2_2 Pin=S1-4
+Added Pin To Net: NetName=NetC2_2 Pin=U1-10
+Added Net: Name=NetC2_2
+Added Pin To Net: NetName=NetJ1_4 Pin=J1-4
+Added Pin To Net: NetName=NetJ1_4 Pin=R3-2
+Added Net: Name=NetJ1_4
+Added Pin To Net: NetName=USB_N Pin=U4-6
+Added Net: Name=USB_N
+Added Pin To Net: NetName=USB_P Pin=U4-4
+Added Net: Name=USB_P
+Added Pin To Net: NetName=USB Pin=J1-1
+Added Pin To Net: NetName=USB Pin=U4-5
+Added Net: Name=USB
+Added Differential Pair: Name=D
+Added Member To Class: ClassName=wearable Member=Component C2 100nF
+Added Member To Class: ClassName=wearable Member=Component R3 100k
+Added Member To Class: ClassName=wearable Member=Component S1 nRST
+Added Room: Name=wearable
