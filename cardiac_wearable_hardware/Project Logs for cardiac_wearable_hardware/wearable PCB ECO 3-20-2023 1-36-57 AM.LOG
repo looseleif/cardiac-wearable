@@ -1,0 +1,23 @@
+Removed Pin From Net: NetName=SPI2_SCK Pin=U1-2
+Change Component Footprint: Designator=U5 Old Footprint=CYP-S08.15_N New Footprint=CYP-S08.15_N
+Added Component: Designator=J?(SAMTEC-FTS-105-01-X-DV)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Samtec'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "SAMTEC-FTS-105-01-X-DV"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=SPI1_MISO Pin=U1-20
+Added Net: Name=SPI1_MISO
+Added Pin To Net: NetName=SPI1_MOSI Pin=U1-19
+Added Net: Name=SPI1_MOSI
+Added Pin To Net: NetName=SPI1_SCK Pin=U1-2
+Added Net: Name=SPI1_SCK
+Added Pin To Net: NetName=SWCLK Pin=U1-26
+Added Net: Name=SWCLK
+Added Pin To Net: NetName=SWDIO Pin=U1-25
+Added Net: Name=SWDIO
+Added Pin To Net: NetName=SWO Pin=U1-21
+Added Net: Name=SWO
+Added Member To Class: ClassName=wearable Member=Component J? SAMTEC-FTS-105-01-X-DV
+Added Room: Name=wearable

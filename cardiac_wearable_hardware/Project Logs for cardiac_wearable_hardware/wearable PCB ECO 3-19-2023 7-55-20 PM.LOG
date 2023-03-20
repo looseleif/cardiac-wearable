@@ -1,0 +1,57 @@
+Removed Pin From Net: NetName=USB Pin=J1-1
+Removed Pin From Net: NetName=D_N Pin=J1-2
+Removed Pin From Net: NetName=D_P Pin=J1-3
+Removed Pin From Net: NetName=GND Pin=J1-5
+Removed Pin From Net: NetName=GND Pin=J1-S1
+Removed Pin From Net: NetName=GND Pin=J1-S2
+Removed Pin From Net: NetName=GND Pin=J1-S3
+Removed Member From Class: ClassName=wearable Member=J1
+Added Component: Designator=J?(FCI_10118193-0001LF)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'FCI'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "10118193-0001LF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=S?(SW_TL6330AF200Q)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'E-Switch'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "TL6330AF200Q"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=USB Pin=J?-1
+Added Pin To Net: NetName=D_N Pin=J?-2
+Added Pin To Net: NetName=D_P Pin=J?-3
+Added Pin To Net: NetName=GND Pin=J?-5
+Added Pin To Net: NetName=GND Pin=J?-S1
+Added Pin To Net: NetName=GND Pin=J?-S2
+Added Pin To Net: NetName=GND Pin=J?-S3
+Added Pin To Net: NetName=GND Pin=S?-1
+Added Pin To Net: NetName=GND Pin=S?-2
+Added Pin To Net: NetName=NetC2_2 Pin=S?-3
+Added Pin To Net: NetName=NetC2_2 Pin=S?-4
+Added Pin To Net: NetName=USB_P Pin=U1-29
+Added Pin To Net: NetName=USB_N Pin=U1-30
+Added Pin To Net: NetName=D_N Pin=U4-1
+Added Pin To Net: NetName=I2C1_SCL Pin=R1-1
+Added Pin To Net: NetName=I2C1_SCL Pin=U1-14
+Added Pin To Net: NetName=I2C1_SCL Pin=U3-10
+Added Net: Name=I2C1_SCL
+Added Pin To Net: NetName=I2C1_SDA Pin=R2-1
+Added Pin To Net: NetName=I2C1_SDA Pin=U1-11
+Added Pin To Net: NetName=I2C1_SDA Pin=U3-9
+Added Net: Name=I2C1_SDA
+Added Pin To Net: NetName=NetJ?_4 Pin=J?-4
+Added Pin To Net: NetName=NetJ?_4 Pin=R3-2
+Added Net: Name=NetJ?_4
+Added Pin To Net: NetName=SPI2_MISO Pin=U1-8
+Added Net: Name=SPI2_MISO
+Added Pin To Net: NetName=SPI2_MOSI Pin=U1-7
+Added Net: Name=SPI2_MOSI
+Added Pin To Net: NetName=SPI2_SCK Pin=U1-34
+Added Net: Name=SPI2_SCK
+Added Differential Pair: Name=USB
+Added Member To Class: ClassName=wearable Member=Component J? 10118193-0001LF
+Added Member To Class: ClassName=wearable Member=Component S? TL6330AF200Q
+Added Room: Name=wearable

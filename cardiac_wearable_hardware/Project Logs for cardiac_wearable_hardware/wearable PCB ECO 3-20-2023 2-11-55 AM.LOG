@@ -1,0 +1,12 @@
+Added Component: Designator=C7(CAPC1608X87N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Multicomp'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "MC0603B104J160CT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C7-1
+Added Pin To Net: NetName=+3 Pin=C7-2
+Added Member To Class: ClassName=wearable Member=Component C7 100 nF
+Added Member To Class: ClassName=wearable Member=Component J2 SWD
+Added Room: Name=wearable

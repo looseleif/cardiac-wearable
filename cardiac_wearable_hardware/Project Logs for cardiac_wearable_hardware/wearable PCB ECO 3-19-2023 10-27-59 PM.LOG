@@ -1,0 +1,48 @@
+Change Component Footprint: Designator=C2 Old Footprint=CAPC1608X92N New Footprint=CAPC1608X87N
+Change Component Footprint: Designator=C3 Old Footprint=CAPC1608X92N New Footprint=CAPC1608X87N
+Change Component Footprint: Designator=C4 Old Footprint=CAPC1608X92N New Footprint=CAPC1608X87N
+Change Component Footprint: Designator=C5 Old Footprint=CAPC1608X92N New Footprint=CAPC1608X87N
+Change Component Footprint: Designator=C6 Old Footprint=CAPC1608X92N New Footprint=CAPC1608X87N
+Change Component Comment : Designator=C2 Old Comment=100nF New Comment=100 nF
+Change Component Comment : Designator=C3 Old Comment=100nF New Comment=100 nF
+Change Component Comment : Designator=C4 Old Comment=100nF New Comment=100 nF
+Change Component Comment : Designator=C5 Old Comment=100nF New Comment=100 nF
+Change Component Comment : Designator=C6 Old Comment=100nF New Comment=100 nF
+Change component parameters: Designator = "C2" ("C2"); Footprint = "CAPC1608X92N"; UniqueID = "\ODFOWESM" ("\ODFOWESM")
+Change component parameters (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Multicomp'}"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MP"; Value = "MC0603B104J160CT"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "C3" ("C3"); Footprint = "CAPC1608X92N"; UniqueID = "\XQRIZITZ" ("\XQRIZITZ")
+Change component parameters (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Multicomp'}"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MP"; Value = "MC0603B104J160CT"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "C4" ("C4"); Footprint = "CAPC1608X92N"; UniqueID = "\CTRSRPJD" ("\CTRSRPJD")
+Change component parameters (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Multicomp'}"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MP"; Value = "MC0603B104J160CT"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "C5" ("C5"); Footprint = "CAPC1608X92N"; UniqueID = "\UFIUSDFI" ("\UFIUSDFI")
+Change component parameters (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Multicomp'}"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MP"; Value = "MC0603B104J160CT"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "C6" ("C6"); Footprint = "CAPC1608X92N"; UniqueID = "\QMPUYPGB" ("\QMPUYPGB")
+Change component parameters (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Multicomp'}"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MP"; Value = "MC0603B104J160CT"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Member To Class: ClassName=wearable Member=Component C6 100 nF
+Added Member To Class: ClassName=wearable Member=Component J1 10118193-0001LF
+Added Room: Name=wearable
