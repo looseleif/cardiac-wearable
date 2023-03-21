@@ -1,0 +1,3 @@
+C:/Users/mkukl/Documents/STM32CubeWB/Middlewares/ST/STM32_WPAN/ble/svc/Src/hrs.c:89:30:HeartRate_Event_Handler	32	static
+C:/Users/mkukl/Documents/STM32CubeWB/Middlewares/ST/STM32_WPAN/ble/svc/Src/hrs.c:395:6:HRS_Init	56	static
+C:/Users/mkukl/Documents/STM32CubeWB/Middlewares/ST/STM32_WPAN/ble/svc/Src/hrs.c:567:12:HRS_UpdateChar	24	static

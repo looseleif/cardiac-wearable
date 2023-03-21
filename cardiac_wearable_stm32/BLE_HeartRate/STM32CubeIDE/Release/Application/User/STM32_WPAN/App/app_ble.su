@@ -1,0 +1,15 @@
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:1262:13:Adv_Mgr	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:1310:13:BLE_UserEvtRx	8	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:1330:13:BLE_StatusNot	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:1103:13:Adv_Request	56	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:1274:13:Adv_Update	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:269:6:APP_BLE_Init	120	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:409:28:SVCCTL_App_Notification	24	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:692:22:APP_BLE_Get_Server_Connection_Status	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:698:6:APP_BLE_Key_Button1_Action	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:713:6:APP_BLE_Key_Button2_Action	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:729:6:APP_BLE_Key_Button3_Action	24	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:1289:6:hci_notify_asynch_evt	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:1296:6:hci_cmd_resp_release	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:1303:6:hci_cmd_resp_wait	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/app_ble.c:1369:6:SVCCTL_ResumeUserEventFlow	0	static

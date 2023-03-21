@@ -1,0 +1,4 @@
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/hrs_app.c:184:13:HRSAPP_Measurement	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/hrs_app.c:206:13:HrMeas	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/hrs_app.c:81:6:HRS_Notification	8	static
+C:/Users/mkukl/Documents/STM32CubeWB/Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_HeartRate/STM32_WPAN/App/hrs_app.c:137:6:HRSAPP_Init	16	static

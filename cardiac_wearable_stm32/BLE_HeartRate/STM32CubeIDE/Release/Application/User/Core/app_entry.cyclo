@@ -1,0 +1,15 @@
+app_entry.c:361:13:APPE_SysStatusNot	1
+app_entry.c:681:13:RxCpltCallback	6
+app_entry.c:376:13:APPE_SysUserEvtRx	4
+app_entry.c:105:6:MX_APPE_Config	2
+app_entry.c:162:6:Init_Smps	1
+app_entry.c:180:6:Init_Exti	1
+app_entry.c:125:6:MX_APPE_Init	1
+app_entry.c:572:6:HAL_Delay	3
+app_entry.c:601:6:MX_APPE_Process	1
+app_entry.c:612:6:UTIL_SEQ_Idle	1
+app_entry.c:627:6:UTIL_SEQ_EvtIdle	1
+app_entry.c:634:6:shci_notify_asynch_evt	1
+app_entry.c:640:6:shci_cmd_resp_release	1
+app_entry.c:646:6:shci_cmd_resp_wait	1
+app_entry.c:653:6:HAL_GPIO_EXTI_Callback	4
