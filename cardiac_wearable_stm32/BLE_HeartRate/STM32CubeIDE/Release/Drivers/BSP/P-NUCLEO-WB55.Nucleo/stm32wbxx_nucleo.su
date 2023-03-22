@@ -1,0 +1,10 @@
+../../../../../../../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_bus.h:539:22:LL_AHB2_GRP1_EnableClock	8	static
+C:/Users/mkukl/Documents/STM32CubeWB/Drivers/BSP/P-NUCLEO-WB55.Nucleo/stm32wbxx_nucleo.c:185:10:BSP_GetVersion	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Drivers/BSP/P-NUCLEO-WB55.Nucleo/stm32wbxx_nucleo.c:203:6:BSP_LED_Init	48	static
+C:/Users/mkukl/Documents/STM32CubeWB/Drivers/BSP/P-NUCLEO-WB55.Nucleo/stm32wbxx_nucleo.c:231:6:BSP_LED_DeInit	24	static
+C:/Users/mkukl/Documents/STM32CubeWB/Drivers/BSP/P-NUCLEO-WB55.Nucleo/stm32wbxx_nucleo.c:251:6:BSP_LED_On	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Drivers/BSP/P-NUCLEO-WB55.Nucleo/stm32wbxx_nucleo.c:265:6:BSP_LED_Off	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Drivers/BSP/P-NUCLEO-WB55.Nucleo/stm32wbxx_nucleo.c:279:6:BSP_LED_Toggle	0	static
+C:/Users/mkukl/Documents/STM32CubeWB/Drivers/BSP/P-NUCLEO-WB55.Nucleo/stm32wbxx_nucleo.c:306:6:BSP_PB_Init	48	static
+C:/Users/mkukl/Documents/STM32CubeWB/Drivers/BSP/P-NUCLEO-WB55.Nucleo/stm32wbxx_nucleo.c:350:6:BSP_PB_DeInit	16	static
+C:/Users/mkukl/Documents/STM32CubeWB/Drivers/BSP/P-NUCLEO-WB55.Nucleo/stm32wbxx_nucleo.c:368:10:BSP_PB_GetState	8	static
