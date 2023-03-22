@@ -1,0 +1,15 @@
+Change Component Comment : Designator=J1 Old Comment=10118193-0001LF New Comment=micro
+Added Component: Designator=J4(JST_S2B-PH-SM4-TB(LF)(SN))
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'JST Sales'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "S2B-PH-SM4-TB(LF)(SN)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VBAT Pin=J4-1
+Added Pin To Net: NetName=GND Pin=J4-2
+Added Pin To Net: NetName=GND Pin=J4-S1
+Added Pin To Net: NetName=GND Pin=J4-S2
+Added Member To Class: ClassName=wearable Member=Component J4 JST
+Added Member To Class: ClassName=wearable Member=Component R6 330R
+Added Room: Name=wearable
