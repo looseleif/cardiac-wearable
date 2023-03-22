@@ -1,0 +1,29 @@
+Added Component: Designator=J?(SOT95P280X145-5N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Microchip'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "MCP73831T-2ACI-OT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=LED3(LED_CMD17-21VGD_TR8)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'VCC'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "CMD17-21VGD-TR8"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=+3 Pin=LED3-1
+Added Pin To Net: NetName=GND Pin=U5-4
+Added Pin To Net: NetName=+3 Pin=U5-8
+Added Pin To Net: NetName=SPI1_SCK Pin=U?-1
+Added Pin To Net: NetName=SPI1_MISO Pin=U?-3
+Added Pin To Net: NetName=SPI1_MOSI Pin=U?-4
+Added Pin To Net: NetName=nRST Pin=U?-5
+Added Pin To Net: NetName=GND Pin=U?-6
+Added Pin To Net: NetName=GND Pin=U?-7
+Added Pin To Net: NetName=GND Pin=U?-8
+Added Pin To Net: NetName=+3 Pin=U?-9
+Added Pin To Net: NetName=+3 Pin=U?-10
+Added Member To Class: ClassName=wearable Member=Component J? MCP73831T-2ACI/OT
+Added Member To Class: ClassName=wearable Member=Component LED3 GOOD
+Added Room: Name=wearable

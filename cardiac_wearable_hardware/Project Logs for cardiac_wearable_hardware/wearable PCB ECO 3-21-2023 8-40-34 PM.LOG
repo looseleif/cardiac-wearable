@@ -1,0 +1,15 @@
+Removed Member From Class: ClassName=wearable Member=U2
+Change Component Designator: OldDesignator=3 NewDesignator=U3
+Added Component: Designator=U?(QFN50P200X200X100-12N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'STMicroelectronics'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "LIS2DE12TR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=SPI2_MISO Pin=U5-2
+Added Pin To Net: NetName=SPI2_MOSI Pin=U5-5
+Added Pin To Net: NetName=SPI2_SCK Pin=U5-6
+Added Member To Class: ClassName=wearable Member=Component J2 SWD
+Added Member To Class: ClassName=wearable Member=Component U? LIS2DE12TR
+Added Room: Name=wearable
