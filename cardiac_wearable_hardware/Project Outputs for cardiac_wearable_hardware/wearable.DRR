@@ -1,0 +1,21 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: wearable.PcbDoc   3/23/2023  1:44:20 PM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : TOP to BOT
+ASCII RoundHoles File : wearable-RoundHoles.TXT
+ASCII SlotHoles File : wearable-SlotHoles.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      0.203mm (8mil)                                            Round             57        PTH        163.48mm (6.44inch)
+T2      0.254mm (10mil)                                           Round             26        PTH        103.43mm (4.07inch)
+T3      0.381mm (15mil)                                           Round             4         PTH        26.60mm (1.05inch)
+T4      0.5mm (20mil)                                             Slot              2         PTH        14.64mm (0.58inch)
+T5      2.032mm (80mil)                                           Round             4         PTH        53.34mm (2.10inch)
+T6      0.5mm (20mil)                                             Round             2         NPTH       6.60mm (0.26inch)
+T7      1.02mm (40mil)                                            Round             2         NPTH       3.81mm (0.15inch)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              97
+
+Total Processing Time (hh:mm:ss) : 00:00:00
