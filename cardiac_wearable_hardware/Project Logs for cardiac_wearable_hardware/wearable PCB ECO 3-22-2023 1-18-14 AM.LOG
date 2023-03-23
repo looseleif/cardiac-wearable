@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=+5 Pin=LED1-1
+Removed Pin From Net: NetName=+5 Pin=LED2-1
+Added Pin To Net: NetName=+3 Pin=LED1-1
+Added Pin To Net: NetName=+3 Pin=LED2-1
+Added Member To Class: ClassName=wearable Member=Component R? 330R

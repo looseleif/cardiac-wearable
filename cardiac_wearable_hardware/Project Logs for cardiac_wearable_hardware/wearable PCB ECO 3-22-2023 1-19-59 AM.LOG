@@ -1,0 +1,7 @@
+Change Component Designator: OldDesignator=LED? NewDesignator=LED4
+Change Component Designator: OldDesignator=R? NewDesignator=R6
+Change Component Designator: OldDesignator=R? NewDesignator=R7
+Change Net Name : Old Net Name=NetLED?_C New Net Name=NetLED4_C
+Change Net Name : Old Net Name=NetR?_1 New Net Name=NetR7_1
+Added Member To Class: ClassName=wearable Member=Component R7 330R
+Added Room: Name=wearable

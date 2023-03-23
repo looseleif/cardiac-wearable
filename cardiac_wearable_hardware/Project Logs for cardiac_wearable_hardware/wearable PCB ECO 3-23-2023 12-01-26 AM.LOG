@@ -1,0 +1,42 @@
+Removed Pin From Net: NetName=nRST Pin=U6-5
+Change Component Comment : Designator=J1 Old Comment=10118193-0001LF New Comment=micro
+Added Component: Designator=C12(CAPC1608X87N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Multicomp'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "MC0603B104J160CT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C13(CAPC1608X87N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Multicomp'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "MC0603B104J160CT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=R8(RES_ERJS03F2001V)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Panasonic'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "ERJS03F2001V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C12-1
+Added Pin To Net: NetName=+3 Pin=C12-2
+Added Pin To Net: NetName=GND Pin=C13-1
+Added Pin To Net: NetName=+3 Pin=C13-2
+Added Pin To Net: NetName=GND Pin=R8-2
+Added Pin To Net: NetName=IMU_CS Pin=U1-1
+Added Pin To Net: NetName=FRAM_CS Pin=U1-68
+Added Pin To Net: NetName=FRAM_WP Pin=U1-70
+Added Pin To Net: NetName=FRAM_HD Pin=U1-73
+Added Pin To Net: NetName=GND Pin=U6-5
+Added Pin To Net: NetName=+3 Pin=U6-10
+Added Pin To Net: NetName=PROG Pin=J3-5
+Added Pin To Net: NetName=PROG Pin=R8-1
+Added Net: Name=PROG
+Added Member To Class: ClassName=wearable Member=Component C12 100 nF
+Added Member To Class: ClassName=wearable Member=Component C13 100 nF
+Added Member To Class: ClassName=wearable Member=Component R6 330R
+Added Member To Class: ClassName=wearable Member=Component R8 2k
+Added Room: Name=wearable

@@ -1,0 +1,3 @@
+Removed Pin From Net: NetName=IMU_CS Pin=U1-1
+Added Pin To Net: NetName=IMU_CS Pin=U1-21
+Added Room: Name=wearable

@@ -1,0 +1,1 @@
+These are just some files from when I used stmCube to generate code based on the configuration for our custom hardware!

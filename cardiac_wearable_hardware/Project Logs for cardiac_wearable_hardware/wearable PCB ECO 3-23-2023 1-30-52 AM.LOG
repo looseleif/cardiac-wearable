@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=FRAM_CS Pin=U1-68
+Removed Pin From Net: NetName=FRAM_WP Pin=U1-70
+Removed Pin From Net: NetName=FRAM_HD Pin=U1-73
+Added Pin To Net: NetName=FRAM_HD Pin=U1-3
+Added Pin To Net: NetName=FRAM_CS Pin=U1-75
+Added Pin To Net: NetName=FRAM_WP Pin=U1-76
