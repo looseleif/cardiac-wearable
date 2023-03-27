@@ -1,3 +1,4 @@
+"./Core/Src/BH1790GLC.o"
 "./Core/Src/app_debug.o"
 "./Core/Src/app_entry.o"
 "./Core/Src/hw_timerserver.o"

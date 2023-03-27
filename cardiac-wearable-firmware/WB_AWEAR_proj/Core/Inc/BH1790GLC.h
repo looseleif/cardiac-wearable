@@ -21,10 +21,13 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
 ******************************************************************************/
+
+#include "stm32wbxx_hal.h"						// Required library for I2C
+
 #ifndef _BH1790GLC_H_
 #define _BH1790GLC_H_
 
-#define BH1790GLC_DEVICE_ADDRESS      (0x5B)    // 7bit Addrss
+#define BH1790GLC_DEVICE_ADDRESS      (0x5B)    // 8 bit Slave Address (1011011)
 #define BH1790GLC_MID_VAL             (0xE0)
 #define BH1790GLC_PID_VAL             (0x0D)
 
@@ -47,10 +50,36 @@
 #define BH1790GLC_MEAS_CONTROL2_VAL   (BH1790GLC_MEAS_CONTROL2_LED_EN_00 | BH1790GLC_MEAS_CONTROL2_LED_ON_TIME_0_3MS | BH1790GLC_MEAS_CONTROL2_LED_CURRENT_10MA)
 #define BH1790GLC_MEAS_START_VAL      (BH1790GLC_MEAS_START_MEAS_ST)
 
-char init(void);
-char get_rawval(unsigned char *data);
-char get_val(unsigned short *data);
-char write(unsigned char memory_address, unsigned char *data, unsigned char size);
-char read(unsigned char memory_address, unsigned char *data, int size);
+/*
+ * SENSOR STRUCT
+ */
+typedef struct {
+	I2C_HandleTypeDef *i2cHandle;
+
+	//some dummmy vars for getting data into down the line
+	float measurements[3];
+
+	float measurement;
+} BH1790GLC;
+
+/*
+ * INITIALIZATION
+ * set up for measuring in this function
+ */
+uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle );
+
+/*
+ * DATA ACQUISITION
+ */
+uint8_t get_rawval( BH1790GLC *dev ); // prev: unsigned char *data
+uint8_t get_val( BH1790GLC *dev );
+
+/*
+ * LOW-LEVEL FUNCTIONS
+ * reads and writes to the peripheral
+ */
+HAL_StatusTypeDef write( BH1790GLC *dev, uint8_t reg, uint8_t *data );
+HAL_StatusTypeDef read( BH1790GLC *dev, uint8_t reg, uint8_t *data );
+HAL_StatusTypeDef many_reads( BH1790GLC *dev, uint8_t reg, uint8_t *data, uint8_t length );
 
 #endif // _BH1790GLC_H_
