@@ -1,6 +1,6 @@
 ../Core/Src/BH1790GLC.c:27:9:BH1790GLC_init	24	static
-../Core/Src/BH1790GLC.c:108:9:get_rawval	16	static
-../Core/Src/BH1790GLC.c:123:9:get_val	16	static
-../Core/Src/BH1790GLC.c:146:19:write	48	static
-../Core/Src/BH1790GLC.c:163:19:read	48	static
-../Core/Src/BH1790GLC.c:179:19:many_reads	48	static
+../Core/Src/BH1790GLC.c:97:9:get_rawval	16	static
+../Core/Src/BH1790GLC.c:112:9:get_val	16	static
+../Core/Src/BH1790GLC.c:135:19:write	48	static
+../Core/Src/BH1790GLC.c:152:19:read	48	static
+../Core/Src/BH1790GLC.c:168:19:many_reads	48	static

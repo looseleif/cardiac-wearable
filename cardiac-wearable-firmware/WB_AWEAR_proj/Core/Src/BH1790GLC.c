@@ -41,6 +41,8 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 	/* First steps for communicating with sensor
 	 * get manufacturer id 		0x0F
 	 * get part id 				0x10
+	 * get mid val				0xE0
+	 * get pid val				0x0D
 	 */
 	uint8_t regData;
 
@@ -51,45 +53,32 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 		return 1;
 	}
 
-	status = read(dev, BH1790GLC_PART_ID, &regData);	//get part id
+	status = read(dev, BH1790GLC_MID_VAL, &regData);	//get mid val
 	errNum += (status != HAL_OK);
-	if(regData != BH1790GLC_MANUFACTURER_ID){
+	if(regData != BH1790GLC_MID_VAL){
 		//error
 		return 1;
 	}
 
+	status = read(dev, BH1790GLC_PID_VAL, &regData);	//get pid val
+	errNum += (status != HAL_OK);
+	if(regData != BH1790GLC_PID_VAL){
+		//error
+		return 1;
+	}
+
+	status = read(dev, BH1790GLC_PART_ID, &regData);	//get part id
+	errNum += (status != HAL_OK);
+	if(regData != BH1790GLC_PART_ID){
+		//error
+		return 1;
+	}
+
+
 	/* START CONFIGURING THE SENSOR NOW! */
 
-
 //  char rc;
-//  unsigned char reg;
 //  unsigned char val[3];
-//
-//  rc = read(BH1790GLC_PART_ID, &reg, sizeof(reg));
-//  if (rc != 0) {
-//    printf("Can't access BH1790GLC\n");
-//    return (rc);
-//  }
-//  printf("BH1790GLC Part ID Value = 0x\n");
-//  printf("Should be in HEX: %c\n", reg);
-//
-//  if (reg != BH1790GLC_PID_VAL) {
-//    printf("Can't find BH1790GLC\n");
-//    return (rc);
-//  }
-//
-//  rc = read(BH1790GLC_MANUFACTURER_ID, &reg, sizeof(reg));
-//  if (rc != 0) {
-//    printf("Can't access BH1790GLC\n");
-//    return (rc);
-//  }
-//  printf("BH1790GLC MANUFACTURER ID Register Value = 0x");
-//  printf("Should be in HEX: %c\n", reg);
-//
-//  if (reg != BH1790GLC_MID_VAL) {
-//    printf("Can't find BH1790GLC\n");
-//    return (rc);
-//  }
 //
 //  val[0] = BH1790GLC_MEAS_CONTROL1_VAL;
 //  val[1] = BH1790GLC_MEAS_CONTROL2_VAL;
@@ -180,7 +169,7 @@ HAL_StatusTypeDef many_reads( BH1790GLC *dev, uint8_t reg, uint8_t *data, uint8_
 {
 	HAL_StatusTypeDef ret;
 
-	ret = HAL_I2C_Mem_Read(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1) || 0x01, reg, 8, data, length, HAL_MAX_DELAY);
+	ret = HAL_I2C_Mem_Read(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1) || 0x01, reg, 1, data, length, HAL_MAX_DELAY);
 	if(ret != HAL_OK){ return ret; }	//error check
 
 	return HAL_OK;
