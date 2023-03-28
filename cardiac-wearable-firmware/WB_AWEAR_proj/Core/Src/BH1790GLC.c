@@ -23,10 +23,44 @@
 ******************************************************************************/
 
 #include "BH1790GLC.h"
-#include "main.h"			//might be needed for printf? TO-DO: CHECK IF THIS IS TRUE
 
 uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 {
+	/* Set struct parameters */
+	dev->i2cHandle = i2cHandle;
+	dev->measurements[0] = 0.0f;
+	dev->measurements[1] = 0.0f;
+	dev->measurements[2] = 0.0f;
+	dev->measurement = 0.0f;
+
+	/* Keep count of errors */
+	uint8_t errNum = 0;
+	HAL_StatusTypeDef status;
+
+
+	/* First steps for communicating with sensor
+	 * get manufacturer id 		0x0F
+	 * get part id 				0x10
+	 */
+	uint8_t regData;
+
+	status = read(dev, BH1790GLC_MANUFACTURER_ID, &regData);	//get manufacturer id
+	errNum += (status != HAL_OK);
+	if(regData != BH1790GLC_MANUFACTURER_ID){
+		//error
+		return 1;
+	}
+
+	status = read(dev, BH1790GLC_PART_ID, &regData);	//get part id
+	errNum += (status != HAL_OK);
+	if(regData != BH1790GLC_MANUFACTURER_ID){
+		//error
+		return 1;
+	}
+
+	/* START CONFIGURING THE SENSOR NOW! */
+
+
 //  char rc;
 //  unsigned char reg;
 //  unsigned char val[3];
@@ -66,6 +100,8 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 //  }
 //
 //  return (rc);
+
+	return 0;
 }
 
 
@@ -79,6 +115,8 @@ uint8_t get_rawval( BH1790GLC *dev )
 //  }
 //
 //  return (rc);
+
+	return 0;
 }
 
 
@@ -96,6 +134,8 @@ uint8_t get_val( BH1790GLC *dev )
 //  data[1] = ((unsigned short)val[3] << 8) | (val[2]);
 //
 //  return (rc);
+
+	return 0;
 }
 
 
@@ -126,6 +166,7 @@ HAL_StatusTypeDef read( BH1790GLC *dev, uint8_t reg, uint8_t *data)
 
 	ret = HAL_I2C_Mem_Read(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1) || 0x01, reg, 8, data, 1, HAL_MAX_DELAY);
 	if(ret != HAL_OK){ return ret; }	//error check
+
 
 	return HAL_OK;
 }
