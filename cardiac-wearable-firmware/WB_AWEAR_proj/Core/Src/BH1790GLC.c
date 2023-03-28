@@ -149,7 +149,7 @@ HAL_StatusTypeDef write( BH1790GLC *dev, uint8_t reg, uint8_t *data)
 
 	//passing my handle, read from peripheral, get from this register, size of that register,
 	// where to put the data, 1 byte of data, max delay
-	ret = HAL_I2C_Mem_Write(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1), reg, 8, data, 1, HAL_MAX_DELAY);
+	ret = HAL_I2C_Mem_Write(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1), reg, 1, data, 1, HAL_MAX_DELAY);
 	if(ret != HAL_OK){ return ret; }	//error check
 
 	return HAL_OK;
@@ -164,7 +164,7 @@ HAL_StatusTypeDef read( BH1790GLC *dev, uint8_t reg, uint8_t *data)
 {
 	HAL_StatusTypeDef ret;
 
-	ret = HAL_I2C_Mem_Read(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1) || 0x01, reg, 8, data, 1, HAL_MAX_DELAY);
+	ret = HAL_I2C_Mem_Read(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1)||0x01, reg, 1, data, 1, HAL_MAX_DELAY);
 	if(ret != HAL_OK){ return ret; }	//error check
 
 

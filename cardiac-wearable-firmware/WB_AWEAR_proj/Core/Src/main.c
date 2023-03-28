@@ -127,23 +127,11 @@ int main(void)
     MX_APPE_Process();
 
     /* USER CODE BEGIN 3 */
-    HAL_StatusTypeDef status;
-    uint8_t buf[1];
 
-    printf("Hello World\n\r");
+    printf("Hello World\n\r");		//test UART
+    HAL_Delay(1000);				//wait
+    BH1790GLC_init(&hrm, &hi2c1);	//test I2C
 
-    HAL_Delay(1000);
-
-//    status = read(&hrm, 0x10, buf);
-//    if(status == HAL_OK){
-//    	printf("Register read successfully");
-//		printf("%d %d", buf[0], buf[1]);
-//    }
-
-	status = HAL_I2C_Mem_Read(&hi2c1, 0b1011011, BH1790GLC_MANUFACTURER_ID, 1, buf, 1, HAL_MAX_DELAY);
-
-	printf("buf: %d", buf[0]);
-	HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
