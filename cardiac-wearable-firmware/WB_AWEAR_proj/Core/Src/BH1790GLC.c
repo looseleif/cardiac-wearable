@@ -28,10 +28,8 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 {
 	/* Set struct parameters */
 	dev->i2cHandle = i2cHandle;
-	dev->measurements[0] = 0.0f;
-	dev->measurements[1] = 0.0f;
-	dev->measurements[2] = 0.0f;
-	dev->measurement = 0.0f;
+	dev->ppg_data[0] = 0;
+	dev->ppg_data[1] = 0;
 
 	/* Keep count of errors */
 	uint8_t errNum = 0;
@@ -73,55 +71,24 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 		return ERR_MEAS_START;
 	}
 
-	return 0;
+	return SUCCESS;
 }
-
-
-HAL_StatusTypeDef get_rawval( BH1790GLC *dev, uint8_t *val )
-{
-//  char rc;
-//
-//  rc = read(BH1790GLC_DATAOUT_LEDOFF, data, 4);
-//  if (rc != 0) {
-//    printf("Can't get BH1790GLC value\n");
-//  }
-//
-//  return (rc);
-
-	HAL_StatusTypeDef status;
-
-	status = many_reads(dev, BH1790GLC_DATAOUT_LEDOFF, val, 4);
-	if(status != HAL_OK){
-		//error
-		return 1;
-	}
-
-	return 0;
-}
-
 
 uint8_t get_val( BH1790GLC *dev )
 {
-//  char rc;
-//  unsigned char val[4];
-//
-//  rc = get_rawval(val);
-//  if (rc != 0) {
-//    return (rc);
-//  }
-//
-//  data[0] = ((unsigned short)val[1] << 8) | (val[0]);
-//  data[1] = ((unsigned short)val[3] << 8) | (val[2]);
-//
-//  return (rc);
-
 	HAL_StatusTypeDef status;
-	uint8_t val[4];
+	uint8_t sensorData[4];
 
-	status = get_rawval(dev, val);
+	status = many_reads(dev, BH1790GLC_DATAOUT_LEDOFF, sensorData, 4);
+	if(status != HAL_OK){
+		return ERR_DATA_OUT;		//error check
+	}
 
+	//convert the sensorData values to useful data
+	dev->ppg_data[0] = ((uint8_t)sensorData[1]<<8)|(sensorData[0]);
+	dev->ppg_data[1] = ((uint8_t)sensorData[3]<<8)|(sensorData[2]);
 
-	return 0;
+	return SUCCESS;
 }
 
 
@@ -136,7 +103,9 @@ HAL_StatusTypeDef write( BH1790GLC *dev, uint8_t reg, uint8_t *data)
 	//passing my handle, read from peripheral, get from this register, size of that register,
 	// where to put the data, 1 byte of data, max delay
 	ret = HAL_I2C_Mem_Write(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1), reg, 1, data, 1, HAL_MAX_DELAY);
-	if(ret != HAL_OK){ return ret; }	//error check
+	if(ret != HAL_OK){
+		return ret;			//error check
+	}
 
 	return HAL_OK;
 }
@@ -151,7 +120,9 @@ HAL_StatusTypeDef read( BH1790GLC *dev, uint8_t reg, uint8_t *data)
 	HAL_StatusTypeDef ret;
 
 	ret = HAL_I2C_Mem_Read(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1), reg, 1, data, 1, HAL_MAX_DELAY);
-	if(ret != HAL_OK){ return ret; }	//error check
+	if(ret != HAL_OK){
+		return ret;			//error check
+	}
 
 
 	return HAL_OK;
@@ -167,7 +138,9 @@ HAL_StatusTypeDef many_reads( BH1790GLC *dev, uint8_t reg, uint8_t *data, uint8_
 	HAL_StatusTypeDef ret;
 
 	ret = HAL_I2C_Mem_Read(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1), reg, 1, data, length, HAL_MAX_DELAY);
-	if(ret != HAL_OK){ return ret; }	//error check
+	if(ret != HAL_OK){
+		return ret;			//error check
+	}
 
 	return HAL_OK;
 }

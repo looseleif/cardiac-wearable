@@ -113,12 +113,17 @@ int main(void)
   MX_USART1_UART_Init();
   MX_RF_Init();
   /* USER CODE BEGIN 2 */
+
   uint8_t status;									//see BH1780GLC.h for err codes
 
   printf("Configuring sensor...");
   HAL_Delay(10);									//wait as a precaution
   status = BH1790GLC_init(&hrm, &hi2c1);			//configure sensor
-  printf("Configuration status: %d\n\r", status);
+  if(status != 0){
+	  printf("Error configuring sensor. Status code: %d\n\r", status);
+  }else{
+	  printf("Sensor configured successfully. Status code: %d\n\r", status);
+  }
 
   /* USER CODE END 2 */
 
@@ -133,10 +138,16 @@ int main(void)
     MX_APPE_Process();
 
     /* USER CODE BEGIN 3 */
+    uint8_t err;
 
-    printf("Get sensor data here\n\r");
-    HAL_Delay(1000);
+    err = get_val(&hrm);
+    if(err != 0){
+    	printf("Could not read sensor. Error code: %d\n\r", err);
+    }else{
+		printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
+    }
 
+    HAL_Delay(2000);
 
   }
   /* USER CODE END 3 */

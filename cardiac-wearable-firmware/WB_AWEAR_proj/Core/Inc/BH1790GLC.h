@@ -56,6 +56,8 @@
 #define BH1790GLC_MEAS_START_VAL      (BH1790GLC_MEAS_START_MEAS_ST)
 
 /* ERROR HANDLING */
+#define SUCCESS				0
+
 #define ERR_MID_VAL			10
 #define ERR_PID_VAL			11
 
@@ -63,12 +65,13 @@
 #define ERR_MEAS_CONTROL2	21
 #define ERR_MEAS_START		22
 
+#define ERR_DATA_OUT		30
+
 /* SENSOR STRUCT */
 typedef struct {
 	I2C_HandleTypeDef *i2cHandle;
 
-	float raw_measurement[4];
-	float measurement[2];
+	uint8_t ppg_data[2];
 
 } BH1790GLC;
 
@@ -81,7 +84,6 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle );
 /*
  * DATA ACQUISITION
  */
-HAL_StatusTypeDef get_rawval( BH1790GLC *dev, uint8_t *val ); // prev: unsigned char *data
 uint8_t get_val( BH1790GLC *dev );
 
 /*
