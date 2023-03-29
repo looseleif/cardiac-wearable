@@ -48,28 +48,28 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 
 	status = read(dev, BH1790GLC_MANUFACTURER_ID, &regData);	//get manufacturer id
 	errNum += (status != HAL_OK);
-	if(regData != BH1790GLC_MANUFACTURER_ID){
+	if(regData != 0xE0){
 		//error
 		return 1;
 	}
 
 	status = read(dev, BH1790GLC_MID_VAL, &regData);	//get mid val
 	errNum += (status != HAL_OK);
-	if(regData != BH1790GLC_MID_VAL){
+	if(regData != 0x00){
 		//error
 		return 1;
 	}
 
 	status = read(dev, BH1790GLC_PID_VAL, &regData);	//get pid val
 	errNum += (status != HAL_OK);
-	if(regData != BH1790GLC_PID_VAL){
+	if(regData != 0x00){
 		//error
 		return 1;
 	}
 
 	status = read(dev, BH1790GLC_PART_ID, &regData);	//get part id
 	errNum += (status != HAL_OK);
-	if(regData != BH1790GLC_PART_ID){
+	if(regData != 0x0D){
 		//error
 		return 1;
 	}
@@ -153,7 +153,7 @@ HAL_StatusTypeDef read( BH1790GLC *dev, uint8_t reg, uint8_t *data)
 {
 	HAL_StatusTypeDef ret;
 
-	ret = HAL_I2C_Mem_Read(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1)||0x01, reg, 1, data, 1, HAL_MAX_DELAY);
+	ret = HAL_I2C_Mem_Read(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1), reg, 1, data, 1, HAL_MAX_DELAY);
 	if(ret != HAL_OK){ return ret; }	//error check
 
 
@@ -169,7 +169,7 @@ HAL_StatusTypeDef many_reads( BH1790GLC *dev, uint8_t reg, uint8_t *data, uint8_
 {
 	HAL_StatusTypeDef ret;
 
-	ret = HAL_I2C_Mem_Read(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1) || 0x01, reg, 1, data, length, HAL_MAX_DELAY);
+	ret = HAL_I2C_Mem_Read(dev->i2cHandle, (BH1790GLC_DEVICE_ADDRESS<<1), reg, 1, data, length, HAL_MAX_DELAY);
 	if(ret != HAL_OK){ return ret; }	//error check
 
 	return HAL_OK;
