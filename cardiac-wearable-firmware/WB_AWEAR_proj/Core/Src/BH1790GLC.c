@@ -49,7 +49,7 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 	if(status != HAL_OK){
 		return ERR_PID_VAL;
 	}
-	if(regData != BH1790GLC_MID_VAL){
+	if(regData != BH1790GLC_PID_VAL){
 		return ERR_PID_VAL;
 	}
 
@@ -63,12 +63,10 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 	if(status != HAL_OK){
 		return ERR_MEAS_CONTROL1;
 	}
-
 	status = write(dev, BH1790GLC_MEAS_CONTROL2, &configData[1]);
 	if(status != HAL_OK){
 		return ERR_MEAS_CONTROL2;
 	}
-
 	status = write(dev, BH1790GLC_MEAS_START, &configData[2]);
 	if(status != HAL_OK){
 		return ERR_MEAS_START;

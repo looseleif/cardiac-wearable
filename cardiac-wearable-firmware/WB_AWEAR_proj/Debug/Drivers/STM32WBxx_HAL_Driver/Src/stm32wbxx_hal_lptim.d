@@ -1,5 +1,5 @@
-Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.o: \
- ../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.c \
+Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_lptim.o: \
+ ../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_lptim.c \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal.h \
  ../Core/Inc/stm32wbxx_hal_conf.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_dma.h \

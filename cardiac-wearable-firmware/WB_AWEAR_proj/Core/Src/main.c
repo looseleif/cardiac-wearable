@@ -23,6 +23,9 @@
 /* USER CODE BEGIN Includes */
 #include <BH1790GLC.h>
 
+#define PERIOD (uint32_t)1048			//TO DO: CHECK THE TIMER VAL: I think this is 32 Hz?
+#define TIMEOUT (uint32_t)0				//goes to compare register?
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -118,6 +121,12 @@ int main(void)
   MX_RF_Init();
   /* USER CODE BEGIN 2 */
 
+  /* Set up timer */
+  if(HAL_LPTIM_TimeOut_Start_IT(&hlptim1, PERIOD, TIMEOUT) != HAL_OK){  //pointer to the handler, period, timeout val to start the timer
+	  Error_Handler();
+  }
+
+  /* Set up heart rate sensor */
   uint8_t status;									//see BH1780GLC.h for err codes
 
   printf("Configuring sensor...");
@@ -136,22 +145,17 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  // TO DO: FIGURE OUT IF THIS IS A GOOD IDEA... HAL_PWREx_EnterSTOP1Mode(PWR_STOPENTRY_WFI);	//enter low power mode
   while (1)
   {
     /* USER CODE END WHILE */
     MX_APPE_Process();
 
     /* USER CODE BEGIN 3 */
-    uint8_t err;
 
-    err = get_val(&hrm);
-    if(err != 0){
-    	printf("Could not read sensor. Error code: %d\n\r", err);
-    }else{
-		printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
-    }
-
-    HAL_Delay(2000);
+    // MOVED THE SENSOR READING INTO THE INTERRUPT
+    // TO-DO: MAYBE FIND A BETTER WAY TO DO IT,
+    // 		  BUT ITS NOT ENOUGH CODE TO MATTER?
 
   }
   /* USER CODE END 3 */
@@ -507,6 +511,20 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+/*
+ * Redefinition of the low power timer interrupt
+ */
+void HAL_LPTIM_CompareMatchCallback(LPTIM_HandleTypeDef *hlptim){
+    uint8_t err;
+
+    err = get_val(&hrm);
+    if(err != 0){
+    	printf("Could not read sensor. Error code: %d\n\r", err);
+    }else{
+		printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
+    }
+}
 
 /**
   * @brief  Retargets the C library printf function to the USART.
