@@ -26,6 +26,9 @@
 #define PERIOD (uint32_t)1048			//TO DO: CHECK THE TIMER VAL: I think this is 32 Hz?
 #define TIMEOUT (uint32_t)0				//goes to compare register?
 
+#define READY 1
+#define BUSY 0
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,7 +58,8 @@ RTC_HandleTypeDef hrtc;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-BH1790GLC hrm;						//define the struct
+BH1790GLC 	hrm;			//define the struct
+uint8_t 	sensorReady;	//1=ready, 0=busy
 
 /* USER CODE END PV */
 
@@ -134,8 +138,10 @@ int main(void)
   status = BH1790GLC_init(&hrm, &hi2c1);			//configure sensor
   if(status != 0){
 	  printf("Error configuring sensor. Status code: %d\n\r", status);
+	  sensorReady = BUSY;
   }else{
 	  printf("Sensor configured successfully. Status code: %d\n\r", status);
+	  sensorReady = READY;
   }
 
   /* USER CODE END 2 */
@@ -153,9 +159,21 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-    // MOVED THE SENSOR READING INTO THE INTERRUPT
-    // TO-DO: MAYBE FIND A BETTER WAY TO DO IT,
-    // 		  BUT ITS NOT ENOUGH CODE TO MATTER?
+    if(sensorReady){
+    	sensorReady = BUSY;		//flag set back to READY in interrupt every 32 ms
+
+        uint8_t err;
+
+        err = get_val(&hrm);
+        if(err != 0){
+        	printf("Could not read sensor. Error code: %d\n\r", err);
+        }else{
+    		printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
+        }
+
+    }else{
+    	//not ready
+    }
 
   }
   /* USER CODE END 3 */
@@ -516,14 +534,7 @@ static void MX_GPIO_Init(void)
  * Redefinition of the low power timer interrupt
  */
 void HAL_LPTIM_CompareMatchCallback(LPTIM_HandleTypeDef *hlptim){
-    uint8_t err;
-
-    err = get_val(&hrm);
-    if(err != 0){
-    	printf("Could not read sensor. Error code: %d\n\r", err);
-    }else{
-		printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
-    }
+	sensorReady = READY;
 }
 
 /**
