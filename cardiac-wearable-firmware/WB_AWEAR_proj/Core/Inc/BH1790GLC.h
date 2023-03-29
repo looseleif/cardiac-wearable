@@ -77,7 +77,7 @@
 typedef struct {
 	I2C_HandleTypeDef *i2cHandle;
 
-	uint8_t ppg_data[2];
+	uint16_t ppg_data[2];
 
 } BH1790GLC;
 

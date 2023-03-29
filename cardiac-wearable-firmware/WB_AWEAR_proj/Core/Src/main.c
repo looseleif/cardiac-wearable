@@ -29,6 +29,7 @@
 #define READY 1
 #define BUSY 0
 
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -125,11 +126,6 @@ int main(void)
   MX_RF_Init();
   /* USER CODE BEGIN 2 */
 
-  /* Set up timer */
-  if(HAL_LPTIM_TimeOut_Start_IT(&hlptim1, PERIOD, TIMEOUT) != HAL_OK){  //pointer to the handler, period, timeout val to start the timer
-	  Error_Handler();
-  }
-
   /* Set up heart rate sensor */
   uint8_t status;									//see BH1780GLC.h for err codes
 
@@ -138,11 +134,17 @@ int main(void)
   status = BH1790GLC_init(&hrm, &hi2c1);			//configure sensor
   if(status != 0){
 	  printf("Error configuring sensor. Status code: %d\n\r", status);
-	  sensorReady = BUSY;
+	  sensorReady = 0;
   }else{
 	  printf("Sensor configured successfully. Status code: %d\n\r", status);
-	  sensorReady = READY;
+	  sensorReady = 1;
   }
+
+  /* Set up timer */
+  if(HAL_LPTIM_TimeOut_Start_IT(&hlptim1, PERIOD, TIMEOUT) != HAL_OK){  //pointer to the handler, period, timeout val to start the timer
+	  Error_Handler();
+  }
+
 
   /* USER CODE END 2 */
 
@@ -168,7 +170,8 @@ int main(void)
         if(err != 0){
         	printf("Could not read sensor. Error code: %d\n\r", err);
         }else{
-    		printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
+        	//printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
+    		printf("ppg_data[1]: %d\n\r", hrm.ppg_data[1]);
         }
 
     }else{

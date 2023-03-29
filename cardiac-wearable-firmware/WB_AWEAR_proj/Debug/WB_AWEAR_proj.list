@@ -43,13 +43,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  19 .debug_macro  0002d811  00000000  00000000  0005e110  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_line   00030616  00000000  00000000  0008b921  2**0
+ 20 .debug_line   00030614  00000000  00000000  0008b921  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_str    000fcca2  00000000  00000000  000bbf37  2**0
+ 21 .debug_str    000fcca2  00000000  00000000  000bbf35  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .comment      00000050  00000000  00000000  001b8bd9  2**0
+ 22 .comment      00000050  00000000  00000000  001b8bd7  2**0
                   CONTENTS, READONLY
- 23 .debug_frame  0000bf58  00000000  00000000  001b8c2c  2**2
+ 23 .debug_frame  0000bf58  00000000  00000000  001b8c28  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -445,11 +445,11 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 	dev->ppg_data[0] = 0;
  8000544:	687b      	ldr	r3, [r7, #4]
  8000546:	2200      	movs	r2, #0
- 8000548:	711a      	strb	r2, [r3, #4]
+ 8000548:	809a      	strh	r2, [r3, #4]
 	dev->ppg_data[1] = 0;
  800054a:	687b      	ldr	r3, [r7, #4]
  800054c:	2200      	movs	r2, #0
- 800054e:	715a      	strb	r2, [r3, #5]
+ 800054e:	80da      	strh	r2, [r3, #6]
 	/* Keep count of errors */
 	HAL_StatusTypeDef status;
 
@@ -608,28 +608,28 @@ uint8_t get_val( BH1790GLC *dev )
 	}
 
 	//convert the sensorData values to useful data
-	dev->ppg_data[0] = ((uint8_t)sensorData[1]<<8)|(sensorData[0]);
+	dev->ppg_data[0] = ((uint16_t)sensorData[1]<<8)|(sensorData[0]);	//LED OFF
  800062e:	7a7b      	ldrb	r3, [r7, #9]
  8000630:	021b      	lsls	r3, r3, #8
- 8000632:	b25a      	sxtb	r2, r3
+ 8000632:	b21a      	sxth	r2, r3
  8000634:	7a3b      	ldrb	r3, [r7, #8]
- 8000636:	b25b      	sxtb	r3, r3
+ 8000636:	b21b      	sxth	r3, r3
  8000638:	4313      	orrs	r3, r2
- 800063a:	b25b      	sxtb	r3, r3
- 800063c:	b2da      	uxtb	r2, r3
+ 800063a:	b21b      	sxth	r3, r3
+ 800063c:	b29a      	uxth	r2, r3
  800063e:	687b      	ldr	r3, [r7, #4]
- 8000640:	711a      	strb	r2, [r3, #4]
-	dev->ppg_data[1] = ((uint8_t)sensorData[3]<<8)|(sensorData[2]);
+ 8000640:	809a      	strh	r2, [r3, #4]
+	dev->ppg_data[1] = ((uint16_t)sensorData[3]<<8)|(sensorData[2]);	//LED ON
  8000642:	7afb      	ldrb	r3, [r7, #11]
  8000644:	021b      	lsls	r3, r3, #8
- 8000646:	b25a      	sxtb	r2, r3
+ 8000646:	b21a      	sxth	r2, r3
  8000648:	7abb      	ldrb	r3, [r7, #10]
- 800064a:	b25b      	sxtb	r3, r3
+ 800064a:	b21b      	sxth	r3, r3
  800064c:	4313      	orrs	r3, r2
- 800064e:	b25b      	sxtb	r3, r3
- 8000650:	b2da      	uxtb	r2, r3
+ 800064e:	b21b      	sxth	r3, r3
+ 8000650:	b29a      	uxth	r2, r3
  8000652:	687b      	ldr	r3, [r7, #4]
- 8000654:	715a      	strb	r2, [r3, #5]
+ 8000654:	80da      	strh	r2, [r3, #6]
 
 	return SUCCESS;
  8000656:	2300      	movs	r3, #0
@@ -4416,59 +4416,59 @@ int main(void)
  8001aaa:	f000 f963 	bl	8001d74 <MX_RF_Init>
   /* USER CODE BEGIN 2 */
 
-  /* Set up timer */
-  if(HAL_LPTIM_TimeOut_Start_IT(&hlptim1, PERIOD, TIMEOUT) != HAL_OK){  //pointer to the handler, period, timeout val to start the timer
- 8001aae:	2200      	movs	r2, #0
- 8001ab0:	f44f 6183 	mov.w	r1, #1048	; 0x418
- 8001ab4:	4825      	ldr	r0, [pc, #148]	; (8001b4c <main+0xd0>)
- 8001ab6:	f002 f933 	bl	8003d20 <HAL_LPTIM_TimeOut_Start_IT>
- 8001aba:	4603      	mov	r3, r0
- 8001abc:	2b00      	cmp	r3, #0
- 8001abe:	d001      	beq.n	8001ac4 <main+0x48>
-	  Error_Handler();
- 8001ac0:	f000 fa5e 	bl	8001f80 <Error_Handler>
-  }
-
   /* Set up heart rate sensor */
   uint8_t status;									//see BH1780GLC.h for err codes
 
   printf("Configuring sensor...");
- 8001ac4:	4822      	ldr	r0, [pc, #136]	; (8001b50 <main+0xd4>)
- 8001ac6:	f008 fb39 	bl	800a13c <iprintf>
+ 8001aae:	4827      	ldr	r0, [pc, #156]	; (8001b4c <main+0xd0>)
+ 8001ab0:	f008 fb44 	bl	800a13c <iprintf>
   HAL_Delay(10);									//wait as a precaution
- 8001aca:	200a      	movs	r0, #10
- 8001acc:	f7ff f93f 	bl	8000d4e <HAL_Delay>
+ 8001ab4:	200a      	movs	r0, #10
+ 8001ab6:	f7ff f94a 	bl	8000d4e <HAL_Delay>
   status = BH1790GLC_init(&hrm, &hi2c1);			//configure sensor
- 8001ad0:	4920      	ldr	r1, [pc, #128]	; (8001b54 <main+0xd8>)
- 8001ad2:	4821      	ldr	r0, [pc, #132]	; (8001b58 <main+0xdc>)
- 8001ad4:	f7fe fd2e 	bl	8000534 <BH1790GLC_init>
- 8001ad8:	4603      	mov	r3, r0
- 8001ada:	71fb      	strb	r3, [r7, #7]
+ 8001aba:	4925      	ldr	r1, [pc, #148]	; (8001b50 <main+0xd4>)
+ 8001abc:	4825      	ldr	r0, [pc, #148]	; (8001b54 <main+0xd8>)
+ 8001abe:	f7fe fd39 	bl	8000534 <BH1790GLC_init>
+ 8001ac2:	4603      	mov	r3, r0
+ 8001ac4:	71fb      	strb	r3, [r7, #7]
   if(status != 0){
- 8001adc:	79fb      	ldrb	r3, [r7, #7]
- 8001ade:	2b00      	cmp	r3, #0
- 8001ae0:	d008      	beq.n	8001af4 <main+0x78>
+ 8001ac6:	79fb      	ldrb	r3, [r7, #7]
+ 8001ac8:	2b00      	cmp	r3, #0
+ 8001aca:	d008      	beq.n	8001ade <main+0x62>
 	  printf("Error configuring sensor. Status code: %d\n\r", status);
- 8001ae2:	79fb      	ldrb	r3, [r7, #7]
- 8001ae4:	4619      	mov	r1, r3
- 8001ae6:	481d      	ldr	r0, [pc, #116]	; (8001b5c <main+0xe0>)
- 8001ae8:	f008 fb28 	bl	800a13c <iprintf>
-	  sensorReady = BUSY;
- 8001aec:	4b1c      	ldr	r3, [pc, #112]	; (8001b60 <main+0xe4>)
- 8001aee:	2200      	movs	r2, #0
- 8001af0:	701a      	strb	r2, [r3, #0]
- 8001af2:	e007      	b.n	8001b04 <main+0x88>
+ 8001acc:	79fb      	ldrb	r3, [r7, #7]
+ 8001ace:	4619      	mov	r1, r3
+ 8001ad0:	4821      	ldr	r0, [pc, #132]	; (8001b58 <main+0xdc>)
+ 8001ad2:	f008 fb33 	bl	800a13c <iprintf>
+	  sensorReady = 0;
+ 8001ad6:	4b21      	ldr	r3, [pc, #132]	; (8001b5c <main+0xe0>)
+ 8001ad8:	2200      	movs	r2, #0
+ 8001ada:	701a      	strb	r2, [r3, #0]
+ 8001adc:	e007      	b.n	8001aee <main+0x72>
   }else{
 	  printf("Sensor configured successfully. Status code: %d\n\r", status);
- 8001af4:	79fb      	ldrb	r3, [r7, #7]
- 8001af6:	4619      	mov	r1, r3
- 8001af8:	481a      	ldr	r0, [pc, #104]	; (8001b64 <main+0xe8>)
- 8001afa:	f008 fb1f 	bl	800a13c <iprintf>
-	  sensorReady = READY;
- 8001afe:	4b18      	ldr	r3, [pc, #96]	; (8001b60 <main+0xe4>)
- 8001b00:	2201      	movs	r2, #1
- 8001b02:	701a      	strb	r2, [r3, #0]
+ 8001ade:	79fb      	ldrb	r3, [r7, #7]
+ 8001ae0:	4619      	mov	r1, r3
+ 8001ae2:	481f      	ldr	r0, [pc, #124]	; (8001b60 <main+0xe4>)
+ 8001ae4:	f008 fb2a 	bl	800a13c <iprintf>
+	  sensorReady = 1;
+ 8001ae8:	4b1c      	ldr	r3, [pc, #112]	; (8001b5c <main+0xe0>)
+ 8001aea:	2201      	movs	r2, #1
+ 8001aec:	701a      	strb	r2, [r3, #0]
   }
+
+  /* Set up timer */
+  if(HAL_LPTIM_TimeOut_Start_IT(&hlptim1, PERIOD, TIMEOUT) != HAL_OK){  //pointer to the handler, period, timeout val to start the timer
+ 8001aee:	2200      	movs	r2, #0
+ 8001af0:	f44f 6183 	mov.w	r1, #1048	; 0x418
+ 8001af4:	481b      	ldr	r0, [pc, #108]	; (8001b64 <main+0xe8>)
+ 8001af6:	f002 f913 	bl	8003d20 <HAL_LPTIM_TimeOut_Start_IT>
+ 8001afa:	4603      	mov	r3, r0
+ 8001afc:	2b00      	cmp	r3, #0
+ 8001afe:	d001      	beq.n	8001b04 <main+0x88>
+	  Error_Handler();
+ 8001b00:	f000 fa3e 	bl	8001f80 <Error_Handler>
+
 
   /* USER CODE END 2 */
 
@@ -4486,19 +4486,19 @@ int main(void)
     /* USER CODE BEGIN 3 */
 
     if(sensorReady){
- 8001b0c:	4b14      	ldr	r3, [pc, #80]	; (8001b60 <main+0xe4>)
+ 8001b0c:	4b13      	ldr	r3, [pc, #76]	; (8001b5c <main+0xe0>)
  8001b0e:	781b      	ldrb	r3, [r3, #0]
  8001b10:	2b00      	cmp	r3, #0
  8001b12:	d0f9      	beq.n	8001b08 <main+0x8c>
     	sensorReady = BUSY;		//flag set back to READY in interrupt every 32 ms
- 8001b14:	4b12      	ldr	r3, [pc, #72]	; (8001b60 <main+0xe4>)
+ 8001b14:	4b11      	ldr	r3, [pc, #68]	; (8001b5c <main+0xe0>)
  8001b16:	2200      	movs	r2, #0
  8001b18:	701a      	strb	r2, [r3, #0]
 
         uint8_t err;
 
         err = get_val(&hrm);
- 8001b1a:	480f      	ldr	r0, [pc, #60]	; (8001b58 <main+0xdc>)
+ 8001b1a:	480e      	ldr	r0, [pc, #56]	; (8001b54 <main+0xd8>)
  8001b1c:	f7fe fd75 	bl	800060a <get_val>
  8001b20:	4603      	mov	r3, r0
  8001b22:	71bb      	strb	r3, [r7, #6]
@@ -4514,24 +4514,24 @@ int main(void)
  8001b34:	e7e8      	b.n	8001b08 <main+0x8c>
         }else{
     		printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
- 8001b36:	4b08      	ldr	r3, [pc, #32]	; (8001b58 <main+0xdc>)
- 8001b38:	791b      	ldrb	r3, [r3, #4]
+ 8001b36:	4b07      	ldr	r3, [pc, #28]	; (8001b54 <main+0xd8>)
+ 8001b38:	889b      	ldrh	r3, [r3, #4]
  8001b3a:	4619      	mov	r1, r3
- 8001b3c:	4b06      	ldr	r3, [pc, #24]	; (8001b58 <main+0xdc>)
- 8001b3e:	795b      	ldrb	r3, [r3, #5]
+ 8001b3c:	4b05      	ldr	r3, [pc, #20]	; (8001b54 <main+0xd8>)
+ 8001b3e:	88db      	ldrh	r3, [r3, #6]
  8001b40:	461a      	mov	r2, r3
  8001b42:	480a      	ldr	r0, [pc, #40]	; (8001b6c <main+0xf0>)
  8001b44:	f008 fafa 	bl	800a13c <iprintf>
     MX_APPE_Process();
  8001b48:	e7de      	b.n	8001b08 <main+0x8c>
  8001b4a:	bf00      	nop
- 8001b4c:	20000aa8 	.word	0x20000aa8
- 8001b50:	0800b08c 	.word	0x0800b08c
- 8001b54:	20000a18 	.word	0x20000a18
- 8001b58:	20000b98 	.word	0x20000b98
- 8001b5c:	0800b0a4 	.word	0x0800b0a4
- 8001b60:	20000ba0 	.word	0x20000ba0
- 8001b64:	0800b0d0 	.word	0x0800b0d0
+ 8001b4c:	0800b08c 	.word	0x0800b08c
+ 8001b50:	20000a18 	.word	0x20000a18
+ 8001b54:	20000b98 	.word	0x20000b98
+ 8001b58:	0800b0a4 	.word	0x0800b0a4
+ 8001b5c:	20000ba0 	.word	0x20000ba0
+ 8001b60:	0800b0d0 	.word	0x0800b0d0
+ 8001b64:	20000aa8 	.word	0x20000aa8
  8001b68:	0800b104 	.word	0x0800b104
  8001b6c:	0800b12c 	.word	0x0800b12c
 

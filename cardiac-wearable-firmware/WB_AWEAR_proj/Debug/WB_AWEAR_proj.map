@@ -12505,54 +12505,54 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
  .debug_macro   0x000000000002d670      0x185 ./Utilities/sequencer/stm32_seq.o
  .debug_macro   0x000000000002d7f5       0x1c ./Utilities/sequencer/stm32_seq.o
 
-.debug_line     0x0000000000000000    0x30616
+.debug_line     0x0000000000000000    0x30614
  .debug_line    0x0000000000000000      0x978 ./Core/Src/BH1790GLC.o
  .debug_line    0x0000000000000978      0xde9 ./Core/Src/app_debug.o
  .debug_line    0x0000000000001761     0x1573 ./Core/Src/app_entry.o
  .debug_line    0x0000000000002cd4     0x124a ./Core/Src/hw_timerserver.o
- .debug_line    0x0000000000003f1e      0xece ./Core/Src/main.o
- .debug_line    0x0000000000004dec      0xe67 ./Core/Src/stm32wbxx_hal_msp.o
- .debug_line    0x0000000000005c53      0xcf9 ./Core/Src/stm32wbxx_it.o
- .debug_line    0x000000000000694c      0x835 ./Core/Src/syscalls.o
- .debug_line    0x0000000000007181      0x52b ./Core/Src/sysmem.o
- .debug_line    0x00000000000076ac      0x8bb ./Core/Src/system_stm32wbxx.o
- .debug_line    0x0000000000007f67       0x91 ./Core/Startup/startup_stm32wb55rgvx.o
- .debug_line    0x0000000000007ff8     0x10a0 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o
- .debug_line    0x0000000000009098      0xd6a ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o
- .debug_line    0x0000000000009e02      0xc4b ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.o
- .debug_line    0x000000000000aa4d      0x97e ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.o
- .debug_line    0x000000000000b3cb     0x3895 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_i2c.o
- .debug_line    0x000000000000ec60      0xa36 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_i2c_ex.o
- .debug_line    0x000000000000f696      0xba3 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_ipcc.o
- .debug_line    0x0000000000010239     0x1389 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_lptim.o
- .debug_line    0x00000000000115c2      0xac5 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.o
- .debug_line    0x0000000000012087     0x1209 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o
- .debug_line    0x0000000000013290     0x18bb ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o
- .debug_line    0x0000000000014b4b     0x1d42 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o
- .debug_line    0x000000000001688d     0x12b2 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.o
- .debug_line    0x0000000000017b3f     0x1662 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.o
- .debug_line    0x00000000000191a1     0x3cb0 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart.o
- .debug_line    0x000000000001ce51      0xe66 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.o
- .debug_line    0x000000000001dcb7     0x1876 ./Middlewares/ST/STM32_WPAN/ble/core/auto/ble_gap_aci.o
- .debug_line    0x000000000001f52d     0x1aaf ./Middlewares/ST/STM32_WPAN/ble/core/auto/ble_gatt_aci.o
- .debug_line    0x0000000000020fdc      0xb57 ./Middlewares/ST/STM32_WPAN/ble/core/auto/ble_hal_aci.o
- .debug_line    0x0000000000021b33     0x1e53 ./Middlewares/ST/STM32_WPAN/ble/core/auto/ble_hci_le.o
- .debug_line    0x0000000000023986      0x551 ./Middlewares/ST/STM32_WPAN/ble/core/template/osal.o
- .debug_line    0x0000000000023ed7     0x119b ./Middlewares/ST/STM32_WPAN/ble/svc/Src/svc_ctl.o
- .debug_line    0x0000000000025072     0x102c ./Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci/shci.o
- .debug_line    0x000000000002609e      0xf45 ./Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/hci_tl.o
- .debug_line    0x0000000000026fe3      0x6be ./Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/hci_tl_if.o
- .debug_line    0x00000000000276a1      0x8b1 ./Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/shci_tl.o
- .debug_line    0x0000000000027f52      0x6c0 ./Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/shci_tl_if.o
- .debug_line    0x0000000000028612      0xfae ./Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/tl_mbox.o
- .debug_line    0x00000000000295c0      0xbc9 ./Middlewares/ST/STM32_WPAN/utilities/otp.o
- .debug_line    0x000000000002a189      0xf79 ./Middlewares/ST/STM32_WPAN/utilities/stm_list.o
- .debug_line    0x000000000002b102     0x1361 ./STM32_WPAN/App/app_ble.o
- .debug_line    0x000000000002c463      0xf2d ./STM32_WPAN/App/custom_app.o
- .debug_line    0x000000000002d390      0xfae ./STM32_WPAN/App/custom_stm.o
- .debug_line    0x000000000002e33e     0x1063 ./STM32_WPAN/Target/hw_ipcc.o
- .debug_line    0x000000000002f3a1      0x735 ./Utilities/lpm/tiny_lpm/stm32_lpm.o
- .debug_line    0x000000000002fad6      0xb40 ./Utilities/sequencer/stm32_seq.o
+ .debug_line    0x0000000000003f1e      0xecc ./Core/Src/main.o
+ .debug_line    0x0000000000004dea      0xe67 ./Core/Src/stm32wbxx_hal_msp.o
+ .debug_line    0x0000000000005c51      0xcf9 ./Core/Src/stm32wbxx_it.o
+ .debug_line    0x000000000000694a      0x835 ./Core/Src/syscalls.o
+ .debug_line    0x000000000000717f      0x52b ./Core/Src/sysmem.o
+ .debug_line    0x00000000000076aa      0x8bb ./Core/Src/system_stm32wbxx.o
+ .debug_line    0x0000000000007f65       0x91 ./Core/Startup/startup_stm32wb55rgvx.o
+ .debug_line    0x0000000000007ff6     0x10a0 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o
+ .debug_line    0x0000000000009096      0xd6a ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o
+ .debug_line    0x0000000000009e00      0xc4b ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.o
+ .debug_line    0x000000000000aa4b      0x97e ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.o
+ .debug_line    0x000000000000b3c9     0x3895 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_i2c.o
+ .debug_line    0x000000000000ec5e      0xa36 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_i2c_ex.o
+ .debug_line    0x000000000000f694      0xba3 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_ipcc.o
+ .debug_line    0x0000000000010237     0x1389 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_lptim.o
+ .debug_line    0x00000000000115c0      0xac5 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.o
+ .debug_line    0x0000000000012085     0x1209 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o
+ .debug_line    0x000000000001328e     0x18bb ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o
+ .debug_line    0x0000000000014b49     0x1d42 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o
+ .debug_line    0x000000000001688b     0x12b2 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.o
+ .debug_line    0x0000000000017b3d     0x1662 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.o
+ .debug_line    0x000000000001919f     0x3cb0 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart.o
+ .debug_line    0x000000000001ce4f      0xe66 ./Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.o
+ .debug_line    0x000000000001dcb5     0x1876 ./Middlewares/ST/STM32_WPAN/ble/core/auto/ble_gap_aci.o
+ .debug_line    0x000000000001f52b     0x1aaf ./Middlewares/ST/STM32_WPAN/ble/core/auto/ble_gatt_aci.o
+ .debug_line    0x0000000000020fda      0xb57 ./Middlewares/ST/STM32_WPAN/ble/core/auto/ble_hal_aci.o
+ .debug_line    0x0000000000021b31     0x1e53 ./Middlewares/ST/STM32_WPAN/ble/core/auto/ble_hci_le.o
+ .debug_line    0x0000000000023984      0x551 ./Middlewares/ST/STM32_WPAN/ble/core/template/osal.o
+ .debug_line    0x0000000000023ed5     0x119b ./Middlewares/ST/STM32_WPAN/ble/svc/Src/svc_ctl.o
+ .debug_line    0x0000000000025070     0x102c ./Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci/shci.o
+ .debug_line    0x000000000002609c      0xf45 ./Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/hci_tl.o
+ .debug_line    0x0000000000026fe1      0x6be ./Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/hci_tl_if.o
+ .debug_line    0x000000000002769f      0x8b1 ./Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/shci_tl.o
+ .debug_line    0x0000000000027f50      0x6c0 ./Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/shci_tl_if.o
+ .debug_line    0x0000000000028610      0xfae ./Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/tl_mbox.o
+ .debug_line    0x00000000000295be      0xbc9 ./Middlewares/ST/STM32_WPAN/utilities/otp.o
+ .debug_line    0x000000000002a187      0xf79 ./Middlewares/ST/STM32_WPAN/utilities/stm_list.o
+ .debug_line    0x000000000002b100     0x1361 ./STM32_WPAN/App/app_ble.o
+ .debug_line    0x000000000002c461      0xf2d ./STM32_WPAN/App/custom_app.o
+ .debug_line    0x000000000002d38e      0xfae ./STM32_WPAN/App/custom_stm.o
+ .debug_line    0x000000000002e33c     0x1063 ./STM32_WPAN/Target/hw_ipcc.o
+ .debug_line    0x000000000002f39f      0x735 ./Utilities/lpm/tiny_lpm/stm32_lpm.o
+ .debug_line    0x000000000002fad4      0xb40 ./Utilities/sequencer/stm32_seq.o
 
 .debug_str      0x0000000000000000    0xfcca2
  .debug_str     0x0000000000000000    0xd75bd ./Core/Src/BH1790GLC.o

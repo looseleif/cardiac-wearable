@@ -89,8 +89,8 @@ uint8_t get_val( BH1790GLC *dev )
 	}
 
 	//convert the sensorData values to useful data
-	dev->ppg_data[0] = ((uint8_t)sensorData[1]<<8)|(sensorData[0]);
-	dev->ppg_data[1] = ((uint8_t)sensorData[3]<<8)|(sensorData[2]);
+	dev->ppg_data[0] = ((uint16_t)sensorData[1]<<8)|(sensorData[0]);	//LED OFF
+	dev->ppg_data[1] = ((uint16_t)sensorData[3]<<8)|(sensorData[2]);	//LED ON
 
 	return SUCCESS;
 }
