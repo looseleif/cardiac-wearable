@@ -37,58 +37,35 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 	uint8_t errNum = 0;
 	HAL_StatusTypeDef status;
 
-
-	/* First steps for communicating with sensor
-	 * get manufacturer id 		0x0F
-	 * get part id 				0x10
-	 * get mid val				0xE0
-	 * get pid val				0x0D
-	 */
 	uint8_t regData;
 
 	status = read(dev, BH1790GLC_MANUFACTURER_ID, &regData);	//get manufacturer id
 	errNum += (status != HAL_OK);
-	if(regData != 0xE0){
-		//error
-		return 1;
-	}
-
-	status = read(dev, BH1790GLC_MID_VAL, &regData);	//get mid val
-	errNum += (status != HAL_OK);
-	if(regData != 0x00){
-		//error
-		return 1;
-	}
-
-	status = read(dev, BH1790GLC_PID_VAL, &regData);	//get pid val
-	errNum += (status != HAL_OK);
-	if(regData != 0x00){
-		//error
-		return 1;
-	}
+	if(regData != BH1790GLC_MID_VAL){ return ERR_MID_VAL; }
 
 	status = read(dev, BH1790GLC_PART_ID, &regData);	//get part id
 	errNum += (status != HAL_OK);
-	if(regData != 0x0D){
-		//error
-		return 1;
-	}
+	if(regData != BH1790GLC_PID_VAL){ return ERR_PID_VAL; }
 
+	uint8_t configData[3];
+	configData[0] = BH1790GLC_MEAS_CONTROL1_VAL;	//to BH1790GLC_MEAS_CONTROL1 (0x41)
+	configData[1] = BH1790GLC_MEAS_CONTROL2_VAL;	//to BH1790GLC_MEAS_CONTROL2 (0x42)
+	configData[2] = BH1790GLC_MEAS_START_VAL;		//to BH1790GLC_MEAS_START (0x43)
 
-	/* START CONFIGURING THE SENSOR NOW! */
+	status = write(dev, BH1790GLC_MEAS_CONTROL1, &configData[0]);
+	errNum += (status != HAL_OK);
 
-//  char rc;
-//  unsigned char val[3];
-//
-//  val[0] = BH1790GLC_MEAS_CONTROL1_VAL;
-//  val[1] = BH1790GLC_MEAS_CONTROL2_VAL;
-//  val[2] = BH1790GLC_MEAS_START_VAL;
-//  rc = write(BH1790GLC_MEAS_CONTROL1, val, sizeof(val));
-//  if (rc != 0) {
-//    printf("Can't write BH1790GLC MEAS_CONTROL1-MEAS_START register\n");
-//  }
-//
-//  return (rc);
+	status = write(dev, BH1790GLC_MEAS_CONTROL2, &configData[1]);
+	errNum += (status != HAL_OK);
+
+	status = write(dev, BH1790GLC_MEAS_START, &configData[2]);
+	errNum += (status != HAL_OK);
+
+	uint8_t writeCheck[3];
+	status = many_reads(dev, BH1790GLC_MEAS_CONTROL1, writeCheck, 3);	//error check config
+	if(writeCheck[0] != configData[0]){ return ERR_MEAS_CONTROL1; }
+	if(writeCheck[1] != configData[1]){ return ERR_MEAS_CONTROL2; }
+	if(writeCheck[2] != configData[2]){ return ERR_MEAS_START; }
 
 	return 0;
 }

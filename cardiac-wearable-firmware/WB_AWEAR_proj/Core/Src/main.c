@@ -113,6 +113,12 @@ int main(void)
   MX_USART1_UART_Init();
   MX_RF_Init();
   /* USER CODE BEGIN 2 */
+  uint8_t status;									//see BH1780GLC.h for err codes
+
+  printf("Configuring sensor...");
+  HAL_Delay(10);									//wait as a precaution
+  status = BH1790GLC_init(&hrm, &hi2c1);			//configure sensor
+  printf("Configuration status: %d\n\r", status);
 
   /* USER CODE END 2 */
 
@@ -128,9 +134,9 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-    printf("Hello World\n\r");		//test UART
-    HAL_Delay(1000);				//wait
-    BH1790GLC_init(&hrm, &hi2c1);	//test I2C
+    printf("Get sensor data here\n\r");
+    HAL_Delay(1000);
+
 
   }
   /* USER CODE END 3 */
