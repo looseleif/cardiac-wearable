@@ -24,6 +24,7 @@
 
 #include "BH1790GLC.h"
 
+
 uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 {
 	/* Set struct parameters */
@@ -32,48 +33,53 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 	dev->ppg_data[1] = 0;
 
 	/* Keep count of errors */
-	uint8_t errNum = 0;
 	HAL_StatusTypeDef status;
 
+	/* Take initial reads to make sure I2C is working */
 	uint8_t regData;
-
 	status = read(dev, BH1790GLC_MANUFACTURER_ID, &regData);	//get manufacturer id
-	errNum += (status != HAL_OK);
-	if(regData != BH1790GLC_MID_VAL){ return ERR_MID_VAL; }
+	if(status != HAL_OK){
+		return ERR_MID_VAL;
+	}
+	if(regData != BH1790GLC_MID_VAL){
+		return ERR_MID_VAL;
+	}
 
 	status = read(dev, BH1790GLC_PART_ID, &regData);	//get part id
-	errNum += (status != HAL_OK);
-	if(regData != BH1790GLC_PID_VAL){ return ERR_PID_VAL; }
+	if(status != HAL_OK){
+		return ERR_PID_VAL;
+	}
+	if(regData != BH1790GLC_MID_VAL){
+		return ERR_PID_VAL;
+	}
 
+	/* Configure the 3 registers needed to start taking measurements */
 	uint8_t configData[3];
 	configData[0] = BH1790GLC_MEAS_CONTROL1_VAL;	//to BH1790GLC_MEAS_CONTROL1 (0x41)
 	configData[1] = BH1790GLC_MEAS_CONTROL2_VAL;	//to BH1790GLC_MEAS_CONTROL2 (0x42)
 	configData[2] = BH1790GLC_MEAS_START_VAL;		//to BH1790GLC_MEAS_START (0x43)
 
 	status = write(dev, BH1790GLC_MEAS_CONTROL1, &configData[0]);
-	errNum += (status != HAL_OK);
-
-	status = write(dev, BH1790GLC_MEAS_CONTROL2, &configData[1]);
-	errNum += (status != HAL_OK);
-
-	status = write(dev, BH1790GLC_MEAS_START, &configData[2]);
-	errNum += (status != HAL_OK);
-
-	uint8_t writeCheck[3];
-	status = many_reads(dev, BH1790GLC_MEAS_CONTROL1, writeCheck, 3);	//check config registers
-	if(writeCheck[0] != configData[0]){
+	if(status != HAL_OK){
 		return ERR_MEAS_CONTROL1;
 	}
-	if(writeCheck[1] != configData[1]){
+
+	status = write(dev, BH1790GLC_MEAS_CONTROL2, &configData[1]);
+	if(status != HAL_OK){
 		return ERR_MEAS_CONTROL2;
 	}
-	if(writeCheck[2] != configData[2]){
+
+	status = write(dev, BH1790GLC_MEAS_START, &configData[2]);
+	if(status != HAL_OK){
 		return ERR_MEAS_START;
 	}
 
 	return SUCCESS;
 }
 
+/*
+ * Puts the ppg readings into the ppg_data struct variable
+ */
 uint8_t get_val( BH1790GLC *dev )
 {
 	HAL_StatusTypeDef status;
@@ -93,8 +99,60 @@ uint8_t get_val( BH1790GLC *dev )
 
 
 /*
- * reg : which register in the sensor to write to
- * data : data to write (consider not having this be a pointer?
+ * Writes “SWRESET=1” (Address 40h), when stop measurement or change parameter.
+ * This will wipe all registers
+ */
+uint8_t reset_device( BH1790GLC *dev ){
+	HAL_StatusTypeDef status;
+	uint8_t configData = BH1790GLC_SWRESET;
+
+	status = write(dev, BH1790GLC_RESET, &configData);
+	if(status != HAL_OK){
+		return ERR_RESET;
+	}
+
+	return SUCCESS;
+}
+
+
+/*
+ * Run this periodically (according to data sheet) after reading data
+ */
+uint8_t param_refreshment( BH1790GLC *dev ){
+	/* Keep count of errors */
+	HAL_StatusTypeDef status;
+
+	/* Configure the 3 registers needed to start taking measurements */
+	uint8_t configData[3];
+	configData[0] = BH1790GLC_MEAS_CONTROL1_VAL;	//to BH1790GLC_MEAS_CONTROL1 (0x41)
+	configData[1] = BH1790GLC_MEAS_CONTROL2_VAL;	//to BH1790GLC_MEAS_CONTROL2 (0x42)
+	configData[2] = BH1790GLC_MEAS_START_VAL;		//to BH1790GLC_MEAS_START (0x43)
+
+	status = write(dev, BH1790GLC_MEAS_CONTROL1, &configData[0]);
+	if(status != HAL_OK){
+		return ERR_MEAS_CONTROL1;
+	}
+
+	status = write(dev, BH1790GLC_MEAS_CONTROL2, &configData[1]);
+	if(status != HAL_OK){
+		return ERR_MEAS_CONTROL2;
+	}
+
+	status = write(dev, BH1790GLC_MEAS_START, &configData[2]);
+	if(status != HAL_OK){
+		return ERR_MEAS_START;
+	}
+
+	return SUCCESS;
+
+}
+
+
+/*
+ * Writes a single byte to a specific register address
+ * dev : device
+ * reg : register to write to
+ * data : what to write
  */
 HAL_StatusTypeDef write( BH1790GLC *dev, uint8_t reg, uint8_t *data)
 {
@@ -112,8 +170,10 @@ HAL_StatusTypeDef write( BH1790GLC *dev, uint8_t reg, uint8_t *data)
 
 
 /*
- * reg : which register in the sensor to read from
- * data : data to write (consider not having this be a pointer?
+ * Reads a single byte from a specific register address
+ * dev : device
+ * reg : register to read from
+ * data : stores what was read
  */
 HAL_StatusTypeDef read( BH1790GLC *dev, uint8_t reg, uint8_t *data)
 {
@@ -129,9 +189,11 @@ HAL_StatusTypeDef read( BH1790GLC *dev, uint8_t reg, uint8_t *data)
 }
 
 /*
- * reg : which register in the sensor to read from
- * data : data to write (consider not having this be a pointer?
- * length : # of bytes to read
+ * Reads n bytes from a starting register address
+ * dev : device
+ * reg : register to read from
+ * data : stores what was read
+ * length : number of registers to read (in bytes)
  */
 HAL_StatusTypeDef many_reads( BH1790GLC *dev, uint8_t reg, uint8_t *data, uint8_t length )
 {

@@ -29,8 +29,8 @@
 
 /* PERIPHERAL REGISTERS */
 #define BH1790GLC_DEVICE_ADDRESS      (0x5B)    // 8 bit Slave Address (1011011)
-#define BH1790GLC_MID_VAL             (0xE0)
-#define BH1790GLC_PID_VAL             (0x0D)
+#define BH1790GLC_MID_VAL             (0xE0)	// Default Manufacturer ID value
+#define BH1790GLC_PID_VAL             (0x0D)	// Default Part ID value
 
 #define BH1790GLC_MANUFACTURER_ID     (0x0F)
 #define BH1790GLC_PART_ID             (0x10)
@@ -40,6 +40,8 @@
 #define BH1790GLC_MEAS_START	      (0x43)
 
 #define BH1790GLC_DATAOUT_LEDOFF      (0x54)
+
+#define BH1790GLC_RESET				  (0x40)
 
 #define BH1790GLC_MEAS_CONTROL1_RDY                     (1 << 7)
 #define BH1790GLC_MEAS_CONTROL1_LED_LIGHTING_FREQ_128HZ (0 << 2)
@@ -55,6 +57,8 @@
 #define BH1790GLC_MEAS_CONTROL2_VAL   (BH1790GLC_MEAS_CONTROL2_LED_EN_00 | BH1790GLC_MEAS_CONTROL2_LED_ON_TIME_0_3MS | BH1790GLC_MEAS_CONTROL2_LED_CURRENT_10MA)
 #define BH1790GLC_MEAS_START_VAL      (BH1790GLC_MEAS_START_MEAS_ST)
 
+#define BH1790GLC_SWRESET								(1 << 7)
+
 /* ERROR HANDLING */
 #define SUCCESS				0
 
@@ -66,6 +70,8 @@
 #define ERR_MEAS_START		22
 
 #define ERR_DATA_OUT		30
+
+#define ERR_RESET			90
 
 /* SENSOR STRUCT */
 typedef struct {
@@ -85,6 +91,8 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle );
  * DATA ACQUISITION
  */
 uint8_t get_val( BH1790GLC *dev );
+uint8_t reset_device( BH1790GLC *dev );
+uint8_t param_refreshment( BH1790GLC *dev );
 
 /*
  * LOW-LEVEL FUNCTIONS
