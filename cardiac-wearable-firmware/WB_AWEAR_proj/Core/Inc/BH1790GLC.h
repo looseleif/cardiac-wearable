@@ -67,10 +67,9 @@
 typedef struct {
 	I2C_HandleTypeDef *i2cHandle;
 
-	//some dummmy vars for getting data into down the line
-	float measurements[3];
+	float raw_measurement[4];
+	float measurement[2];
 
-	float measurement;
 } BH1790GLC;
 
 /*
@@ -82,7 +81,7 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle );
 /*
  * DATA ACQUISITION
  */
-uint8_t get_rawval( BH1790GLC *dev ); // prev: unsigned char *data
+HAL_StatusTypeDef get_rawval( BH1790GLC *dev, uint8_t *val ); // prev: unsigned char *data
 uint8_t get_val( BH1790GLC *dev );
 
 /*

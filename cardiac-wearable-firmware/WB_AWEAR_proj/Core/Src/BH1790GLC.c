@@ -62,16 +62,22 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 	errNum += (status != HAL_OK);
 
 	uint8_t writeCheck[3];
-	status = many_reads(dev, BH1790GLC_MEAS_CONTROL1, writeCheck, 3);	//error check config
-	if(writeCheck[0] != configData[0]){ return ERR_MEAS_CONTROL1; }
-	if(writeCheck[1] != configData[1]){ return ERR_MEAS_CONTROL2; }
-	if(writeCheck[2] != configData[2]){ return ERR_MEAS_START; }
+	status = many_reads(dev, BH1790GLC_MEAS_CONTROL1, writeCheck, 3);	//check config registers
+	if(writeCheck[0] != configData[0]){
+		return ERR_MEAS_CONTROL1;
+	}
+	if(writeCheck[1] != configData[1]){
+		return ERR_MEAS_CONTROL2;
+	}
+	if(writeCheck[2] != configData[2]){
+		return ERR_MEAS_START;
+	}
 
 	return 0;
 }
 
 
-uint8_t get_rawval( BH1790GLC *dev )
+HAL_StatusTypeDef get_rawval( BH1790GLC *dev, uint8_t *val )
 {
 //  char rc;
 //
@@ -81,6 +87,14 @@ uint8_t get_rawval( BH1790GLC *dev )
 //  }
 //
 //  return (rc);
+
+	HAL_StatusTypeDef status;
+
+	status = many_reads(dev, BH1790GLC_DATAOUT_LEDOFF, val, 4);
+	if(status != HAL_OK){
+		//error
+		return 1;
+	}
 
 	return 0;
 }
@@ -100,6 +114,12 @@ uint8_t get_val( BH1790GLC *dev )
 //  data[1] = ((unsigned short)val[3] << 8) | (val[2]);
 //
 //  return (rc);
+
+	HAL_StatusTypeDef status;
+	uint8_t val[4];
+
+	status = get_rawval(dev, val);
+
 
 	return 0;
 }
