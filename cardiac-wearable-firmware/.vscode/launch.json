@@ -1,0 +1,47 @@
+// AUTOMATICALLY GENERATED FILE. PLEASE DO NOT MODIFY IT MANUALLY
+//
+// PIO Unified Debugger
+//
+// Documentation: https://docs.platformio.org/page/plus/debugging.html
+// Configuration: https://docs.platformio.org/page/projectconf/section_env_debug.html
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug",
+            "executable": "C:/Users/Chase/Documents/academic-repos/cardiac-wearable/cardiac-wearable-firmware/.pio/build/ nrfTest/firmware.elf",
+            "projectEnvName": " nrfTest",
+            "toolchainBinDir": "C:/Users/Chase/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "C:/Users/Chase/.platformio/platforms/nordicnrf52/misc/svd/nrf52840.svd",
+            "preLaunchTask": {
+                "type": "PlatformIO",
+                "task": "Pre-Debug"
+            }
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (skip Pre-Debug)",
+            "executable": "C:/Users/Chase/Documents/academic-repos/cardiac-wearable/cardiac-wearable-firmware/.pio/build/ nrfTest/firmware.elf",
+            "projectEnvName": " nrfTest",
+            "toolchainBinDir": "C:/Users/Chase/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "C:/Users/Chase/.platformio/platforms/nordicnrf52/misc/svd/nrf52840.svd"
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (without uploading)",
+            "executable": "C:/Users/Chase/Documents/academic-repos/cardiac-wearable/cardiac-wearable-firmware/.pio/build/ nrfTest/firmware.elf",
+            "projectEnvName": " nrfTest",
+            "toolchainBinDir": "C:/Users/Chase/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "C:/Users/Chase/.platformio/platforms/nordicnrf52/misc/svd/nrf52840.svd",
+            "loadMode": "manual"
+        }
+    ]
+}

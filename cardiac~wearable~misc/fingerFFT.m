@@ -1,7 +1,7 @@
-%% Signal Setup
+% `% Signal Setup
 
 t = linspace(0, 1, 1000);
-fs = 1000
+
 X = csvread('finger_print.csv')
 X = abs(X)
 X = X-(sum(X)/length(X))
@@ -12,8 +12,10 @@ title('Time Domain PPG Signal')
 xlabel('AU Time Scale')
 ylabel('Magnitude of Reflected Light (NORMALIZED AC)')
 
-%% Filtering Operation (Butterworth)
+% Filtering Operation (Butterworth)
 
+fs = 1000
+X = 0:1000
 % Choose a Butterworth filter design
 filterOrder = 4; % Filter order
 fc = 80; % Cutoff frequency (Hz)
@@ -29,7 +31,7 @@ title('Time Domain PPG Signal (FILTERED)')
 xlabel('AU Time Scale')
 ylabel('Magnitude of Reflected Light (NORMALIZED AC)')
 
-%% FFT of Filter Signal
+FFT of Filter Signal
 
 X = fft(X)
 
@@ -38,7 +40,7 @@ N = length(X);
 df = 1/(t(2)-t(1));
 faxis = linspace(-df/2, df/2, N);
 
-%% Plotting of FFT
+% Plotting of FFT
 
 plot(faxis, fftshift(magX))
 title('FFT of PPG Data (FILTERED)')
