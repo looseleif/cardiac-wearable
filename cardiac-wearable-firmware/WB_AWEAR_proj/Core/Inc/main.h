@@ -83,6 +83,16 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 
+#define ICM_CS_Pin GPIO_PIN_3
+#define ICM_CS_GPIO_Port GPIOB
+
+#define ICM_SCK_Pin GPIO_PIN_1
+#define ICM_SCK_GPIO_Port GPIOA
+#define ICM_MISO_Pin GPIO_PIN_6
+#define ICM_MISO_GPIO_Port GPIOA
+#define ICM_MOSI_Pin GPIO_PIN_7
+#define ICM_MOSI_GPIO_Port GPIOA
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

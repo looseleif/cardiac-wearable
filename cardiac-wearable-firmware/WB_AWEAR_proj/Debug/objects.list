@@ -1,4 +1,5 @@
 "./Core/Src/BH1790GLC.o"
+"./Core/Src/ICM20948.o"
 "./Core/Src/app_debug.o"
 "./Core/Src/app_entry.o"
 "./Core/Src/hw_timerserver.o"

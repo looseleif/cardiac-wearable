@@ -22,6 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <BH1790GLC.h>
+#include <ICM20948.h>
 
 #define PERIOD (uint32_t)1048			//TO DO: CHECK THE TIMER VAL: I think this is 32 Hz?
 #define TIMEOUT (uint32_t)0				//goes to compare register?
@@ -63,7 +64,8 @@ DMA_HandleTypeDef hdma_spi1_tx;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-BH1790GLC 	hrm;			//define the struct
+BH1790GLC 	hrm;			//define the struct for the ppg sensor
+ICM20948	imu;			//define the struct for the imu
 uint8_t 	sensorReady;	//1=ready, 0=busy
 
 /* USER CODE END PV */
@@ -96,6 +98,7 @@ static void MX_RF_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+   char uart_buffer[200];
 
   /* USER CODE END 1 */
 
@@ -137,7 +140,7 @@ int main(void)
   /* Set up heart rate sensor */
   uint8_t status;									//see BH1780GLC.h for err codes
 
-  printf("Configuring sensor...");
+  printf("Configuring PPG sensor...");
   HAL_Delay(10);									//wait as a precaution
   status = BH1790GLC_init(&hrm, &hi2c1);			//configure sensor
   if(status != 0){
@@ -152,6 +155,14 @@ int main(void)
   if(HAL_LPTIM_TimeOut_Start_IT(&hlptim1, PERIOD, TIMEOUT) != HAL_OK){  //pointer to the handler, period, timeout val to start the timer
 	  Error_Handler();
   }
+
+  /* Set up IMU */
+  printf("Configuring IMU...");
+  HAL_Delay(10);
+  ICM_SelectBank(&imu, USER_BANK_0);
+  HAL_Delay(10);
+  ICM_PowerOn(&imu, &hspi1);
+  HAL_Delay(10);
 
 
   /* USER CODE END 2 */
@@ -185,6 +196,28 @@ int main(void)
     }else{
     	//not ready
     }
+
+	// Select User Bank 0
+	ICM_SelectBank(&imu, USER_BANK_0);
+	HAL_Delay(10);
+
+	// Obtain accelerometer and gyro data
+	ICM_ReadAccelGyroData(&imu);
+
+	// Obtain magnetometer data
+	ICM_ReadMagData(&imu, imu.mag_data);
+
+	// Print raw, but joined, axis data values to screen
+	sprintf(uart_buffer,
+			"(Ax: %u | Ay: %u | Az: %u)   "
+			"(Gx: %u | Gy: %u | Gz: %u)   "
+			"(Mx: %i | My: %i | Mz: %i)"
+			" \r\n",
+			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2],
+			imu.gyro_data[0], imu.gyro_data[1], imu.gyro_data[2],
+			imu.mag_data[0], imu.mag_data[1], imu.mag_data[2]);
+	//HAL_UART_Transmit(&huart1, (uint8_t*) uart_buffer, strlen(uart_buffer), 1000);
+	HAL_Delay(5);
 
   }
   /* USER CODE END 3 */
