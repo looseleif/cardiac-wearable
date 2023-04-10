@@ -48,6 +48,6 @@ void ICM_SetClock(ICM20948 *dev, uint8_t clk);
 void ICM_AccelGyroOff(ICM20948 *dev);
 void ICM_AccelGyroOn(ICM20948 *dev);
 void ICM_SetGyroRateLPF(ICM20948 *dev, uint8_t rate, uint8_t lpf);
-void ICM_SetGyroLPF(uint8_t lpf);
+//void ICM_SetGyroLPF(uint8_t lpf);
 
 #endif /* ICM20948_H_ */

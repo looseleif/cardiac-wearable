@@ -217,6 +217,7 @@ int main(void)
 			imu.gyro_data[0], imu.gyro_data[1], imu.gyro_data[2],
 			imu.mag_data[0], imu.mag_data[1], imu.mag_data[2]);
 	//HAL_UART_Transmit(&huart1, (uint8_t*) uart_buffer, strlen(uart_buffer), 1000);
+	printf("%s", uart_buffer);
 	HAL_Delay(5);
 
   }

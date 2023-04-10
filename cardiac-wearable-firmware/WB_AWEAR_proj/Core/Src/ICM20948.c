@@ -50,10 +50,10 @@ void ICM_ReadOneByte(ICM20948 *dev, uint8_t reg, uint8_t* pData) // ***
 void ICM_WriteOneByte(ICM20948 *dev, uint8_t reg, uint8_t Data) // ***
 {
 	reg = reg & 0x7F;
-	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_RESET);	//set CS pin low
 	HAL_SPI_Transmit_DMA(dev->spiHandle, &reg, 1);
 	HAL_SPI_Transmit_DMA(dev->spiHandle, &Data, 1);
-	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_SET);		//set CS pin high
 }
 
 /*
