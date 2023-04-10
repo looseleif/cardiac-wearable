@@ -2,7 +2,7 @@
  * ICM20948.c
  *
  *  Created on: Oct 26, 2018
- *      Author: cory
+ *      Author: cory & vaibhav
  */
 
 // *** Three asterisks to the side of a line means this may change based on platform

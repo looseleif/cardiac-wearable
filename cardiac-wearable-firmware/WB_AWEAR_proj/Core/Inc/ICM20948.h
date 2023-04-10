@@ -2,7 +2,7 @@
  * ICM20948.h
  *
  *  Created on: Oct 26, 2018
- *      Author: cory
+ *      Author: cory & vaibhav
  */
 
 #include "stm32wbxx_hal.h"						// Required library for SPI
