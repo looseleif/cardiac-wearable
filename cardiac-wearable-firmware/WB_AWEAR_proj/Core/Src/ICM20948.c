@@ -49,10 +49,12 @@ void ICM_ReadOneByte(ICM20948 *dev, uint8_t reg, uint8_t* pData) // ***
 
 void ICM_WriteOneByte(ICM20948 *dev, uint8_t reg, uint8_t Data) // ***
 {
+	HAL_StatusTypeDef status;
+
 	reg = reg & 0x7F;
 	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_RESET);	//set CS pin low
-	HAL_SPI_Transmit_DMA(dev->spiHandle, &reg, 1);
-	HAL_SPI_Transmit_DMA(dev->spiHandle, &Data, 1);
+	status = HAL_SPI_Transmit_DMA(dev->spiHandle, &reg, 1);
+	status = HAL_SPI_Transmit_DMA(dev->spiHandle, &Data, 1);
 	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_SET);		//set CS pin high
 }
 
