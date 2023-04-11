@@ -173,6 +173,260 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   // TO DO: FIGURE OUT IF THIS IS A GOOD IDEA... HAL_PWREx_EnterSTOP1Mode(PWR_STOPENTRY_WFI);	//enter low power mode
+
+  // ENTER PEAK DETECTION ALGO
+
+  uint16_t raw_data[160] = {
+
+		  21893,
+		  21887,
+		  21887,
+		  21882,
+		  21904,
+		  21929,
+		  21926,
+		  21948,
+		  21965,
+		  21982,
+		  21998,
+		  21998,
+		  21995,
+		  22020,
+		  22023,
+		  22032,
+		  22023,
+		  22035,
+		  22045,
+		  22041,
+		  22026,
+		  21952,
+		  21857,
+		  21817,
+		  21818,
+		  21834,
+		  21832,
+		  21838,
+		  21856,
+		  21842,
+		  21831,
+		  21825,
+		  21828,
+		  21834,
+		  21848,
+		  21867,
+		  21896,
+		  21897,
+		  21902,
+		  21896,
+		  21914,
+		  21917,
+		  21923,
+		  21941,
+		  21930,
+		  21947,
+		  21961,
+		  21965,
+		  21981,
+		  21967,
+		  21873,
+		  21785,
+		  21742,
+		  21756,
+		  21780,
+		  21791,
+		  21788,
+		  21797,
+		  21812,
+		  21803,
+		  21798,
+		  21793,
+		  21807,
+		  21823,
+		  21829,
+		  21848,
+		  21874,
+		  21879,
+		  21894,
+		  21920,
+		  21932,
+		  21930,
+		  21941,
+		  21966,
+		  21961,
+		  21975,
+		  21991,
+		  21997,
+		  22017,
+		  21943,
+		  21840,
+		  21800,
+		  21794,
+		  21812,
+		  21816,
+		  21828,
+		  21827,
+		  21836,
+		  21845,
+		  21841,
+		  21836,
+		  21834,
+		  21862,
+		  21881,
+		  21897,
+		  21904,
+		  21929,
+		  21934,
+		  21944,
+		  21963,
+		  21978,
+		  21983,
+		  21990,
+		  22006,
+		  22021,
+		  22024,
+		  22041,
+		  22043,
+		  21968,
+		  21867,
+		  21800,
+		  21810,
+		  21843,
+		  21846,
+		  21837,
+		  21873,
+		  21872,
+		  21868,
+		  21860,
+		  21867,
+		  21880,
+		  21914,
+		  21910,
+		  21943,
+		  21959,
+		  21967,
+		  21969,
+		  21979,
+		  21998,
+		  22002,
+		  22020,
+		  22030,
+		  22027,
+		  22047,
+		  22067,
+		  22048,
+		  22087,
+		  22062,
+		  21996,
+		  21881,
+		  21852,
+		  21844,
+		  21884,
+		  21890,
+		  21901,
+		  21904,
+		  21902,
+		  21916,
+		  21917,
+		  21922,
+		  21915,
+		  21957,
+		  21956,
+		  21963,
+		  21985,
+		  22011,
+		  22021,
+		  22038,
+		  22030,
+		  22038
+  };
+
+  uint16_t smooth_array[160];
+  int deriv_array[159];
+
+  uint16_t raw_data_1;
+  float smooth_data_1 = 0;
+  float lpf_beta = 0.15;
+
+  for(int i = 0; i < 160; i++){
+
+	  raw_data_1 = raw_data[i];
+	  smooth_data_1 = smooth_data_1 - (lpf_beta*(smooth_data_1 - raw_data_1));
+	  smooth_array[i] = smooth_data_1;
+	  if(i!=0){
+
+
+		  int deriv = (int)smooth_array[i] - (int)smooth_array[i-1];
+		  if(deriv<255 || deriv>-255){
+
+			 deriv_array[i] = deriv;
+
+		  } else {
+
+			 deriv_array[i] = deriv_array[i-1];
+
+		  }
+
+	  }
+
+  }
+
+  int pos = 0;
+  int neg = 0;
+
+  int pos_check = 0;
+  int neg_check = 0;
+
+  int peak_vals[20] = {};
+  int peak_count = 0;
+
+
+  for(int j = 0; j < 159; j++){
+
+
+
+	  if(deriv_array[j]>0 && pos_check==0){
+
+		  neg = 0;
+		  pos++;
+
+		  if(pos==3){
+
+			  pos_check = 1;
+
+		  }
+
+	  } else if (deriv_array[j]<0 && pos_check==1) {
+
+		  pos = 0;
+		  neg++;
+
+		  if(neg==3){
+
+			  neg_check = 1;
+			  peak_vals[peak_count] = j;
+			  peak_count++;
+
+			  pos_check = 0;
+			  neg_check = 0;
+
+		  }
+
+
+	  } else if (deriv_array[j]<0 && pos_check==0){
+		  pos = 0;
+	  }
+
+  }
+
+  for(int k = 0; k<20; k++){
+
+	  printf("PEAK DETECTED: %d\n", peak_vals[k]);
+
+  }
+
+  // EXIT PEAK DETECT ALGO
+
+
   while (1)
   {
     /* USER CODE END WHILE */
