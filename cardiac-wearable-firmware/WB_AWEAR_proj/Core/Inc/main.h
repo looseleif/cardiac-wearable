@@ -83,7 +83,7 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 
-#define ICM_CS_Pin GPIO_PIN_3
+#define ICM_CS_Pin GPIO_PIN_4	//previously PB3, set GPIO_Output on PB4 for now
 #define ICM_CS_GPIO_Port GPIOB
 
 #define ICM_SCK_Pin GPIO_PIN_1
