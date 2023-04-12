@@ -1,7 +1,9 @@
 BH1790GLC.c:28:9:BH1790GLC_init	8
-BH1790GLC.c:81:9:get_val	2
-BH1790GLC.c:103:9:reset_device	2
-BH1790GLC.c:119:9:param_refreshment	4
-BH1790GLC.c:155:19:write	2
-BH1790GLC.c:176:19:read	2
-BH1790GLC.c:196:19:many_reads	2
+BH1790GLC.c:83:9:get_val	2
+BH1790GLC.c:105:9:reset_device	2
+BH1790GLC.c:121:9:param_refreshment	4
+BH1790GLC.c:150:9:add_sample	2
+BH1790GLC.c:166:9:ppg_calculate	16
+BH1790GLC.c:274:19:write	2
+BH1790GLC.c:295:19:read	2
+BH1790GLC.c:315:19:many_reads	2
