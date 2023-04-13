@@ -35,15 +35,15 @@ ERROR HANDLING
 #define SUCCESS				0
 
 #define ERR_WHO_AM_I		10
-#define ERR_PID_VAL			11
+//#define ERR_PID_VAL			11
 
-#define ERR_MEAS_CONTROL1	20
-#define ERR_MEAS_CONTROL2	21
-#define ERR_MEAS_START		22
+//#define ERR_MEAS_CONTROL1	20
+//#define ERR_MEAS_CONTROL2	21
+//#define ERR_MEAS_START		22
 
-#define ERR_DATA_OUT		30
+//#define ERR_DATA_OUT		30
 
-#define ERR_RESET			90
+//#define ERR_RESET			90
 
 
 /*****************************************************************************

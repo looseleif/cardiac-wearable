@@ -5,7 +5,6 @@
   Vaibhav Shirole
 ******************************************************************************/
 #include "stm32wbxx_hal.h"						// Required library for I2C
-
 #ifndef _BH1790GLC_H_
 #define _BH1790GLC_H_
 
