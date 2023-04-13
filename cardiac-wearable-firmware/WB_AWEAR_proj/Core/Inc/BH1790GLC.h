@@ -79,6 +79,10 @@ typedef struct {
 
 	uint16_t ppg_data[2];
 
+	uint16_t ppg_samples[500];
+
+	uint16_t samples_index;
+
 } BH1790GLC;
 
 /*
@@ -93,6 +97,9 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle );
 uint8_t get_val( BH1790GLC *dev );
 uint8_t reset_device( BH1790GLC *dev );
 uint8_t param_refreshment( BH1790GLC *dev );
+uint8_t add_sample( BH1790GLC *dev );
+uint8_t ppg_calculate( BH1790GLC *dev );
+
 
 /*
  * LOW-LEVEL FUNCTIONS

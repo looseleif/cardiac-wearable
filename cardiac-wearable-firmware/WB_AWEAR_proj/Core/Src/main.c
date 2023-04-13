@@ -22,6 +22,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <BH1790GLC.h>
+#include <ICM20948.h>
+#include <math.h>
 
 #define PERIOD (uint32_t)1048			//TO DO: CHECK THE TIMER VAL: I think this is 32 Hz?
 #define TIMEOUT (uint32_t)0				//goes to compare register?
@@ -56,10 +58,15 @@ LPTIM_HandleTypeDef hlptim1;
 
 RTC_HandleTypeDef hrtc;
 
+SPI_HandleTypeDef hspi1;
+DMA_HandleTypeDef hdma_spi1_rx;
+DMA_HandleTypeDef hdma_spi1_tx;
+
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-BH1790GLC 	hrm;			//define the struct
+BH1790GLC 	hrm;			//define the struct for the ppg sensor
+ICM20948	imu;			//define the struct for the imu
 uint8_t 	sensorReady;	//1=ready, 0=busy
 
 /* USER CODE END PV */
@@ -68,11 +75,13 @@ uint8_t 	sensorReady;	//1=ready, 0=busy
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_IPCC_Init(void);
+static void MX_DMA_Init(void);
 static void MX_RTC_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_LPTIM1_Init(void);
+static void MX_SPI1_Init(void);
+static void MX_IPCC_Init(void);
 static void MX_RF_Init(void);
 /* USER CODE BEGIN PFP */
 #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
@@ -90,6 +99,7 @@ static void MX_RF_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+   char uart_buffer[200];
 
   /* USER CODE END 1 */
 
@@ -119,17 +129,19 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_RTC_Init();
   MX_I2C1_Init();
   MX_USART1_UART_Init();
   MX_LPTIM1_Init();
+  MX_SPI1_Init();
   MX_RF_Init();
   /* USER CODE BEGIN 2 */
 
   /* Set up heart rate sensor */
   uint8_t status;									//see BH1780GLC.h for err codes
 
-  printf("Configuring sensor...");
+  printf("Configuring PPG sensor...");
   HAL_Delay(10);									//wait as a precaution
   status = BH1790GLC_init(&hrm, &hi2c1);			//configure sensor
   if(status != 0){
@@ -145,6 +157,14 @@ int main(void)
 	  Error_Handler();
   }
 
+  /* Set up IMU */
+  printf("Configuring IMU...");
+  HAL_Delay(10);
+  ICM_SelectBank(&imu, USER_BANK_0);
+  HAL_Delay(10);
+  ICM_PowerOn(&imu, &hspi1);
+  HAL_Delay(10);
+
 
   /* USER CODE END 2 */
 
@@ -154,6 +174,8 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   // TO DO: FIGURE OUT IF THIS IS A GOOD IDEA... HAL_PWREx_EnterSTOP1Mode(PWR_STOPENTRY_WFI);	//enter low power mode
+
+
   while (1)
   {
     /* USER CODE END WHILE */
@@ -170,13 +192,48 @@ int main(void)
         if(err != 0){
         	printf("Could not read sensor. Error code: %d\n\r", err);
         }else{
+        	if(add_sample(&hrm)==1){
+
+        		//printf("HELLO\n");
+        		ppg_calculate(&hrm);
+
+        	}
         	//printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
-    		printf("ppg_data[1]: %d\n\r", hrm.ppg_data[1]);
+    		//printf("ppg_data[1]: %d\n\r", hrm.ppg_data[1]);
+        	//printf("ppg_data[1]: %d\n\r", hrm.samples_index);
         }
 
     }else{
     	//not ready
     }
+
+	// Select User Bank 0
+	ICM_SelectBank(&imu, USER_BANK_0);
+	//HAL_Delay(10);
+
+	// Obtain accelerometer and gyro data
+	ICM_ReadAccelGyroData(&imu);
+
+//	// Obtain magnetometer data
+//	ICM_ReadMagData(&imu, imu.mag_data);
+
+	// Print raw axis data values to screen
+	sprintf(uart_buffer,
+			"Ax: %u | Ay: %u | Az: %u"
+			" \r\n",
+			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2]);
+
+//	sprintf(uart_buffer,
+//			"(Ax: %u | Ay: %u | Az: %u)   "
+//			"(Gx: %u | Gy: %u | Gz: %u)   "
+//			"(Mx: %i | My: %i | Mz: %i)"
+//			" \r\n",
+//			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2],
+//			imu.gyro_data[0], imu.gyro_data[1], imu.gyro_data[2],
+//			imu.mag_data[0], imu.mag_data[1], imu.mag_data[2]);
+
+	printf("%s", uart_buffer);
+	HAL_Delay(5);
 
   }
   /* USER CODE END 3 */
@@ -433,6 +490,46 @@ static void MX_RTC_Init(void)
 }
 
 /**
+  * @brief SPI1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI1_Init(void)
+{
+
+  /* USER CODE BEGIN SPI1_Init 0 */
+
+  /* USER CODE END SPI1_Init 0 */
+
+  /* USER CODE BEGIN SPI1_Init 1 */
+
+  /* USER CODE END SPI1_Init 1 */
+  /* SPI1 parameter configuration*/
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
+  hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 7;
+  hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI1_Init 2 */
+
+  /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
   * @brief USART1 Initialization Function
   * @param None
   * @retval None
@@ -481,6 +578,26 @@ static void MX_USART1_UART_Init(void)
 }
 
 /**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMAMUX1_CLK_ENABLE();
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Channel1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
+  /* DMA1_Channel2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -498,7 +615,8 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LD2_Pin|LD3_Pin|LD1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LD2_Pin|LD3_Pin|GPIO_PIN_3|GPIO_PIN_4
+                          |LD1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -506,8 +624,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD2_Pin LD3_Pin LD1_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin|LD3_Pin|LD1_Pin;
+  /*Configure GPIO pins : LD2_Pin LD3_Pin PB3 PB4
+                           LD1_Pin */
+  GPIO_InitStruct.Pin = LD2_Pin|LD3_Pin|GPIO_PIN_3|GPIO_PIN_4
+                          |LD1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
