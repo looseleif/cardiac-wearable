@@ -1,8 +1,8 @@
 /*
  * ICM20948.c
  *
- *  Created on: Oct 26, 2018
- *      Author: cory & vaibhav
+ *  Created on: Apr 13, 2023
+ *  Author: vaibhav
  */
 
 // *** Three asterisks to the side of a line means this may change based on platform
@@ -19,8 +19,8 @@ void ICM_readBytes(ICM20948 *dev, uint8_t reg, uint8_t *pData, uint16_t Size) //
 {
 	reg = reg | 0x80;
 	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_RESET);
-	HAL_SPI_Transmit_DMA(dev->spiHandle, &reg, 1);
-	HAL_SPI_Receive_DMA(dev->spiHandle, pData, Size);
+	HAL_SPI_Transmit(dev->spiHandle, &reg, 1, 100);
+	HAL_SPI_Receive(dev->spiHandle, pData, Size, 100);
 	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_SET);
 }
 
@@ -28,33 +28,35 @@ void ICM_WriteBytes(ICM20948 *dev, uint8_t reg, uint8_t *pData, uint16_t Size) /
 {
 	reg = reg & 0x7F;
 	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_RESET);
-	HAL_SPI_Transmit_DMA(dev->spiHandle, &reg, 1);
-	HAL_SPI_Transmit_DMA(dev->spiHandle, pData, Size);
+	HAL_SPI_Transmit(dev->spiHandle, &reg, 1, 100);
+	HAL_SPI_Transmit(dev->spiHandle, pData, Size, 100);
 	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_SET);
 
 }
 
 void ICM_ReadOneByte(ICM20948 *dev, uint8_t reg, uint8_t* pData) // ***
 {
-	reg = reg | 0x80;
-	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_RESET);
-	HAL_SPI_Transmit_DMA(dev->spiHandle, &reg, 1);
-	while (HAL_SPI_GetState(dev->spiHandle) != HAL_SPI_STATE_READY)
-		;
-	HAL_SPI_Receive_DMA(dev->spiHandle, pData, 1);
-	while (HAL_SPI_GetState(dev->spiHandle) != HAL_SPI_STATE_READY)
-		;
-	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_SET);
+	HAL_StatusTypeDef status;
+
+	reg = reg | 0x80;													//first bit 1 indicates read
+	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_RESET);	//enable SPI
+	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);			//turn off green LED
+
+	status = HAL_SPI_Transmit(dev->spiHandle, &reg, 1, 100);
+	status = HAL_SPI_Receive(dev->spiHandle, pData, 1, 100);
+
+	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_SET);		//disable SPI
+	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);			//turn on green LED
 }
 
 void ICM_WriteOneByte(ICM20948 *dev, uint8_t reg, uint8_t Data) // ***
 {
 	HAL_StatusTypeDef status;
 
-	reg = reg & 0x7F;
+	reg = reg & 0x7F;													//first bit 0 indicates write
 	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_RESET);	//set CS pin low
-	status = HAL_SPI_Transmit_DMA(dev->spiHandle, &reg, 1);
-	status = HAL_SPI_Transmit_DMA(dev->spiHandle, &Data, 1);
+	status = HAL_SPI_Transmit(dev->spiHandle, &reg, 1, 100);
+	status = HAL_SPI_Transmit(dev->spiHandle, &Data, 1, 100);
 	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_SET);		//set CS pin high
 }
 
@@ -183,45 +185,45 @@ void ICM_PowerOn(ICM20948 *dev, SPI_HandleTypeDef *spiHandle) {
 	//}
 }
 uint16_t ICM_Initialize(ICM20948 *dev) {
-		ICM_SelectBank(dev, USER_BANK_2);
-		HAL_Delay(20);
-		ICM_SetGyroRateLPF(dev, GYRO_RATE_250, GYRO_LPF_17HZ);
-		HAL_Delay(10);
+	ICM_SelectBank(dev, USER_BANK_2);
+	HAL_Delay(20);
+	ICM_SetGyroRateLPF(dev, GYRO_RATE_250, GYRO_LPF_17HZ);
+	HAL_Delay(10);
 
-		// Set gyroscope sample rate to 100hz (0x0A) in GYRO_SMPLRT_DIV register (0x00)
-		ICM_WriteOneByte(dev, 0x00, 0x0A);
-		HAL_Delay(10);
+	// Set gyroscope sample rate to 100hz (0x0A) in GYRO_SMPLRT_DIV register (0x00)
+	ICM_WriteOneByte(dev, 0x00, 0x0A);
+	HAL_Delay(10);
 
-		// Set accelerometer low pass filter to 136hz (0x11) and the rate to 8G (0x04) in register ACCEL_CONFIG (0x14)
-		ICM_WriteOneByte(dev, 0x14, (0x04 | 0x11));
+	// Set accelerometer low pass filter to 136hz (0x11) and the rate to 8G (0x04) in register ACCEL_CONFIG (0x14)
+	ICM_WriteOneByte(dev, 0x14, (0x04 | 0x11));
 
-		// Set accelerometer sample rate to 225hz (0x00) in ACCEL_SMPLRT_DIV_1 register (0x10)
-		ICM_WriteOneByte(dev, 0x10, 0x00);
-		HAL_Delay(10);
+	// Set accelerometer sample rate to 225hz (0x00) in ACCEL_SMPLRT_DIV_1 register (0x10)
+	ICM_WriteOneByte(dev, 0x10, 0x00);
+	HAL_Delay(10);
 
-		// Set accelerometer sample rate to 100 hz (0x0A) in ACCEL_SMPLRT_DIV_2 register (0x11)
-		ICM_WriteOneByte(dev, 0x11, 0x0A);
-		HAL_Delay(10);
+	// Set accelerometer sample rate to 100 hz (0x0A) in ACCEL_SMPLRT_DIV_2 register (0x11)
+	ICM_WriteOneByte(dev, 0x11, 0x0A);
+	HAL_Delay(10);
 
-		ICM_SelectBank(dev, USER_BANK_2);
-		HAL_Delay(20);
+	ICM_SelectBank(dev, USER_BANK_2);
+	HAL_Delay(20);
 
-		// Configure AUX_I2C Magnetometer (onboard ICM-20948)
-		ICM_WriteOneByte(dev, 0x7F, 0x00); // Select user bank 0
-		ICM_WriteOneByte(dev, 0x0F, 0x30); // INT Pin / Bypass Enable Configuration
-		ICM_WriteOneByte(dev, 0x03, 0x20); // I2C_MST_EN
-		ICM_WriteOneByte(dev, 0x7F, 0x30); // Select user bank 3
-		ICM_WriteOneByte(dev, 0x01, 0x4D); // I2C Master mode and Speed 400 kHz
-		ICM_WriteOneByte(dev, 0x02, 0x01); // I2C_SLV0 _DLY_ enable
-		ICM_WriteOneByte(dev, 0x05, 0x81); // enable IIC	and EXT_SENS_DATA==1 Byte
+	// Configure AUX_I2C Magnetometer (onboard ICM-20948)
+	ICM_WriteOneByte(dev, 0x7F, 0x00); // Select user bank 0
+	ICM_WriteOneByte(dev, 0x0F, 0x30); // INT Pin / Bypass Enable Configuration
+	ICM_WriteOneByte(dev, 0x03, 0x20); // I2C_MST_EN
+	ICM_WriteOneByte(dev, 0x7F, 0x30); // Select user bank 3
+	ICM_WriteOneByte(dev, 0x01, 0x4D); // I2C Master mode and Speed 400 kHz
+	ICM_WriteOneByte(dev, 0x02, 0x01); // I2C_SLV0 _DLY_ enable
+	ICM_WriteOneByte(dev, 0x05, 0x81); // enable IIC	and EXT_SENS_DATA==1 Byte
 
-		// Initialize magnetometer
-		i2c_Mag_write(dev, 0x32, 0x01); // Reset AK8963
-		HAL_Delay(1000);
-		i2c_Mag_write(dev, 0x31, 0x02); // use i2c to set AK8963 working on Continuous measurement mode1 & 16-bit output
+	// Initialize magnetometer
+	i2c_Mag_write(dev, 0x32, 0x01); // Reset AK8963
+	HAL_Delay(1000);
+	i2c_Mag_write(dev, 0x31, 0x02); // use i2c to set AK8963 working on Continuous measurement mode1 & 16-bit output
 
-		return 1337;
-	}
+	return 1337;
+}
 
 void ICM_ReadAccelGyroData(ICM20948 *dev) {
 	uint8_t raw_data[12];

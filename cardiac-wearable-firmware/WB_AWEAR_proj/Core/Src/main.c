@@ -207,17 +207,22 @@ int main(void)
     	//not ready
     }
 
-//	// Select User Bank 0
-//	ICM_SelectBank(&imu, USER_BANK_0);
-//	//HAL_Delay(10);
-//
-//	// Obtain accelerometer and gyro data
-//	ICM_ReadAccelGyroData(&imu);
-//
+	// Select User Bank 0
+	ICM_SelectBank(&imu, USER_BANK_0);
+	//HAL_Delay(10);
+
+	// Obtain accelerometer and gyro data
+	ICM_ReadAccelGyroData(&imu);
+
 //	// Obtain magnetometer data
 //	ICM_ReadMagData(&imu, imu.mag_data);
 
-	// Print raw, but joined, axis data values to screen
+	// Print raw axis data values to screen
+	sprintf(uart_buffer,
+			"Ax: %u | Ay: %u | Az: %u"
+			" \r\n",
+			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2]);
+
 //	sprintf(uart_buffer,
 //			"(Ax: %u | Ay: %u | Az: %u)   "
 //			"(Gx: %u | Gy: %u | Gz: %u)   "
@@ -226,9 +231,9 @@ int main(void)
 //			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2],
 //			imu.gyro_data[0], imu.gyro_data[1], imu.gyro_data[2],
 //			imu.mag_data[0], imu.mag_data[1], imu.mag_data[2]);
-//	//HAL_UART_Transmit(&huart1, (uint8_t*) uart_buffer, strlen(uart_buffer), 1000);
-//	printf("%s", uart_buffer);
-//	HAL_Delay(5);
+
+	printf("%s", uart_buffer);
+	HAL_Delay(5);
 
   }
   /* USER CODE END 3 */
@@ -504,10 +509,10 @@ static void MX_SPI1_Init(void)
   hspi1.Init.Mode = SPI_MODE_MASTER;
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
   hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -610,7 +615,8 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LD2_Pin|LD3_Pin|GPIO_PIN_3|LD1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LD2_Pin|LD3_Pin|GPIO_PIN_3|GPIO_PIN_4
+                          |LD1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -618,8 +624,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD2_Pin LD3_Pin PB3 LD1_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin|LD3_Pin|GPIO_PIN_3|LD1_Pin;
+  /*Configure GPIO pins : LD2_Pin LD3_Pin PB3 PB4
+                           LD1_Pin */
+  GPIO_InitStruct.Pin = LD2_Pin|LD3_Pin|GPIO_PIN_3|GPIO_PIN_4
+                          |LD1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
