@@ -5,14 +5,13 @@
   Vaibhav Shirole
 ******************************************************************************/
 #include "stm32wbxx_hal.h"						// Required library for SPI
+#ifndef ICM20948_H_
+#define ICM20948_H_
 
 
 /*****************************************************************************
 PERIPHERAL REGISTERS
 ******************************************************************************/
-#ifndef ICM20948_H_
-#define ICM20948_H_
-
 #define USER_BANK_SEL	(0x7F)
 #define USER_BANK_0		(0x00)
 #define USER_BANK_1		(0x10)
@@ -23,10 +22,29 @@ PERIPHERAL REGISTERS
 #define PWR_MGMT_2		(0x07)
 #define GYRO_CONFIG_1	(0x01)
 
-
 #define CLK_BEST_AVAIL	(0x01)
 #define GYRO_RATE_250	(0x00)
 #define GYRO_LPF_17HZ 	(0x29)
+
+#define WHO_AM_I		(0xEA)
+
+
+/*****************************************************************************
+ERROR HANDLING
+******************************************************************************/
+#define SUCCESS				0
+
+#define ERR_WHO_AM_I		10
+#define ERR_PID_VAL			11
+
+#define ERR_MEAS_CONTROL1	20
+#define ERR_MEAS_CONTROL2	21
+#define ERR_MEAS_START		22
+
+#define ERR_DATA_OUT		30
+
+#define ERR_RESET			90
+
 
 /*****************************************************************************
 SENSOR OBJECT
@@ -43,8 +61,8 @@ typedef struct {
 /*****************************************************************************
 INIT FUNCTIONS
 ******************************************************************************/
-void ICM_PowerOn(ICM20948 *dev, SPI_HandleTypeDef *spiHandle);
-uint16_t ICM_Initialize(ICM20948 *dev);
+uint8_t ICM_PowerOn(ICM20948 *dev, SPI_HandleTypeDef *spiHandle);
+uint8_t ICM_Initialize(ICM20948 *dev);
 
 
 /*****************************************************************************

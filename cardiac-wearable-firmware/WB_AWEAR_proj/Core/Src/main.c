@@ -215,22 +215,21 @@ int main(void)
 	ICM_ReadAccelGyroData(&imu);
 
 	// Obtain magnetometer data
-	ICM_ReadMagData(&imu, imu.mag_data);
+//	ICM_ReadMagData(&imu, imu.mag_data);
 
 	// Print raw axis data values to screen
-//	sprintf(uart_buffer,
-//			"Ax: %u, Ay: %u, Az: %u"
-//			" \r\n",
-//			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2]);
-//
 	sprintf(uart_buffer,
-			"(Ax: %u | Ay: %u | Az: %u)   "
-			"(Gx: %u | Gy: %u | Gz: %u)   "
-			"(Mx: %i | My: %i | Mz: %i)"
+			"Ax: %u, Ay: %u, Az: %u"
 			" \r\n",
-			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2],
-			imu.gyro_data[0], imu.gyro_data[1], imu.gyro_data[2],
-			imu.mag_data[0], imu.mag_data[1], imu.mag_data[2]);
+			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2]);
+//	sprintf(uart_buffer,
+//			"(Ax: %u | Ay: %u | Az: %u)   "
+//			"(Gx: %u | Gy: %u | Gz: %u)   "
+//			"(Mx: %i | My: %i | Mz: %i)"
+//			" \r\n",
+//			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2],
+//			imu.gyro_data[0], imu.gyro_data[1], imu.gyro_data[2],
+//			imu.mag_data[0], imu.mag_data[1], imu.mag_data[2]);
 	printf("%s", uart_buffer);
 	HAL_Delay(5);
 

@@ -15,7 +15,7 @@ INIT FUNCTIONS
 /*
  * Sequence to setup ICM290948 as early as possible after power on
  */
-void ICM_PowerOn(ICM20948 *dev, SPI_HandleTypeDef *spiHandle) {
+uint8_t ICM_PowerOn(ICM20948 *dev, SPI_HandleTypeDef *spiHandle) {
 	dev->spiHandle = spiHandle;
 
 	dev->accel_data[0] = 0;
@@ -30,31 +30,32 @@ void ICM_PowerOn(ICM20948 *dev, SPI_HandleTypeDef *spiHandle) {
 	dev->mag_data[1] = 0;
 	dev->mag_data[2] = 0;
 
-	char uart_buffer[200];
-	uint8_t whoami = 0xEA;
-	uint8_t test = ICM_WHOAMI(dev);
-	//if (test == whoami) {
-		ICM_CSHigh();
-		HAL_Delay(10);
-		ICM_SelectBank(dev, USER_BANK_0);
-		HAL_Delay(10);
-		ICM_Disable_I2C(dev);
-		HAL_Delay(10);
-		ICM_SetClock(dev, (uint8_t)CLK_BEST_AVAIL);
-		HAL_Delay(10);
-		ICM_AccelGyroOff(dev);
-		HAL_Delay(20);
-		ICM_AccelGyroOn(dev);
-		HAL_Delay(10);
-		ICM_Initialize(dev);
-	//} else {
-		//sprintf(uart_buffer, "Failed WHO_AM_I.  %i is not 0xEA\r\n", test);
-		//HAL_UART_Transmit_DMA(UART_BUS, (uint8_t*) uart_buffer, strlen(uart_buffer));
-		//HAL_Delay(100);
-	//}
+	/* Take initial reads to make sure SPI is working */
+	uint8_t ret;
+	ret = ICM_WHOAMI(dev);
+	if (ret != WHO_AM_I){
+		return ERR_WHO_AM_I;
+	}
+
+	/* SPI is working -> start setting up the sensor */
+	ICM_CSHigh();
+	HAL_Delay(10);
+	ICM_SelectBank(dev, USER_BANK_0);
+	HAL_Delay(10);
+	ICM_Disable_I2C(dev);
+	HAL_Delay(10);
+	ICM_SetClock(dev, (uint8_t)CLK_BEST_AVAIL);
+	HAL_Delay(10);
+	ICM_AccelGyroOff(dev);
+	HAL_Delay(20);
+	ICM_AccelGyroOn(dev);
+	HAL_Delay(10);
+	ICM_Initialize(dev);
+
+	return SUCCESS;
 }
 
-uint16_t ICM_Initialize(ICM20948 *dev) {
+uint8_t ICM_Initialize(ICM20948 *dev) {
 	ICM_SelectBank(dev, USER_BANK_2);
 	HAL_Delay(20);
 	ICM_SetGyroRateLPF(dev, GYRO_RATE_250, GYRO_LPF_17HZ);
@@ -92,7 +93,7 @@ uint16_t ICM_Initialize(ICM20948 *dev) {
 	HAL_Delay(1000);
 	ICM_Mag_Write(dev, 0x31, 0x02); // use i2c to set AK8963 working on Continuous measurement mode1 & 16-bit output
 
-	return 1337;
+	return SUCCESS;
 }
 
 
