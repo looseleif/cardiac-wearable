@@ -1,30 +1,14 @@
 /*****************************************************************************
   BH1790GLC.cpp
 
- Copyright (c) 2016 ROHM Co.,Ltd.
-
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
+  Apr 13, 2023
+  Vaibhav Shirole
 ******************************************************************************/
-
 #include "BH1790GLC.h"
 
-
+/*****************************************************************************
+INIT FUNCTION
+******************************************************************************/
 uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 {
 	/* Set struct parameters */
@@ -77,6 +61,9 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 	return SUCCESS;
 }
 
+/*****************************************************************************
+DATA ACQUISITION FUNCTIONS
+******************************************************************************/
 /*
  * Puts the ppg readings into the ppg_data struct variable
  */
@@ -97,7 +84,6 @@ uint8_t get_val( BH1790GLC *dev )
 	return SUCCESS;
 }
 
-
 /*
  * Writes “SWRESET=1” (Address 40h), when stop measurement or change parameter.
  * This will wipe all registers
@@ -113,7 +99,6 @@ uint8_t reset_device( BH1790GLC *dev ){
 
 	return SUCCESS;
 }
-
 
 /*
  * Run this periodically (according to data sheet) after reading data
@@ -144,7 +129,6 @@ uint8_t param_refreshment( BH1790GLC *dev ){
 	}
 
 	return SUCCESS;
-
 }
 
 uint8_t add_sample( BH1790GLC *dev ){
@@ -264,7 +248,9 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 
 }
 
-
+/*****************************************************************************
+LOW-LEVEL FUNCTIONS
+******************************************************************************/
 /*
  * Writes a single byte to a specific register address
  * dev : device
@@ -284,7 +270,6 @@ HAL_StatusTypeDef write( BH1790GLC *dev, uint8_t reg, uint8_t *data)
 
 	return HAL_OK;
 }
-
 
 /*
  * Reads a single byte from a specific register address

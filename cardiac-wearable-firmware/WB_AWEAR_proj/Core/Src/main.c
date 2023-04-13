@@ -159,11 +159,11 @@ int main(void)
 
   /* Set up IMU */
   printf("Configuring IMU...");
-  HAL_Delay(10);
-  ICM_SelectBank(&imu, USER_BANK_0);
-  HAL_Delay(10);
-  ICM_PowerOn(&imu, &hspi1);
-  HAL_Delay(10);
+  HAL_Delay(10);									//wait as a precaution
+  ICM_SelectBank(&imu, USER_BANK_0);				//specify register bank
+  HAL_Delay(10);									//wait as a precaution
+  ICM_PowerOn(&imu, &hspi1);						//configure sensor
+  HAL_Delay(10);									//wait as a precaution
 
 
   /* USER CODE END 2 */
@@ -199,7 +199,7 @@ int main(void)
 
         	}
         	//printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
-    		//printf("ppg_data[1]: %d\n\r", hrm.ppg_data[1]);
+    		printf("ppg_data[1]: %d\n\r", hrm.ppg_data[1]);
         	//printf("ppg_data[1]: %d\n\r", hrm.samples_index);
         }
 
@@ -214,24 +214,23 @@ int main(void)
 	// Obtain accelerometer and gyro data
 	ICM_ReadAccelGyroData(&imu);
 
-//	// Obtain magnetometer data
-//	ICM_ReadMagData(&imu, imu.mag_data);
+	// Obtain magnetometer data
+	ICM_ReadMagData(&imu, imu.mag_data);
 
 	// Print raw axis data values to screen
-	sprintf(uart_buffer,
-			"Ax: %u | Ay: %u | Az: %u"
-			" \r\n",
-			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2]);
-
 //	sprintf(uart_buffer,
-//			"(Ax: %u | Ay: %u | Az: %u)   "
-//			"(Gx: %u | Gy: %u | Gz: %u)   "
-//			"(Mx: %i | My: %i | Mz: %i)"
+//			"Ax: %u, Ay: %u, Az: %u"
 //			" \r\n",
-//			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2],
-//			imu.gyro_data[0], imu.gyro_data[1], imu.gyro_data[2],
-//			imu.mag_data[0], imu.mag_data[1], imu.mag_data[2]);
-
+//			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2]);
+//
+	sprintf(uart_buffer,
+			"(Ax: %u | Ay: %u | Az: %u)   "
+			"(Gx: %u | Gy: %u | Gz: %u)   "
+			"(Mx: %i | My: %i | Mz: %i)"
+			" \r\n",
+			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2],
+			imu.gyro_data[0], imu.gyro_data[1], imu.gyro_data[2],
+			imu.mag_data[0], imu.mag_data[1], imu.mag_data[2]);
 	printf("%s", uart_buffer);
 	HAL_Delay(5);
 

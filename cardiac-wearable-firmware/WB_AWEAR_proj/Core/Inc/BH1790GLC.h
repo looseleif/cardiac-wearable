@@ -1,33 +1,18 @@
 /*****************************************************************************
   BH1790GLC.h
 
- Copyright (c) 2016 ROHM Co.,Ltd.
-
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
+  Apr 13, 2023
+  Vaibhav Shirole
 ******************************************************************************/
-
 #include "stm32wbxx_hal.h"						// Required library for I2C
 
 #ifndef _BH1790GLC_H_
 #define _BH1790GLC_H_
 
-/* PERIPHERAL REGISTERS */
+
+/*****************************************************************************
+PERIPHERAL REGISTERS
+******************************************************************************/
 #define BH1790GLC_DEVICE_ADDRESS      (0x5B)    // 8 bit Slave Address (1011011)
 #define BH1790GLC_MID_VAL             (0xE0)	// Default Manufacturer ID value
 #define BH1790GLC_PID_VAL             (0x0D)	// Default Part ID value
@@ -59,7 +44,10 @@
 
 #define BH1790GLC_SWRESET								(1 << 7)
 
-/* ERROR HANDLING */
+
+/*****************************************************************************
+ERROR HANDLING
+******************************************************************************/
 #define SUCCESS				0
 
 #define ERR_MID_VAL			10
@@ -73,7 +61,10 @@
 
 #define ERR_RESET			90
 
-/* SENSOR STRUCT */
+
+/*****************************************************************************
+SENSOR OBJECT
+******************************************************************************/
 typedef struct {
 	I2C_HandleTypeDef *i2cHandle;
 
@@ -85,15 +76,16 @@ typedef struct {
 
 } BH1790GLC;
 
-/*
- * INITIALIZATION
- * set up for measuring in this function
- */
+
+/*****************************************************************************
+INIT FUNCTION
+******************************************************************************/
 uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle );
 
-/*
- * DATA ACQUISITION
- */
+
+/*****************************************************************************
+DATA ACQUISITION FUNCTIONS
+******************************************************************************/
 uint8_t get_val( BH1790GLC *dev );
 uint8_t reset_device( BH1790GLC *dev );
 uint8_t param_refreshment( BH1790GLC *dev );
@@ -101,10 +93,10 @@ uint8_t add_sample( BH1790GLC *dev );
 uint8_t ppg_calculate( BH1790GLC *dev );
 
 
-/*
- * LOW-LEVEL FUNCTIONS
- * reads and writes to the peripheral
- */
+/*****************************************************************************
+LOW-LEVEL FUNCTIONS
+- don't need to worry about these
+******************************************************************************/
 HAL_StatusTypeDef write( BH1790GLC *dev, uint8_t reg, uint8_t *data );
 HAL_StatusTypeDef read( BH1790GLC *dev, uint8_t reg, uint8_t *data );
 HAL_StatusTypeDef many_reads( BH1790GLC *dev, uint8_t reg, uint8_t *data, uint8_t length );
