@@ -66,7 +66,7 @@ uint8_t ICM_Initialize(ICM20948 *dev) {
 	HAL_Delay(10);
 
 	// Set accelerometer low pass filter to 136hz (0x11) and the rate to 8G (0x04) in register ACCEL_CONFIG (0x14)
-	ICM_WriteOneByte(dev, 0x14, (0x04 | 0x11));
+	ICM_WriteOneByte(dev, 0x14, (0x0C | 0x11));
 
 	// Set accelerometer sample rate to 225hz (0x00) in ACCEL_SMPLRT_DIV_1 register (0x10)
 	ICM_WriteOneByte(dev, 0x10, 0x00);
@@ -216,13 +216,13 @@ void ICM_ReadOneByte(ICM20948 *dev, uint8_t reg, uint8_t* pData)
 
 	reg = reg | 0x80;													//first bit 1 indicates read
 	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_RESET);	//enable SPI
-	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);			//turn off green LED
+	//HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);			//turn off green LED
 
 	status = HAL_SPI_Transmit(dev->spiHandle, &reg, 1, 100);
 	status = HAL_SPI_Receive(dev->spiHandle, pData, 1, 100);
 
 	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_SET);		//disable SPI
-	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);			//turn on green LED
+	//HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);			//turn on green LED
 }
 
 void ICM_WriteOneByte(ICM20948 *dev, uint8_t reg, uint8_t Data)
