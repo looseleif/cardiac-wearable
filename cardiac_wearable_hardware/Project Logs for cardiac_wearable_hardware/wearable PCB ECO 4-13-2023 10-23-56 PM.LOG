@@ -1,0 +1,14 @@
+Added Component: Designator=J?(WURTH_61300211121)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Wurth Electronics'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "61300211121"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=J?-01
+Added Pin To Net: NetName=VBAT Pin=J?-02
+Added Member To Class: ClassName=wearable Member=Component J? 61300211121
+Add Class Member: Failed to add class member : Component LED3 GOOD
+Added Member To Class: ClassName=wearable Member=Component  STATUS
+Added Member To Class: ClassName=wearable Member=Component U1 STM32L433CCT6
+Added Member To Class: ClassName=wearable Member=Component U4 USBLC6-2SC6Y
