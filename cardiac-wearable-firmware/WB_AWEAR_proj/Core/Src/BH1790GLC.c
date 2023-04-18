@@ -240,15 +240,75 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 
 	  double sum = 0;
 
-	  for(int k =1; k<peak_count; k++){
-
-		  sum += peak_vals[k] - peak_vals[k-1];
-
+	  for (int k = 1; k < peak_count; k++) {
+	    sum += peak_vals[k] - peak_vals[k - 1];
 	  }
 
-	  printf("{{{%d}}}\n",(uint8_t)sum/(peak_count-1));
+	  double mean_interval = sum / (peak_count - 1);
 
-}
+	  double squared_diff_sum = 0;
+	  for (int k = 1; k < peak_count; k++) {
+	    double diff = peak_vals[k] - peak_vals[k - 1] - mean_interval;
+	    squared_diff_sum += diff * diff;
+	  }
+
+	  double std_deviation = sqrt(squared_diff_sum / (peak_count - 1));  // Calculate the standard deviation of the intervals
+	  double cv = std_deviation / mean_interval; // Calculate the coefficient of variation (CV)
+
+	  double cv_threshold;
+	     int af_detected_cv = 0;
+	     int af_detected_tpr = 0;
+
+	     // Check for atrial fibrillation using cv threshold
+	     if (peak_count >= 3 && peak_count <= 20)
+	     {
+	         cv_threshold = 0.312 - (0.156 * (peak_count - 3)) / (20 - 3);
+
+	         if (cv > cv_threshold)
+	         {
+	             af_detected_cv = 1;
+	         }
+	     }
+
+	     // Calculate turning point ratio
+	     int turning_points = 0;
+
+	     for (int j = 1; j < 498; j++)
+	     {
+	         if ((deriv_array[j] > deriv_array[j - 1] && deriv_array[j] > deriv_array[j + 1]) ||
+	             (deriv_array[j] < deriv_array[j - 1] && deriv_array[j] < deriv_array[j + 1]))
+	         {
+	             turning_points++;
+	         }
+	     }
+
+	     double turning_point_ratio = (double)turning_points / (498);
+
+	     printf("Turning Point Ratio: %d\n", turning_point_ratio);
+
+	     // Check for atrial fibrillation using turning point ratio threshold
+	     double tpr_threshold = 0.175;
+	     if (turning_point_ratio >= tpr_threshold)
+	     {
+	         af_detected_tpr = 1;
+	     }
+
+	     // Check if both CV and Turning Point Ratio conditions are met
+	     if (af_detected_cv && af_detected_tpr)
+	     {
+	         printf("Atrial fibrillation detected.\n");
+	     }
+	     else
+	     {
+	         printf("Atrial fibrillation not detected.\n");
+	     }
+
+	     printf("Coefficient of Variation: %d\n", cv);
+
+
+	 }
+
+
 
 
 /*****************************************************************************
