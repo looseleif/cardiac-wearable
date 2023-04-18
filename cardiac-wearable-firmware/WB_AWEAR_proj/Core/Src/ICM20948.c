@@ -65,8 +65,8 @@ uint8_t ICM_Initialize(ICM20948 *dev) {
 	ICM_WriteOneByte(dev, 0x00, 0x0A);
 	HAL_Delay(10);
 
-	// Set accelerometer low pass filter to 136hz (0x11) and the rate to 8G (0x04) in register ACCEL_CONFIG (0x14)
-	ICM_WriteOneByte(dev, 0x14, (0x0C | 0x11));
+	// Set accelerometer low pass filter to 136hz (0x11) and the rate to 16G (0x0C) in register ACCEL_CONFIG (0x14)
+	ICM_WriteOneByte(dev, 0x14, (0x0C | 0x11));	// 8G --> 0x04
 
 	// Set accelerometer sample rate to 225hz (0x00) in ACCEL_SMPLRT_DIV_1 register (0x10)
 	ICM_WriteOneByte(dev, 0x10, 0x00);
@@ -79,19 +79,19 @@ uint8_t ICM_Initialize(ICM20948 *dev) {
 	ICM_SelectBank(dev, USER_BANK_2);
 	HAL_Delay(20);
 
-	// Configure AUX_I2C Magnetometer (onboard ICM-20948)
-	ICM_WriteOneByte(dev, 0x7F, 0x00); // Select user bank 0
-	ICM_WriteOneByte(dev, 0x0F, 0x30); // INT Pin / Bypass Enable Configuration
-	ICM_WriteOneByte(dev, 0x03, 0x20); // I2C_MST_EN
-	ICM_WriteOneByte(dev, 0x7F, 0x30); // Select user bank 3
-	ICM_WriteOneByte(dev, 0x01, 0x4D); // I2C Master mode and Speed 400 kHz
-	ICM_WriteOneByte(dev, 0x02, 0x01); // I2C_SLV0 _DLY_ enable
-	ICM_WriteOneByte(dev, 0x05, 0x81); // enable IIC	and EXT_SENS_DATA==1 Byte
-
-	// Initialize magnetometer
-	ICM_Mag_Write(dev, 0x32, 0x01); // Reset AK8963
-	HAL_Delay(1000);
-	ICM_Mag_Write(dev, 0x31, 0x02); // use i2c to set AK8963 working on Continuous measurement mode1 & 16-bit output
+//	// Configure AUX_I2C Magnetometer (onboard ICM-20948)
+//	ICM_WriteOneByte(dev, 0x7F, 0x00); // Select user bank 0
+//	ICM_WriteOneByte(dev, 0x0F, 0x30); // INT Pin / Bypass Enable Configuration
+//	ICM_WriteOneByte(dev, 0x03, 0x20); // I2C_MST_EN
+//	ICM_WriteOneByte(dev, 0x7F, 0x30); // Select user bank 3
+//	ICM_WriteOneByte(dev, 0x01, 0x4D); // I2C Master mode and Speed 400 kHz
+//	ICM_WriteOneByte(dev, 0x02, 0x01); // I2C_SLV0 _DLY_ enable
+//	ICM_WriteOneByte(dev, 0x05, 0x81); // enable IIC	and EXT_SENS_DATA==1 Byte
+//
+//	// Initialize magnetometer
+//	ICM_Mag_Write(dev, 0x32, 0x01); // Reset AK8963
+//	HAL_Delay(1000);
+//	ICM_Mag_Write(dev, 0x31, 0x02); // use i2c to set AK8963 working on Continuous measurement mode1 & 16-bit output
 
 	return SUCCESS;
 }
