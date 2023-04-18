@@ -1,16 +1,13 @@
 body {
    font-family: Arial;
+   background-color:azure;
 }
-
-header {
-   display: flex;
-   justify-content: space-between;
+/* nav bar area */
+nav {
+   background-color: white;
+   width: 100%;
 }
-
-header h1 {
-   margin: 6px;
-}
-
+/* makes nav items span across top */
 nav ul {
    display: flex;
    list-style-type: none;
@@ -18,14 +15,16 @@ nav ul {
    margin: 0;
    width: 500px;
 }
-
+/* makes nav items look like buttons */
 nav li {
-   background-color: gold;
+   background-color: lightblue; /* for now - to see the nav items */
    margin: 5px;
    padding: 10px;
    text-align: center;
-}
 
+   font-size: 20px;
+}
+/* colors content of nav items */
 nav a {
    color: black;
    text-decoration: none;
