@@ -18,10 +18,12 @@ nav ul {
 /* makes nav items look like buttons */
 nav li {
    background-color: lightblue; /* for now - to see the nav items */
+   
    margin: 5px;
-   padding: 10px;
-   text-align: center;
+   padding: 20px;
+   border-radius: 10px;
 
+   text-align: center;
    font-size: 20px;
 }
 /* colors content of nav items */
