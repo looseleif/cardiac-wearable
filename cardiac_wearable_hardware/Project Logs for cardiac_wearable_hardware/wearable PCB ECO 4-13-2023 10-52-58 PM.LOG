@@ -1,0 +1,3 @@
+Change Component Comment : Designator=LED1 Old Comment=left New Comment=right
+Change Component Comment : Designator=LED2 Old Comment=right New Comment=left
+Add Class Member: Failed to add class member : Component LED3 GOOD

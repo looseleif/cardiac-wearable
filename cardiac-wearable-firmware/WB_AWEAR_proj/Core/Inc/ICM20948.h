@@ -51,7 +51,7 @@ SENSOR OBJECT
 ******************************************************************************/
 typedef struct {
 	SPI_HandleTypeDef *spiHandle;
-	uint16_t accel_data[3];
+	int16_t accel_data[3];
 	uint16_t gyro_data[3];
 	int16_t mag_data[3];
 

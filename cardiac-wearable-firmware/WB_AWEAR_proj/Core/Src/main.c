@@ -99,7 +99,6 @@ static void MX_RF_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-   char uart_buffer[200];
 
   /* USER CODE END 1 */
 
@@ -190,7 +189,7 @@ int main(void)
 
         err = get_val(&hrm);
         if(err != 0){
-        	printf("Could not read sensor. Error code: %d\n\r", err);
+        	//printf("Could not read sensor. Error code: %d\n\r", err);
         }else{
         	if(add_sample(&hrm)==1){
 
@@ -199,7 +198,7 @@ int main(void)
 
         	}
         	//printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
-    		printf("ppg_data[1]: %d\n\r", hrm.ppg_data[1]);
+    		//printf("ppg_data[1]: %d\n\r", hrm.ppg_data[1]);
         	//printf("ppg_data[1]: %d\n\r", hrm.samples_index);
         }
 
@@ -218,19 +217,7 @@ int main(void)
 //	ICM_ReadMagData(&imu, imu.mag_data);
 
 	// Print raw axis data values to screen
-	sprintf(uart_buffer,
-			"Ax: %u, Ay: %u, Az: %u"
-			" \r\n",
-			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2]);
-//	sprintf(uart_buffer,
-//			"(Ax: %u | Ay: %u | Az: %u)   "
-//			"(Gx: %u | Gy: %u | Gz: %u)   "
-//			"(Mx: %i | My: %i | Mz: %i)"
-//			" \r\n",
-//			imu.accel_data[0], imu.accel_data[1], imu.accel_data[2],
-//			imu.gyro_data[0], imu.gyro_data[1], imu.gyro_data[2],
-//			imu.mag_data[0], imu.mag_data[1], imu.mag_data[2]);
-	printf("%s", uart_buffer);
+	printf("X: %i, Y: %i, Z: %i\n", imu.accel_data[0], imu.accel_data[1], imu.accel_data[2]);
 	HAL_Delay(5);
 
   }

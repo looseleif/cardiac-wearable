@@ -1,0 +1,164 @@
+Removed Pin From Net: NetName=nRST Pin=J2-01
+Removed Pin From Net: NetName=GND Pin=J2-05
+Removed Pin From Net: NetName=GND Pin=J2-06
+Removed Pin From Net: NetName=+3 Pin=J2-07
+Removed Pin From Net: NetName=+3 Pin=J2-08
+Removed Pin From Net: NetName=GND Pin=R4-1
+Removed Pin From Net: NetName=+3 Pin=R5-1
+Removed Pin From Net: NetName=+3 Pin=U1-4
+Removed Pin From Net: NetName=GND Pin=U1-5
+Removed Pin From Net: NetName=+3 Pin=U1-6
+Removed Pin From Net: NetName=SPI2_MOSI Pin=U1-7
+Removed Pin From Net: NetName=SPI2_MISO Pin=U1-8
+Removed Pin From Net: NetName=nRST Pin=U1-10
+Removed Pin From Net: NetName=I2C1_SDA Pin=U1-11
+Removed Pin From Net: NetName=+3 Pin=U1-13
+Removed Pin From Net: NetName=I2C1_SCL Pin=U1-14
+Removed Pin From Net: NetName=+3 Pin=U1-15
+Removed Pin From Net: NetName=GND Pin=U1-16
+Removed Pin From Net: NetName=+3 Pin=U1-17
+Removed Pin From Net: NetName=IMU_CS Pin=U1-21
+Removed Pin From Net: NetName=USB_P Pin=U1-29
+Removed Pin From Net: NetName=USB_N Pin=U1-30
+Removed Pin From Net: NetName=GND Pin=U1-31
+Removed Pin From Net: NetName=+3 Pin=U1-32
+Removed Pin From Net: NetName=SPI2_SCK Pin=U1-34
+Removed Pin From Net: NetName=GND Pin=U1-57
+Removed Pin From Net: NetName=GND Pin=U1-58
+Removed Pin From Net: NetName=GND Pin=U1-59
+Removed Pin From Net: NetName=GND Pin=U1-60
+Removed Pin From Net: NetName=GND Pin=U1-84
+Removed Pin From Net: NetName=GND Pin=U1-86
+Removed Pin From Net: NetName=SPI2_MISO Pin=U5-2
+Removed Pin From Net: NetName=GND Pin=U5-4
+Removed Pin From Net: NetName=SPI2_MOSI Pin=U5-5
+Removed Pin From Net: NetName=SPI2_SCK Pin=U5-6
+Removed Pin From Net: NetName=+3 Pin=U5-8
+Removed Member From Class: ClassName=wearable Member=J2
+Removed Member From Class: ClassName=wearable Member=R4
+Removed Member From Class: ClassName=wearable Member=R5
+Removed Member From Class: ClassName=wearable Member=U1
+Removed Member From Class: ClassName=wearable Member=U5
+Change Component Designator: OldDesignator=S1 NewDesignator=RST
+Added Component: Designator=BOOT(SW_TL6330AF200Q)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'E-Switch'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "TL6330AF200Q"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C?(CAPC1608X87N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Multicomp'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "MC0603B104J160CT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C?(CAPC1608X90)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Yageo'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "CC0603JRNPO0BN180"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C?(CAPC1608X90)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Yageo'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "CC0603JRNPO0BN180"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J?(TE_640456-6)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'TE Connectivity'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "640456-6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=R?(RESC1608X55N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Yageo'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "RT0603BRB07100KL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=U?(QFP50P900X900X160-48N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'STMicroelectronics'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "STM32L433CCT6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=Y?(XTAL_ECS-080-18-23G-JGN-TR)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'ECS Inc.'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "ECS-080-18-23G-JGN-TR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=+3 Pin=BOOT-3
+Added Pin To Net: NetName=+3 Pin=BOOT-4
+Added Pin To Net: NetName=GND Pin=C?-1
+Added Pin To Net: NetName=GND Pin=C?-2
+Added Pin To Net: NetName=GND Pin=C?-2
+Added Pin To Net: NetName=+3 Pin=J?-1
+Added Pin To Net: NetName=GND Pin=J?-2
+Added Pin To Net: NetName=nRST Pin=J?-3
+Added Pin To Net: NetName=GND Pin=R7-1
+Added Pin To Net: NetName=GND Pin=R?-1
+Added Pin To Net: NetName=SPI2_SCK Pin=U6-1
+Added Pin To Net: NetName=SPI2_MISO Pin=U6-3
+Added Pin To Net: NetName=SPI2_MOSI Pin=U6-4
+Added Pin To Net: NetName=+3 Pin=U?-1
+Added Pin To Net: NetName=nRST Pin=U?-7
+Added Pin To Net: NetName=GND Pin=U?-8
+Added Pin To Net: NetName=+3 Pin=U?-9
+Added Pin To Net: NetName=SPI2_SCK Pin=U?-21
+Added Pin To Net: NetName=IMU_CS Pin=U?-22
+Added Pin To Net: NetName=GND Pin=U?-23
+Added Pin To Net: NetName=+3 Pin=U?-24
+Added Pin To Net: NetName=SPI2_MOSI Pin=U?-27
+Added Pin To Net: NetName=SPI2_MISO Pin=U?-28
+Added Pin To Net: NetName=I2C1_SCL Pin=U?-30
+Added Pin To Net: NetName=I2C1_SDA Pin=U?-31
+Added Pin To Net: NetName=USB_N Pin=U?-32
+Added Pin To Net: NetName=USB_P Pin=U?-33
+Added Pin To Net: NetName=GND Pin=U?-35
+Added Pin To Net: NetName=+3 Pin=U?-36
+Added Pin To Net: NetName=GND Pin=U?-47
+Added Pin To Net: NetName=+3 Pin=U?-48
+Added Pin To Net: NetName=BOOT0 Pin=BOOT-1
+Added Pin To Net: NetName=BOOT0 Pin=BOOT-2
+Added Pin To Net: NetName=BOOT0 Pin=C?-2
+Added Pin To Net: NetName=BOOT0 Pin=R?-2
+Added Pin To Net: NetName=BOOT0 Pin=U?-44
+Added Net: Name=BOOT0
+Added Pin To Net: NetName=NetU?_11 Pin=U?-11
+Added Pin To Net: NetName=NetU?_11 Pin=U?-12
+Added Net: Name=NetU?_11
+Added Pin To Net: NetName=SWC Pin=J?-5
+Added Pin To Net: NetName=SWC Pin=U?-37
+Added Net: Name=SWC
+Added Pin To Net: NetName=SWD Pin=J?-4
+Added Pin To Net: NetName=SWD Pin=U?-34
+Added Net: Name=SWD
+Added Pin To Net: NetName=SWO Pin=J?-6
+Added Pin To Net: NetName=SWO Pin=U?-39
+Added Net: Name=SWO
+Added Pin To Net: NetName=XIN Pin=C?-1
+Added Pin To Net: NetName=XIN Pin=U?-5
+Added Pin To Net: NetName=XIN Pin=Y?-1
+Added Net: Name=XIN
+Added Pin To Net: NetName=XOUT Pin=C?-1
+Added Pin To Net: NetName=XOUT Pin=U?-6
+Added Pin To Net: NetName=XOUT Pin=Y?-2
+Added Net: Name=XOUT
+Added Member To Class: ClassName=wearable Member=Component BOOT TL6330AF200Q
+Added Member To Class: ClassName=wearable Member=Component C? 100 nF
+Added Member To Class: ClassName=wearable Member=Component C? 18pF
+Added Member To Class: ClassName=wearable Member=Component C? 18pF
+Added Member To Class: ClassName=wearable Member=Component J? 640456-6
+Added Member To Class: ClassName=wearable Member=Component R? 100k
+Added Member To Class: ClassName=wearable Member=Component U? STM32L433CCT6
+Added Member To Class: ClassName=wearable Member=Component Y? 8MHz
+Added Room: Name=wearable

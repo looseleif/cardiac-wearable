@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=+3 Pin=J2-1
+Removed Pin From Net: NetName=GND Pin=J2-2
+Added Pin To Net: NetName=GND Pin=J2-1
+Added Pin To Net: NetName=+3 Pin=J2-2
+Change Net Name : Old Net Name=NetLED4_C New Net Name=Net_C
+Added Member To Class: ClassName=wearable Member=Component U1 STM32L433CCT6
+Added Member To Class: ClassName=wearable Member=Component U4 USBLC6-2SC6Y

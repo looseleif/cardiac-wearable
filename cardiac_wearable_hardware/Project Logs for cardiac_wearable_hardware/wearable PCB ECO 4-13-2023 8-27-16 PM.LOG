@@ -1,0 +1,11 @@
+Change Component Designator: OldDesignator=C? NewDesignator=C14
+Change Component Designator: OldDesignator=C? NewDesignator=C15
+Change Component Designator: OldDesignator=C? NewDesignator=C16
+Change Component Designator: OldDesignator=J? NewDesignator=J2
+Change Component Designator: OldDesignator=R? NewDesignator=R4
+Change Component Designator: OldDesignator=U? NewDesignator=U1
+Change Component Designator: OldDesignator=Y? NewDesignator=Y1
+Change Net Name : Old Net Name=NetU?_11 New Net Name=NetU1_11
+Added Member To Class: ClassName=wearable Member=Component C14 18pF
+Added Member To Class: ClassName=wearable Member=Component C15 18pF
+Added Room: Name=wearable

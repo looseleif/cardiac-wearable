@@ -1,20 +1,20 @@
 ------------------------------------------------------------------------------------------
-Gerber File Extension Report For: wearable.GBR   3/23/2023  1:44:05 PM
+Gerber File Extension Report For: wearable.GBR   4/14/2023  1:42:34 AM
 ------------------------------------------------------------------------------------------
 
 
 ------------------------------------------------------------------------------------------
 Layer Extension     Layer Description                      
 ------------------------------------------------------------------------------------------
-.GTO                Top Overlay                             
-.GTP                Top Paste                               
-.GTS                Top Solder                              
-.GTL                TOP                                     
-.GP1                GND                                     
-.GP2                PWR                                     
-.GBL                BOT                                     
-.GBS                Bottom Solder                           
-.GBP                Bottom Paste                            
-.GBO                Bottom Overlay                          
-.GM                 Profile                                 
+.gbr                Top Overlay                             
+.gbr                Top Paste                               
+.gbr                Top Solder                              
+.gbr                TOP                                     
+.gbr                GND                                     
+.gbr                PWR                                     
+.gbr                BOT                                     
+.gbr                Bottom Solder                           
+.gbr                Bottom Paste                            
+.gbr                Bottom Overlay                          
+.gbr                Profile                                 
 ------------------------------------------------------------------------------------------

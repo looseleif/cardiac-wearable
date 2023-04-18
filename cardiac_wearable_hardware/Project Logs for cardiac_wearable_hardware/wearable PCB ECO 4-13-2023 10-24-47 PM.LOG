@@ -1,0 +1,4 @@
+Change Component Designator: OldDesignator= NewDesignator=LED3
+Change Component Designator: OldDesignator=J? NewDesignator=J4
+Added Member To Class: ClassName=wearable Member=Component LED3 GOOD
+Added Room: Name=wearable
