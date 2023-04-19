@@ -197,7 +197,7 @@ int main(void)
         		ppg_calculate(&hrm);
 
         	}
-        	//printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
+        	printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
     		//printf("ppg_data[1]: %d\n\r", hrm.ppg_data[1]);
         	//printf("ppg_data[1]: %d\n\r", hrm.samples_index);
         }
@@ -217,7 +217,7 @@ int main(void)
 //	ICM_ReadMagData(&imu, imu.mag_data);
 
 	// Print raw axis data values to screen
-	printf("X: %i, Y: %i, Z: %i\n", imu.accel_data[0], imu.accel_data[1], imu.accel_data[2]);
+	//printf("X: %i, Y: %i, Z: %i\n", imu.accel_data[0], imu.accel_data[1], imu.accel_data[2]);
 	HAL_Delay(5);
 
   }

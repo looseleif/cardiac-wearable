@@ -3,7 +3,7 @@
 ../Core/Src/BH1790GLC.c:93:9:reset_device	24	static
 ../Core/Src/BH1790GLC.c:108:9:param_refreshment	24	static
 ../Core/Src/BH1790GLC.c:136:9:add_sample	16	static
-../Core/Src/BH1790GLC.c:152:9:ppg_calculate	3248	static
-../Core/Src/BH1790GLC.c:323:19:write	48	static
-../Core/Src/BH1790GLC.c:343:19:read	48	static
-../Core/Src/BH1790GLC.c:363:19:many_reads	48	static
+../Core/Src/BH1790GLC.c:155:9:ppg_calculate	2128	static
+../Core/Src/BH1790GLC.c:327:19:write	48	static
+../Core/Src/BH1790GLC.c:347:19:read	48	static
+../Core/Src/BH1790GLC.c:367:19:many_reads	48	static

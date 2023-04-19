@@ -139,11 +139,14 @@ uint8_t add_sample( BH1790GLC *dev ){
 	dev->ppg_samples[dev->samples_index] = dev->ppg_data[1];
 	dev->samples_index++;
 
-	if(dev->samples_index==500){
+
+	if(dev->samples_index==NUM_SAMPLES){
 
 		dev->samples_index = 0;
 		return 1;
-
+	}
+	else if(dev->ppg_data[0] > led_off_threshold) {
+		dev->samples_index = 0;
 	}
 
 	return 0;
@@ -151,14 +154,15 @@ uint8_t add_sample( BH1790GLC *dev ){
 
 uint8_t ppg_calculate( BH1790GLC *dev ){
 
-	  uint16_t smooth_array[500];
-	  int deriv_array[499];
+
+	  uint16_t smooth_array[NUM_SAMPLES];
+	  int deriv_array[NUM_SAMPLES-1];
 
 	  uint16_t raw_data_1;
 	  float smooth_data_1 = 0;
-	  float lpf_beta = 0.08;
+	  float lpf_beta = 0.03;
 
-	  for(int i = 0; i < 500; i++){
+	  for(int i = 0; i < NUM_SAMPLES; i++){
 
 		  raw_data_1 = dev->ppg_samples[i];
 		  smooth_data_1 = smooth_data_1 - (lpf_beta*(smooth_data_1 - raw_data_1));
@@ -167,7 +171,7 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 
 
 			  int deriv = (int)smooth_array[i] - (int)smooth_array[i-1];
-			  if(deriv<255 || deriv>-255){
+			  if(deriv<255 || deriv>-255){ // check 255 value later
 
 				 deriv_array[i] = deriv;
 
@@ -187,11 +191,11 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 	  int pos_check = 0;
 	  int neg_check = 0;
 
-	  int peak_vals[20] = {};
+	  int peak_vals[40] = {};
 	  int peak_count = 0;
 
 
-	  for(int j = 0; j < 499; j++){
+	  for(int j = 0; j < NUM_SAMPLES-1; j++){
 
 
 
@@ -229,14 +233,14 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 
 	  }
 
-	  printf("{");
+	  //printf("{");
 
-	  for(int k = 0; k<20; k++){
+	  for(int k = 0; k<40; k++){
 
-		  printf("[%d],", peak_vals[k]);
+		  //printf("[%d],", peak_vals[k]);
 
 	  }
-	  printf("}\n");
+	  //printf("}\n");
 
 	  double sum = 0;
 
@@ -260,9 +264,9 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 	     int af_detected_tpr = 0;
 
 	     // Check for atrial fibrillation using cv threshold
-	     if (peak_count >= 3 && peak_count <= 20)
+	     if (peak_count >= 3 && peak_count <= 40)
 	     {
-	         cv_threshold = 0.312 - (0.156 * (peak_count - 3)) / (20 - 3);
+	         cv_threshold = 0.312 - (0.156 * (peak_count - 3)) / (40 - 3);
 
 	         if (cv > cv_threshold)
 	         {
@@ -273,7 +277,7 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 	     // Calculate turning point ratio
 	     int turning_points = 0;
 
-	     for (int j = 1; j < 498; j++)
+	     for (int j = 1; j < NUM_SAMPLES-2; j++)
 	     {
 	         if ((deriv_array[j] > deriv_array[j - 1] && deriv_array[j] > deriv_array[j + 1]) ||
 	             (deriv_array[j] < deriv_array[j - 1] && deriv_array[j] < deriv_array[j + 1]))
@@ -282,9 +286,9 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 	         }
 	     }
 
-	     double turning_point_ratio = (double)turning_points / (498);
+	     double turning_point_ratio = (double)turning_points / (double)(NUM_SAMPLES-2);
 
-	     printf("Turning Point Ratio: %d\n", turning_point_ratio);
+	     printf("Turning Point Ratio: %f\n", turning_point_ratio);
 
 	     // Check for atrial fibrillation using turning point ratio threshold
 	     double tpr_threshold = 0.175;
@@ -303,7 +307,7 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 	         printf("Atrial fibrillation not detected.\n");
 	     }
 
-	     printf("Coefficient of Variation: %d\n", cv);
+	     printf("Coefficient of Variation: %f\n", cv);
 
 
 	 }

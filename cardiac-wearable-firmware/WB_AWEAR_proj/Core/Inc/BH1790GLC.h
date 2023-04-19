@@ -61,6 +61,13 @@ ERROR HANDLING
 #define ERR_RESET			90
 
 
+
+/*****************************************************************************
+Detection Values
+******************************************************************************/
+#define led_off_threshold   100 // LED_off threshold value
+#define NUM_SAMPLES			300
+
 /*****************************************************************************
 SENSOR OBJECT
 ******************************************************************************/
@@ -69,7 +76,7 @@ typedef struct {
 
 	uint16_t ppg_data[2];
 
-	uint16_t ppg_samples[500];
+	uint16_t ppg_samples[NUM_SAMPLES];
 
 	uint16_t samples_index;
 
