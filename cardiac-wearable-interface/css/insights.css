@@ -1,0 +1,24 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+    
+.calendar {
+    grid-area: 2 / 1 / 5 / 6;
+    
+    border: 1px solid black;      /* debugging */
+
+}
+.detect-time {
+    grid-area: 5 / 1 / 6 / 3;
+
+    border: 1px solid black;      /* debugging */
+}
+.detect-type {
+    grid-area: 5 / 3 / 6 / 6;
+
+    border: 1px solid black;      /* debugging */
+}

@@ -1,0 +1,33 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+ 
+ /*    border: 1px solid black; */   /* debugging */
+ }
+
+.data-tag {
+    grid-area: 2 / 2 / 3 / 5;
+ 
+    border: 1px solid black;      /* debugging */
+ }
+ 
+ .reading {
+    grid-area: 3 / 2 / 4 / 5;
+ 
+    border: 1px solid black;      /* debugging */
+ }
+ 
+ .write-1 {
+    grid-area: 4 / 1 / 5 / 6;
+ 
+    border: 1px solid black;      /* debugging */
+ }
+ 
+ .write-2 {
+    grid-area: 5 / 1 / 6 / 6;
+ 
+    border: 1px solid black;      /* debugging */
+ }
