@@ -1,0 +1,40 @@
+html * {
+   font-family: Nunito, sans-serif;
+}
+
+body {
+   margin: 0;     /* fixes the offset with edge of screen */
+}
+
+/* HEADER STUFF HANDLED IN HERE */
+
+/* Add a gold background color to the top navigation */
+.header {
+   background-color: #900021;
+   /* border-radius: 10px;    */
+   width: 100%;
+   overflow: hidden;
+   
+   grid-area: 1 / 1 / 2 / 6; 
+
+/*    border: 1px solid black; */   /* debugging */
+}
+/* Style the links inside the navigation bar */
+.header a {
+   float: left;
+   color: #f2f2f2;
+   text-align: center;
+   padding: 20px 30px;
+   text-decoration: none;
+   font-size: 20px;
+}
+/* Change the color of links on hover */
+.header a:hover {
+   background-color: #5b0013;
+   color: white;
+}
+/* Add a color to the active/current link */
+.header a.active {
+   background-color: #7a0019;
+   color: white;
+}
