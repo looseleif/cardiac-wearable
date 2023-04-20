@@ -3,6 +3,7 @@
 "./Core/Src/app_debug.o"
 "./Core/Src/app_entry.o"
 "./Core/Src/hw_timerserver.o"
+"./Core/Src/hw_uart.o"
 "./Core/Src/main.o"
 "./Core/Src/stm32_lpm_if.o"
 "./Core/Src/stm32wbxx_hal_msp.o"

@@ -21,6 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stm32_seq.h"					//for BLE
 #include <BH1790GLC.h>
 #include <ICM20948.h>
 #include <math.h>
@@ -63,6 +64,8 @@ DMA_HandleTypeDef hdma_spi1_rx;
 DMA_HandleTypeDef hdma_spi1_tx;
 
 UART_HandleTypeDef huart1;
+DMA_HandleTypeDef hdma_usart1_rx;
+DMA_HandleTypeDef hdma_usart1_tx;
 
 /* USER CODE BEGIN PV */
 BH1790GLC 	hrm;			//define the struct for the ppg sensor
@@ -78,7 +81,6 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_RTC_Init(void);
 static void MX_I2C1_Init(void);
-static void MX_USART1_UART_Init(void);
 static void MX_LPTIM1_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_IPCC_Init(void);
@@ -131,7 +133,6 @@ int main(void)
   MX_DMA_Init();
   MX_RTC_Init();
   MX_I2C1_Init();
-  MX_USART1_UART_Init();
   MX_LPTIM1_Init();
   MX_SPI1_Init();
   MX_RF_Init();
@@ -192,10 +193,7 @@ int main(void)
         	//printf("Could not read sensor. Error code: %d\n\r", err);
         }else{
         	if(add_sample(&hrm)==1){
-
-        		//printf("HELLO\n");
         		ppg_calculate(&hrm);
-
         	}
         	printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
     		//printf("ppg_data[1]: %d\n\r", hrm.ppg_data[1]);
@@ -220,6 +218,7 @@ int main(void)
 	//printf("X: %i, Y: %i, Z: %i\n", imu.accel_data[0], imu.accel_data[1], imu.accel_data[2]);
 	HAL_Delay(5);
 
+	UTIL_SEQ_Run(UTIL_SEQ_DEFAULT);			//for BLE
   }
   /* USER CODE END 3 */
 }
@@ -519,7 +518,7 @@ static void MX_SPI1_Init(void)
   * @param None
   * @retval None
   */
-static void MX_USART1_UART_Init(void)
+void MX_USART1_UART_Init(void)
 {
 
   /* USER CODE BEGIN USART1_Init 0 */
@@ -536,7 +535,7 @@ static void MX_USART1_UART_Init(void)
   huart1.Init.Parity = UART_PARITY_ODD;
   huart1.Init.Mode = UART_MODE_TX_RX;
   huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_8;
   huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
   huart1.Init.ClockPrescaler = UART_PRESCALER_DIV1;
   huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
@@ -579,6 +578,12 @@ static void MX_DMA_Init(void)
   /* DMA1_Channel2_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
+  /* DMA1_Channel3_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel3_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel3_IRQn);
+  /* DMA1_Channel4_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel4_IRQn);
 
 }
 

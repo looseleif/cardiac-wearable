@@ -2,7 +2,7 @@
 ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_system.h:2235:26:LL_FLASH_GetDeviceID	4	static
 ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_system.h:2247:26:LL_FLASH_GetSTCompanyID	4	static
 ../STM32_WPAN/App/app_ble.c:262:6:APP_BLE_Init	80	static
-../STM32_WPAN/App/app_ble.c:408:28:SVCCTL_App_Notification	48	static
+../STM32_WPAN/App/app_ble.c:408:28:SVCCTL_App_Notification	72	static
 ../STM32_WPAN/App/app_ble.c:672:22:APP_BLE_Get_Server_Connection_Status	4	static
 ../STM32_WPAN/App/app_ble.c:686:13:Ble_Tl_Init	16	static
 ../STM32_WPAN/App/app_ble.c:697:13:Ble_Hci_Gap_Gatt_Init	72	static
