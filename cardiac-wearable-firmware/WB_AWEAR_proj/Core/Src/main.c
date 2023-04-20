@@ -195,9 +195,12 @@ int main(void)
 
         		//printf("HELLO\n");
         		ppg_calculate(&hrm);
+        		for(int i = 100; i < 500; i++){
+        			printf("smooth_array: %d\n", hrm.smooth_array[i]);
+        		}
 
         	}
-        	printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
+        	//printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
     		//printf("ppg_data[1]: %d\n\r", hrm.ppg_data[1]);
         	//printf("ppg_data[1]: %d\n\r", hrm.samples_index);
         }

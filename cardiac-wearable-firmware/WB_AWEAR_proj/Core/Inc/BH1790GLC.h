@@ -66,7 +66,7 @@ ERROR HANDLING
 Detection Values
 ******************************************************************************/
 #define led_off_threshold   100 // LED_off threshold value
-#define NUM_SAMPLES			300
+#define NUM_SAMPLES			500
 
 /*****************************************************************************
 SENSOR OBJECT
@@ -79,6 +79,10 @@ typedef struct {
 	uint16_t ppg_samples[NUM_SAMPLES];
 
 	uint16_t samples_index;
+
+	uint16_t smooth_array[500];
+
+	uint16_t smooth_array_ready;	//debugging
 
 } BH1790GLC;
 

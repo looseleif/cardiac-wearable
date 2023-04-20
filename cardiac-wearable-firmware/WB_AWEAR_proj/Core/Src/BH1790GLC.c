@@ -19,6 +19,10 @@ uint8_t BH1790GLC_init( BH1790GLC *dev, I2C_HandleTypeDef *i2cHandle )
 
 	dev->samples_index = 0;
 
+	for(int i=0; i<NUM_SAMPLES; i++){
+		dev->smooth_array[i] = 0;
+	}
+
 	/* Keep count of errors */
 	HAL_StatusTypeDef status;
 
@@ -155,22 +159,24 @@ uint8_t add_sample( BH1790GLC *dev ){
 uint8_t ppg_calculate( BH1790GLC *dev ){
 
 
-	  uint16_t smooth_array[NUM_SAMPLES];
+	  //uint16_t smooth_array[NUM_SAMPLES];
 	  int deriv_array[NUM_SAMPLES-1];
 
 	  uint16_t raw_data_1;
 	  float smooth_data_1 = 0;
-	  float lpf_beta = 0.03;
+	  float lpf_beta = 0.075;
 
 	  for(int i = 0; i < NUM_SAMPLES; i++){
 
 		  raw_data_1 = dev->ppg_samples[i];
 		  smooth_data_1 = smooth_data_1 - (lpf_beta*(smooth_data_1 - raw_data_1));
-		  smooth_array[i] = smooth_data_1;
+		  dev->smooth_array[i] = smooth_data_1;
+
+
 		  if(i!=0){
 
 
-			  int deriv = (int)smooth_array[i] - (int)smooth_array[i-1];
+			  int deriv = (int)dev->smooth_array[i] - (int)dev->smooth_array[i-1];
 			  if(deriv<255 || deriv>-255){ // check 255 value later
 
 				 deriv_array[i] = deriv;
@@ -266,7 +272,7 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 	     // Check for atrial fibrillation using cv threshold
 	     if (peak_count >= 3 && peak_count <= 40)
 	     {
-	         cv_threshold = 0.312 - (0.156 * (peak_count - 3)) / (40 - 3);
+	         cv_threshold = 0.412 - (0.156 * (peak_count - 3)) / (40 - 3);
 
 	         if (cv > cv_threshold)
 	         {
@@ -288,10 +294,10 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 
 	     double turning_point_ratio = (double)turning_points / (double)(NUM_SAMPLES-2);
 
-	     printf("Turning Point Ratio: %f\n", turning_point_ratio);
+	    // printf("Turning Point Ratio: %f\n", turning_point_ratio);
 
 	     // Check for atrial fibrillation using turning point ratio threshold
-	     double tpr_threshold = 0.175;
+	     double tpr_threshold = 0.275;
 	     if (turning_point_ratio >= tpr_threshold)
 	     {
 	         af_detected_tpr = 1;
@@ -300,11 +306,11 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 	     // Check if both CV and Turning Point Ratio conditions are met
 	     if (af_detected_cv && af_detected_tpr)
 	     {
-	         printf("Atrial fibrillation detected.\n");
+	         //printf("Atrial fibrillation detected.\n");
 	     }
 	     else
 	     {
-	         printf("Atrial fibrillation not detected.\n");
+	         //printf("Atrial fibrillation not detected.\n");
 	     }
 
 	     printf("Coefficient of Variation: %f\n", cv);
