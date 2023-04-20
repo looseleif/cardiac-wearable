@@ -22,6 +22,15 @@
 /*     border: 1px solid black;      /* debugging */
 }
 
+#month {
+	font-size: 30px;
+	font-weight: bolder;
+
+	text-align: center;
+
+	color: white;
+	background-color: #900021;
+}
 
 body {
 	font-family: Tahoma;
@@ -60,7 +69,7 @@ header {
 
 #calendar ul.weekdays {
 	height: 40px;
-	background: #8e352e;
+	background: #900021;
 }
 
 #calendar ul.weekdays li {
