@@ -34,14 +34,15 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 typedef enum
 {
-  /* mySvc */
-  CUSTOM_STM_MYCHARWRITE,
+  /* CUSTOM_SVC */
+  CUSTOM_STM_MY_CHAR,
 } Custom_STM_Char_Opcode_t;
 
 typedef enum
 {
-  /* myCharWrite */
-  CUSTOM_STM_MYCHARWRITE_WRITE_EVT,
+  /* MY_CHAR */
+  CUSTOM_STM_MY_CHAR_READ_EVT,
+  CUSTOM_STM_MY_CHAR_WRITE_EVT,
 
   CUSTOM_STM_BOOT_REQUEST_EVT
 } Custom_STM_Opcode_evt_t;
@@ -65,7 +66,7 @@ typedef struct
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
-extern uint8_t SizeMycharwrite;
+extern uint8_t SizeMy_Char;
 
 /* USER CODE BEGIN EC */
 

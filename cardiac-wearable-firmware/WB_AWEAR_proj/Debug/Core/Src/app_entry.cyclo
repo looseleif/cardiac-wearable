@@ -32,8 +32,8 @@ app_entry.c:265:13:Init_Rtc	1
 app_entry.c:286:13:SystemPower_Config	1
 app_entry.c:308:13:appe_Tl_Init	1
 app_entry.c:333:13:APPE_SysStatusNot	1
-app_entry.c:348:13:APPE_SysUserEvtRx	3
-app_entry.c:411:13:APPE_SysEvtError	1
+app_entry.c:348:13:APPE_SysUserEvtRx	8
+app_entry.c:411:13:APPE_SysEvtError	2
 app_entry.c:433:13:APPE_SysEvtReadyProcessing	3
 app_entry.c:514:6:HAL_Delay	3
 app_entry.c:543:6:MX_APPE_Process	1

@@ -35,7 +35,7 @@
 /* Private typedef -----------------------------------------------------------*/
 typedef struct
 {
-  /* mySvc */
+  /* CUSTOM_SVC */
   /* USER CODE BEGIN CUSTOM_APP_Context_t */
 
   /* USER CODE END CUSTOM_APP_Context_t */
@@ -76,7 +76,7 @@ uint8_t NotifyCharData[247];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-/* mySvc */
+/* CUSTOM_SVC */
 
 /* USER CODE BEGIN PFP */
 
@@ -94,11 +94,17 @@ void Custom_STM_App_Notification(Custom_STM_App_Notification_evt_t *pNotificatio
 
     /* USER CODE END CUSTOM_STM_App_Notification_Custom_Evt_Opcode */
 
-    /* mySvc */
-    case CUSTOM_STM_MYCHARWRITE_WRITE_EVT:
-      /* USER CODE BEGIN CUSTOM_STM_MYCHARWRITE_WRITE_EVT */
+    /* CUSTOM_SVC */
+    case CUSTOM_STM_MY_CHAR_READ_EVT:
+      /* USER CODE BEGIN CUSTOM_STM_MY_CHAR_READ_EVT */
 
-      /* USER CODE END CUSTOM_STM_MYCHARWRITE_WRITE_EVT */
+      /* USER CODE END CUSTOM_STM_MY_CHAR_READ_EVT */
+      break;
+
+    case CUSTOM_STM_MY_CHAR_WRITE_EVT:
+      /* USER CODE BEGIN CUSTOM_STM_MY_CHAR_WRITE_EVT */
+
+      /* USER CODE END CUSTOM_STM_MY_CHAR_WRITE_EVT */
       break;
 
     default:
@@ -168,7 +174,7 @@ void Custom_APP_Init(void)
  *
  *************************************************************/
 
-/* mySvc */
+/* CUSTOM_SVC */
 
 /* USER CODE BEGIN FD_LOCAL_FUNCTIONS*/
 
