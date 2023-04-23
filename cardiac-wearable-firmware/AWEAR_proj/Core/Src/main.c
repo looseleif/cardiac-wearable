@@ -22,6 +22,12 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#define PERIOD (uint32_t)1048			//TO DO: CHECK THE TIMER VAL: I think this is 32 Hz?
+#define TIMEOUT (uint32_t)0				//goes to compare register?
+
+#define READY 1
+#define BUSY 0
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,6 +56,8 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
+uint8_t 	sensorReady;	//1=ready, 0=busy
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -60,7 +68,7 @@ static void MX_USART1_UART_Init(void);
 static void MX_LPTIM1_Init(void);
 static void MX_SPI2_Init(void);
 /* USER CODE BEGIN PFP */
-
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -102,6 +110,11 @@ int main(void)
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
 
+  /* Set up timer */
+  if(HAL_LPTIM_TimeOut_Start_IT(&hlptim1, PERIOD, TIMEOUT) != HAL_OK){  //pointer to the handler, period, timeout val to start the timer
+	  Error_Handler();
+  }
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -109,6 +122,8 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+      printf("Hello World\n\r");
+      HAL_Delay(1000);
 
     /* USER CODE BEGIN 3 */
   }
@@ -134,7 +149,8 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_MSI;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = 0;
   RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_6;
@@ -346,6 +362,30 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+/*
+ * Redefinition of the low power timer interrupt
+ */
+void HAL_LPTIM_CompareMatchCallback(LPTIM_HandleTypeDef *hlptim){
+	sensorReady = READY;
+
+	printf("inside interrupt: sensorReady");
+}
+
+/* USER CODE BEGIN 4 */
+/**
+  * @brief  Retargets the C library printf function to the USART.
+  * @param  None
+  * @retval None
+  */
+PUTCHAR_PROTOTYPE
+{
+  /* Place your implementation of fputc here */
+  /* e.g. write a character to the USART1 and Loop until the end of transmission */
+  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+
+  return ch;
+}
 
 /* USER CODE END 4 */
 

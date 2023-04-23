@@ -60,8 +60,8 @@ all: main-build
 main-build: AWEAR_proj.elf secondary-outputs
 
 # Tool invocations
-AWEAR_proj.elf AWEAR_proj.map: $(OBJS) $(USER_OBJS) /Users/vaibhav/Developer/stm-cube/AWEAR_proj/STM32L433CCTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "AWEAR_proj.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/vaibhav/Developer/stm-cube/AWEAR_proj/STM32L433CCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AWEAR_proj.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+AWEAR_proj.elf AWEAR_proj.map: $(OBJS) $(USER_OBJS) /Users/vaibhav/Developer/projects/cardiac-wearable/cardiac-wearable-firmware/AWEAR_proj/STM32L433CCTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "AWEAR_proj.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/vaibhav/Developer/projects/cardiac-wearable/cardiac-wearable-firmware/AWEAR_proj/STM32L433CCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AWEAR_proj.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
