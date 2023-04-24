@@ -21,6 +21,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <BH1790GLC.h>
+#include <ICM20948.h>
+#include <stdio.h>			//not sure if this is necessary?
+#include <math.h>
 
 #define PERIOD (uint32_t)1048			//TO DO: CHECK THE TIMER VAL: I think this is 32 Hz?
 #define TIMEOUT (uint32_t)0				//goes to compare register?
@@ -56,6 +60,8 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
+BH1790GLC 	hrm;			//define the struct for the ppg sensor
+ICM20948	imu;			//define the struct for the imu
 uint8_t 	sensorReady;	//1=ready, 0=busy
 
 /* USER CODE END PV */
@@ -68,7 +74,11 @@ static void MX_USART1_UART_Init(void);
 static void MX_LPTIM1_Init(void);
 static void MX_SPI2_Init(void);
 /* USER CODE BEGIN PFP */
+#ifdef __GNUC__
 #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -110,6 +120,20 @@ int main(void)
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
 
+  /* Set up heart rate sensor */
+  uint8_t status;									//see BH1780GLC.h for err codes
+
+  printf("Configuring PPG sensor...");
+  HAL_Delay(10);									//wait as a precaution
+  status = BH1790GLC_init(&hrm, &hi2c1);			//configure sensor
+  if(status != 0){
+	  printf("Error configuring sensor. Status code: %d\n\r", status);
+	  sensorReady = 0;
+  }else{
+	  printf("Sensor configured successfully. Status code: %d\n\r", status);
+	  sensorReady = 1;
+  }
+
   /* Set up timer */
   if(HAL_LPTIM_TimeOut_Start_IT(&hlptim1, PERIOD, TIMEOUT) != HAL_OK){  //pointer to the handler, period, timeout val to start the timer
 	  Error_Handler();
@@ -122,8 +146,21 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-      printf("Hello World\n\r");
-      HAL_Delay(1000);
+	  if(sensorReady){
+		  sensorReady = BUSY;		//flag set back to READY in interrupt every 32 ms
+
+		  uint8_t err;
+		  err = get_val(&hrm);
+
+		  if(err != 0){
+			printf("Could not read sensor. Error code: %d\n\r", err);
+		  }else{
+			printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
+		  }
+
+	  }else{
+		//not ready
+	  }
 
     /* USER CODE BEGIN 3 */
   }
@@ -368,8 +405,7 @@ static void MX_GPIO_Init(void)
  */
 void HAL_LPTIM_CompareMatchCallback(LPTIM_HandleTypeDef *hlptim){
 	sensorReady = READY;
-
-	printf("inside interrupt: sensorReady");
+	//printf("inside interrupt: sensorReady");
 }
 
 /* USER CODE BEGIN 4 */
@@ -382,7 +418,7 @@ PUTCHAR_PROTOTYPE
 {
   /* Place your implementation of fputc here */
   /* e.g. write a character to the USART1 and Loop until the end of transmission */
-  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
 
   return ch;
 }
