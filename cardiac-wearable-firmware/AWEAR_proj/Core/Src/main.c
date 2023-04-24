@@ -139,6 +139,14 @@ int main(void)
 	  Error_Handler();
   }
 
+  /* Set up IMU */
+  printf("Configuring IMU...");
+  HAL_Delay(10);									//wait as a precaution
+  ICM_SelectBank(&imu, USER_BANK_0);				//specify register bank
+  HAL_Delay(10);									//wait as a precaution
+  ICM_PowerOn(&imu, &hspi2);						//configure sensor
+  HAL_Delay(10);									//wait as a precaution
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -149,20 +157,31 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	if(sensorReady){
-	  sensorReady = BUSY;		//flag set back to READY in interrupt every 32 ms
+		sensorReady = BUSY;		//flag set back to READY in interrupt every 32 ms
 
-	  uint8_t err;
-	  err = get_val(&hrm);
+		uint8_t err;
 
-	  if(err != 0){
-		printf("Could not read sensor. Error code: %d\n\r", err);
-	  }else{
-		printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
-	  }
+		err = get_val(&hrm);
+		if(err != 0){
+			printf("Could not read sensor. Error code: %d\n\r", err);
+		}else{
+
+			if(add_sample(&hrm)==1){
+				ppg_calculate(&hrm);
+				for(int i = 100; i < 500; i++){
+					printf("smooth_array: %d\n", hrm.smooth_array[i]);
+				}
+			}
+		}
 
 	}else{
-	//not ready
+		//not ready
 	}
+
+	// Select User Bank 0
+	ICM_SelectBank(&imu, USER_BANK_0);
+	ICM_ReadAccelGyroData(&imu);
+	HAL_Delay(5);
   }
   /* USER CODE END 3 */
 }
