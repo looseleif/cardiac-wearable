@@ -1692,40 +1692,40 @@ int main(void)
  800114a:	d001      	beq.n	8001150 <main+0x78>
 	  Error_Handler();
  800114c:	f000 f9b4 	bl	80014b8 <Error_Handler>
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-	  if(sensorReady){
+
+    /* USER CODE BEGIN 3 */
+	if(sensorReady){
  8001150:	4b13      	ldr	r3, [pc, #76]	; (80011a0 <main+0xc8>)
  8001152:	781b      	ldrb	r3, [r3, #0]
  8001154:	2b00      	cmp	r3, #0
  8001156:	d0fb      	beq.n	8001150 <main+0x78>
-		  sensorReady = BUSY;		//flag set back to READY in interrupt every 32 ms
+	  sensorReady = BUSY;		//flag set back to READY in interrupt every 32 ms
  8001158:	4b11      	ldr	r3, [pc, #68]	; (80011a0 <main+0xc8>)
  800115a:	2200      	movs	r2, #0
  800115c:	701a      	strb	r2, [r3, #0]
 
-		  uint8_t err;
-		  err = get_val(&hrm);
+	  uint8_t err;
+	  err = get_val(&hrm);
  800115e:	480e      	ldr	r0, [pc, #56]	; (8001198 <main+0xc0>)
  8001160:	f7ff ff25 	bl	8000fae <get_val>
  8001164:	4603      	mov	r3, r0
  8001166:	71bb      	strb	r3, [r7, #6]
 
-		  if(err != 0){
+	  if(err != 0){
  8001168:	79bb      	ldrb	r3, [r7, #6]
  800116a:	2b00      	cmp	r3, #0
  800116c:	d005      	beq.n	800117a <main+0xa2>
-			printf("Could not read sensor. Error code: %d\n\r", err);
+		printf("Could not read sensor. Error code: %d\n\r", err);
  800116e:	79bb      	ldrb	r3, [r7, #6]
  8001170:	4619      	mov	r1, r3
  8001172:	480e      	ldr	r0, [pc, #56]	; (80011ac <main+0xd4>)
  8001174:	f004 fca6 	bl	8005ac4 <iprintf>
  8001178:	e7ea      	b.n	8001150 <main+0x78>
-		  }else{
-			printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
+	  }else{
+		printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
  800117a:	4b07      	ldr	r3, [pc, #28]	; (8001198 <main+0xc0>)
  800117c:	889b      	ldrh	r3, [r3, #4]
  800117e:	4619      	mov	r1, r3
@@ -1734,7 +1734,7 @@ int main(void)
  8001184:	461a      	mov	r2, r3
  8001186:	480a      	ldr	r0, [pc, #40]	; (80011b0 <main+0xd8>)
  8001188:	f004 fc9c 	bl	8005ac4 <iprintf>
-	  if(sensorReady){
+	if(sensorReady){
  800118c:	e7e0      	b.n	8001150 <main+0x78>
  800118e:	bf00      	nop
  8001190:	08007c68 	.word	0x08007c68

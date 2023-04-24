@@ -146,23 +146,23 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  if(sensorReady){
-		  sensorReady = BUSY;		//flag set back to READY in interrupt every 32 ms
-
-		  uint8_t err;
-		  err = get_val(&hrm);
-
-		  if(err != 0){
-			printf("Could not read sensor. Error code: %d\n\r", err);
-		  }else{
-			printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
-		  }
-
-	  }else{
-		//not ready
-	  }
 
     /* USER CODE BEGIN 3 */
+	if(sensorReady){
+	  sensorReady = BUSY;		//flag set back to READY in interrupt every 32 ms
+
+	  uint8_t err;
+	  err = get_val(&hrm);
+
+	  if(err != 0){
+		printf("Could not read sensor. Error code: %d\n\r", err);
+	  }else{
+		printf("ppg_data[0]: %d, ppg_data[1]: %d\n\r", hrm.ppg_data[0], hrm.ppg_data[1]);
+	  }
+
+	}else{
+	//not ready
+	}
   }
   /* USER CODE END 3 */
 }
