@@ -70,8 +70,8 @@ all: main-build
 main-build: WB_AWEAR_proj.elf secondary-outputs
 
 # Tool invocations
-WB_AWEAR_proj.elf WB_AWEAR_proj.map: $(OBJS) $(USER_OBJS) /Users/vaibhav/Developer/projects/cardiac-wearable/cardiac-wearable-firmware/WB_AWEAR_proj/STM32WB55RGVX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "WB_AWEAR_proj.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/vaibhav/Developer/projects/cardiac-wearable/cardiac-wearable-firmware/WB_AWEAR_proj/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="WB_AWEAR_proj.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+WB_AWEAR_proj.elf WB_AWEAR_proj.map: $(OBJS) $(USER_OBJS) /Users/sethgunderson/Documents/GitHub/cardiac-wearable/cardiac-wearable-firmware/WB_AWEAR_proj/STM32WB55RGVX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "WB_AWEAR_proj.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/sethgunderson/Documents/GitHub/cardiac-wearable/cardiac-wearable-firmware/WB_AWEAR_proj/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="WB_AWEAR_proj.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

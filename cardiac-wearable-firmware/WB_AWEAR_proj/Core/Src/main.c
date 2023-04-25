@@ -200,7 +200,7 @@ int main(void)
         		//printf("HELLO\n");
         		ppg_calculate(&hrm);
         		for(int i = 100; i < 500; i++){
-        			printf("smooth_array: %d\n", hrm.smooth_array[i]);
+        			//printf("smooth_array: %d\n", hrm.smooth_array[i]);
 
         			AFIB_DETECTED = 0x50;
         	        UTIL_SEQ_SetTask( 1<<CFG_TASK_MY_TASK, CFG_SCH_PRIO_0);

@@ -7,7 +7,22 @@
 #include "main.h"
 #include "ICM20948.h"
 #include <string.h>
+#include "BH1790GLC.h"
 
+/*****************************************************************************
+ACCELERATION FUNCTION
+******************************************************************************/
+// Function to check if the acceleration threshold is exceeded and reset the sample_index
+void check_accel_threshold(ICM20948 *dev) {
+    int32_t magnitude = (int32_t)dev->accel_data[0] * dev->accel_data[0] +      // Calculate the magnitude of the accelerometer data
+                        (int32_t)dev->accel_data[1] * dev->accel_data[1] +
+                        (int32_t)dev->accel_data[2] * dev->accel_data[2];
+    // Compare the calculated magnitude with the threshold
+    if (magnitude >= (ACCEL_THRESHOLD * ACCEL_THRESHOLD)) {   // Instead of taking the square root to find the magnitude I'm squaring the threshold
+
+        //dev->sample_index = 0;
+    }
+}
 
 /*****************************************************************************
 INIT FUNCTIONS
@@ -122,6 +137,8 @@ void ICM_ReadAccelGyroData(ICM20948 *dev) {
 	dev->gyro_data[0] = dev->gyro_data[0] / 250;
 	dev->gyro_data[1] = dev->gyro_data[1] / 250;
 	dev->gyro_data[2] = dev->gyro_data[2] / 250;
+
+	check_accel_threshold(dev);
 }
 
 /*
