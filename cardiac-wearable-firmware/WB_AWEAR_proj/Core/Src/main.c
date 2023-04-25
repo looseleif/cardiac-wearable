@@ -24,6 +24,7 @@
 #include <BH1790GLC.h>
 #include <ICM20948.h>
 #include <math.h>
+#include "stm32_seq.h"	//for bluetooth
 
 #define PERIOD (uint32_t)1048			//TO DO: CHECK THE TIMER VAL: I think this is 32 Hz?
 #define TIMEOUT (uint32_t)0				//goes to compare register?
@@ -70,6 +71,9 @@ DMA_HandleTypeDef hdma_usart1_tx;
 BH1790GLC 	hrm;			//define the struct for the ppg sensor
 ICM20948	imu;			//define the struct for the imu
 uint8_t 	sensorReady;	//1=ready, 0=busy
+
+uint8_t 	AFIB_DETECTED 		= 0x05;
+uint8_t		AFIB_READING_READY 	= BUSY;
 
 /* USER CODE END PV */
 
@@ -181,12 +185,12 @@ int main(void)
     MX_APPE_Process();
 
     /* USER CODE BEGIN 3 */
+    UTIL_SEQ_Run(UTIL_SEQ_DEFAULT);
 
     if(sensorReady){
     	sensorReady = BUSY;		//flag set back to READY in interrupt every 32 ms
 
         uint8_t err;
-
         err = get_val(&hrm);
         if(err != 0){
         	//printf("Could not read sensor. Error code: %d\n\r", err);
@@ -197,6 +201,9 @@ int main(void)
         		ppg_calculate(&hrm);
         		for(int i = 100; i < 500; i++){
         			printf("smooth_array: %d\n", hrm.smooth_array[i]);
+
+        			AFIB_DETECTED = 0x50;
+        	        UTIL_SEQ_SetTask( 1<<CFG_TASK_MY_TASK, CFG_SCH_PRIO_0);
         		}
 
         	}

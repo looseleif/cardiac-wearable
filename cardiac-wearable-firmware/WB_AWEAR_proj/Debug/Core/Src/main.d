@@ -58,7 +58,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_rtc.h \
  ../Middlewares/ST/STM32_WPAN/ble/core/ble_bufsize.h \
  ../Core/Inc/app_entry.h ../Core/Inc/app_common.h ../Core/Inc/BH1790GLC.h \
- ../Core/Inc/ICM20948.h
+ ../Core/Inc/ICM20948.h ../Utilities/sequencer/stm32_seq.h
 ../Core/Inc/main.h:
 ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal.h:
 ../Core/Inc/stm32wbxx_hal_conf.h:
@@ -123,3 +123,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/app_common.h:
 ../Core/Inc/BH1790GLC.h:
 ../Core/Inc/ICM20948.h:
+../Utilities/sequencer/stm32_seq.h:

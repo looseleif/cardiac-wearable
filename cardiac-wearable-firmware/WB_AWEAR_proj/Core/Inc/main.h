@@ -84,6 +84,9 @@ void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN Private defines */
 
+extern uint8_t AFIB_DETECTED;		//initialized in main.c
+
+
 #define ICM_CS_Pin GPIO_PIN_4	//previously PB3, set GPIO_Output on PB4 for now
 #define ICM_CS_GPIO_Port GPIOB
 

@@ -1,3 +1,3 @@
-custom_stm.c:119:30:Custom_STM_Event_Handler	5
-custom_stm.c:203:6:SVCCTL_InitCustomSvc	3
-custom_stm.c:276:12:Custom_STM_App_Update_Char	3
+custom_stm.c:122:30:Custom_STM_Event_Handler	8
+custom_stm.c:252:6:SVCCTL_InitCustomSvc	4
+custom_stm.c:348:12:Custom_STM_App_Update_Char	5

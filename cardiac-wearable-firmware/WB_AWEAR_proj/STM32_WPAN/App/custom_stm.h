@@ -36,6 +36,7 @@ typedef enum
 {
   /* CUSTOM_SVC */
   CUSTOM_STM_MY_CHAR,
+  CUSTOM_STM_MYCHARNOTIFY,
 } Custom_STM_Char_Opcode_t;
 
 typedef enum
@@ -43,6 +44,9 @@ typedef enum
   /* MY_CHAR */
   CUSTOM_STM_MY_CHAR_READ_EVT,
   CUSTOM_STM_MY_CHAR_WRITE_EVT,
+  /* myCharNotify */
+  CUSTOM_STM_MYCHARNOTIFY_NOTIFY_ENABLED_EVT,
+  CUSTOM_STM_MYCHARNOTIFY_NOTIFY_DISABLED_EVT,
 
   CUSTOM_STM_BOOT_REQUEST_EVT
 } Custom_STM_Opcode_evt_t;
@@ -67,6 +71,7 @@ typedef struct
 
 /* Exported constants --------------------------------------------------------*/
 extern uint8_t SizeMy_Char;
+extern uint8_t SizeMycharnotify;
 
 /* USER CODE BEGIN EC */
 
