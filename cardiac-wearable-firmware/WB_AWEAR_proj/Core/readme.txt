@@ -5,3 +5,6 @@ The USART is configured as follows:
     - Odd parity
     - Hardware flow control disabled (RTS and CTS signals)
     - Reception and transmission are enabled in the time
+    
+Bluetooth?
+custom_app.c line 85

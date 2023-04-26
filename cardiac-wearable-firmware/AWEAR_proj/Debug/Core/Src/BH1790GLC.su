@@ -4,6 +4,6 @@
 ../Core/Src/BH1790GLC.c:112:9:param_refreshment	24	static
 ../Core/Src/BH1790GLC.c:140:9:add_sample	16	static
 ../Core/Src/BH1790GLC.c:159:9:ppg_calculate	2328	static
-../Core/Src/BH1790GLC.c:333:19:write	48	static
-../Core/Src/BH1790GLC.c:353:19:read	48	static
-../Core/Src/BH1790GLC.c:373:19:many_reads	48	static
+../Core/Src/BH1790GLC.c:334:19:write	48	static
+../Core/Src/BH1790GLC.c:354:19:read	48	static
+../Core/Src/BH1790GLC.c:374:19:many_reads	48	static

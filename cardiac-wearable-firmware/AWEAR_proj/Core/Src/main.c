@@ -169,7 +169,7 @@ int main(void)
 			if(add_sample(&hrm)==1){
 				ppg_calculate(&hrm);
 				for(int i = 100; i < 500; i++){
-					printf("smooth_array: %d\n", hrm.smooth_array[i]);
+				//	printf("smooth_array: %d\n", hrm.smooth_array[i]);
 				}
 			}
 		}

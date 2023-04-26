@@ -272,7 +272,7 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 	     // Check for atrial fibrillation using cv threshold
 	     if (peak_count >= 3 && peak_count <= 40)
 	     {
-	         cv_threshold = 0.412 - (0.156 * (peak_count - 3)) / (40 - 3);
+	         cv_threshold = 0.624;// - (0.312 * (peak_count - 3)) / (40 - 3);
 
 	         if (cv > cv_threshold)
 	         {
@@ -297,7 +297,7 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 	    // printf("Turning Point Ratio: %f\n", turning_point_ratio);
 
 	     // Check for atrial fibrillation using turning point ratio threshold
-	     double tpr_threshold = 0.275;
+	     double tpr_threshold = 0.375;
 	     if (turning_point_ratio >= tpr_threshold)
 	     {
 	         af_detected_tpr = 1;
@@ -306,14 +306,15 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 	     // Check if both CV and Turning Point Ratio conditions are met
 	     if (af_detected_cv && af_detected_tpr)
 	     {
-	         //printf("Atrial fibrillation detected.\n");
+	         printf("Atrial fibrillation detected.\n");
 	     }
 	     else
 	     {
-	         //printf("Atrial fibrillation not detected.\n");
+	         printf("Atrial fibrillation not detected.\n");
 	     }
 
 	     printf("Coefficient of Variation: %f\n", cv);
+	     printf("Turning Point Ratio: %f\n", turning_point_ratio);
 
 
 	 }
