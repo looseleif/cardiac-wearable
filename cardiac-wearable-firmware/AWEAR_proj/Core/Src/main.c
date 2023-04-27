@@ -22,7 +22,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <BH1790GLC.h>
-#include <ICM20948.h>
+#include "lis2de12_reg.h"
+//#include <ICM20948.h>
 #include <stdio.h>			//not sure if this is necessary?
 #include <math.h>
 
@@ -60,8 +61,17 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
+//imu stuff
+#define SENSOR_BUS hi2c1
+#define BOOT_TIME 5
+#define FIFO_WATERMARK 10
+static int16_t data_raw_acceleration[3];
+static float acceleration_mg[3];
+static uint8_t tx_buffer[1000];
+static uint8_t whoamI;
+//
+
 BH1790GLC 	hrm;			//define the struct for the ppg sensor
-ICM20948	imu;			//define the struct for the imu
 uint8_t 	sensorReady;	//1=ready, 0=busy
 
 /* USER CODE END PV */
@@ -79,6 +89,14 @@ static void MX_SPI2_Init(void);
 #else
 #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
 #endif
+
+//imu private functions
+static int32_t platform_write(void *handle, uint8_t reg, const uint8_t *bufp,
+                              uint16_t len);
+static int32_t platform_read(void *handle, uint8_t reg, uint8_t *bufp,
+                             uint16_t len);
+//
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -140,12 +158,37 @@ int main(void)
   }
 
   /* Set up IMU */
-  printf("Configuring IMU...");
-  HAL_Delay(10);									//wait as a precaution
-  ICM_SelectBank(&imu, USER_BANK_0);				//specify register bank
-  HAL_Delay(10);									//wait as a precaution
-  ICM_PowerOn(&imu, &hspi2);						//configure sensor
-  HAL_Delay(10);									//wait as a precaution
+  HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_RESET); //CS->1 for I2C
+
+  stmdev_ctx_t dev_ctx;
+  uint8_t dummy;
+  /* Initialize mems driver interface */
+  dev_ctx.write_reg = platform_write;
+  dev_ctx.read_reg = platform_read;
+  dev_ctx.handle = &SENSOR_BUS;
+  /* Initialize platform specific hardware */
+  	  // none
+  /* Wait sensor boot time */
+  HAL_Delay(5);
+  /* Check device ID */
+  lis2de12_device_id_get(&dev_ctx, &whoamI);
+
+  if (whoamI != LIS2DE12_ID) {
+    while (1);/* manage here device not found */
+  }
+
+  /* Set FIFO watermark to FIFO_WATERMARK */
+  lis2de12_fifo_watermark_set(&dev_ctx, FIFO_WATERMARK - 1);
+  /* Set FIFO mode to Stream mode (aka Continuous Mode) */
+  lis2de12_fifo_mode_set(&dev_ctx, LIS2DE12_DYNAMIC_STREAM_MODE);
+  /* Enable FIFO */
+  lis2de12_fifo_set(&dev_ctx, PROPERTY_ENABLE);
+  /* Enable Block Data Update. */
+  lis2de12_block_data_update_set(&dev_ctx, PROPERTY_ENABLE);
+  /* Set Output Data Rate to 1Hz. */
+  lis2de12_data_rate_set(&dev_ctx, LIS2DE12_ODR_25Hz);
+  /* Set full scale to 2g. */
+  lis2de12_full_scale_set(&dev_ctx, LIS2DE12_2g);
 
   /* USER CODE END 2 */
 
@@ -156,32 +199,60 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	if(sensorReady){
-		sensorReady = BUSY;		//flag set back to READY in interrupt every 32 ms
 
-		uint8_t err;
+	/* Check if FIFO level over threshold */
+	lis2de12_fifo_fth_flag_get(&dev_ctx, &dummy);
 
-		err = get_val(&hrm);
-		if(err != 0){
-			printf("Could not read sensor. Error code: %d\n\r", err);
-		}else{
+	if (dummy) {
+	  /* Read number of sample in FIFO */
+	  lis2de12_fifo_data_level_get(&dev_ctx, &dummy);
 
-			if(add_sample(&hrm)==1){
-				ppg_calculate(&hrm);
-				for(int i = 100; i < 500; i++){
-				//	printf("smooth_array: %d\n", hrm.smooth_array[i]);
-				}
-			}
-		}
-
-	}else{
-		//not ready
+	  while ( dummy > 0) {
+		/* Read XL samples */
+		lis2de12_acceleration_raw_get(&dev_ctx, data_raw_acceleration);
+		acceleration_mg[0] =
+		  lis2de12_from_fs2_to_mg(data_raw_acceleration[0]);
+		acceleration_mg[1] =
+		  lis2de12_from_fs2_to_mg(data_raw_acceleration[1]);
+		acceleration_mg[2] =
+		  lis2de12_from_fs2_to_mg(data_raw_acceleration[2]);
+		sprintf((char *)tx_buffer,
+				"%d - Acceleration [mg]:%4.2f\t%4.2f\t%4.2f\r\n",
+				FIFO_WATERMARK - dummy,
+				acceleration_mg[0], acceleration_mg[1], acceleration_mg[2]);
+		//tx_com(tx_buffer, strlen((char const *)tx_buffer));
+		printf("tx_buffer: %s", tx_buffer);
+		dummy--;
+	  }
 	}
 
-	// Select User Bank 0
-	ICM_SelectBank(&imu, USER_BANK_0);
-	ICM_ReadAccelGyroData(&imu);
-	HAL_Delay(5);
+
+//	if(sensorReady){
+//		sensorReady = BUSY;		//flag set back to READY in interrupt every 32 ms
+//
+//		uint8_t err;
+//
+//		err = get_val(&hrm);
+//		if(err != 0){
+//			printf("Could not read sensor. Error code: %d\n\r", err);
+//		}else{
+//
+//			if(add_sample(&hrm)==1){
+//				ppg_calculate(&hrm);
+//				for(int i = 100; i < 500; i++){
+//				//	printf("smooth_array: %d\n", hrm.smooth_array[i]);
+//				}
+//			}
+//		}
+//
+//	}else{
+//		//not ready
+//	}
+
+//	// Select User Bank 0
+//	ICM_SelectBank(&imu, USER_BANK_0);
+//	ICM_ReadAccelGyroData(&imu);
+//	HAL_Delay(5);
   }
   /* USER CODE END 3 */
 }
@@ -418,6 +489,82 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+/*
+ * @brief  Write device register for IMU
+ *
+ * @param  handle    customizable argument. In this examples is used in
+ *                   order to select the correct sensor bus handler.
+ * @param  reg       register to write
+ * @param  bufp      pointer to data to write in register reg
+ * @param  len       number of consecutive register to write
+ *
+ */
+static int32_t platform_write(void *handle, uint8_t reg, const uint8_t *bufp,
+                              uint16_t len)
+{
+	  /* Write multiple command */
+	  reg |= 0x80;
+	  HAL_I2C_Mem_Write(handle, LIS2DE12_I2C_ADD_L, reg,
+	                    I2C_MEMADD_SIZE_8BIT, (uint8_t*) bufp, len, 1000);
+
+#if defined(NUCLEO_F411RE)
+  /* Write multiple command */
+  reg |= 0x80;
+  HAL_I2C_Mem_Write(handle, LIS2DE12_I2C_ADD_L, reg,
+                    I2C_MEMADD_SIZE_8BIT, (uint8_t*) bufp, len, 1000);
+#elif defined(STEVAL_MKI109V3)
+  /* Write multiple command */
+  reg |= 0x40;
+  HAL_GPIO_WritePin(CS_up_GPIO_Port, CS_up_Pin, GPIO_PIN_RESET);
+  HAL_SPI_Transmit(handle, &reg, 1, 1000);
+  HAL_SPI_Transmit(handle, (uint8_t*) bufp, len, 1000);
+  HAL_GPIO_WritePin(CS_up_GPIO_Port, CS_up_Pin, GPIO_PIN_SET);
+#elif defined(SPC584B_DIS)
+  /* Write multiple command */
+  reg |= 0x80;
+  i2c_lld_write(handle,  LIS2DE12_I2C_ADD_L & 0xFE, reg, (uint8_t*) bufp, len);
+#endif
+  return 0;
+}
+
+/*
+ * @brief  Read device register for IMU
+ *
+ * @param  handle    customizable argument. In this examples is used in
+ *                   order to select the correct sensor bus handler.
+ * @param  reg       register to read
+ * @param  bufp      pointer to buffer that store the data read
+ * @param  len       number of consecutive register to read
+ *
+ */
+static int32_t platform_read(void *handle, uint8_t reg, uint8_t *bufp,
+                             uint16_t len)
+{
+	  /* Read multiple command */
+	  reg |= 0x80;
+	  HAL_I2C_Mem_Read(handle, LIS2DE12_I2C_ADD_L, reg,
+	                   I2C_MEMADD_SIZE_8BIT, bufp, len, 1000);
+
+#if defined(NUCLEO_F411RE)
+  /* Read multiple command */
+  reg |= 0x80;
+  HAL_I2C_Mem_Read(handle, LIS2DE12_I2C_ADD_L, reg,
+                   I2C_MEMADD_SIZE_8BIT, bufp, len, 1000);
+#elif defined(STEVAL_MKI109V3)
+  /* Read multiple command */
+  reg |= 0xC0;
+  HAL_GPIO_WritePin(CS_up_GPIO_Port, CS_up_Pin, GPIO_PIN_RESET);
+  HAL_SPI_Transmit(handle, &reg, 1, 1000);
+  HAL_SPI_Receive(handle, bufp, len, 1000);
+  HAL_GPIO_WritePin(CS_up_GPIO_Port, CS_up_Pin, GPIO_PIN_SET);
+#elif defined(SPC584B_DIS)
+  /* Read multiple command */
+  reg |= 0x80;
+  i2c_lld_read(handle, LIS2DE12_I2C_ADD_L & 0xFE, reg, bufp, len);
+#endif
+  return 0;
+}
 
 /*
  * Redefinition of the low power timer interrupt

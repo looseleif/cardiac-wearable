@@ -294,7 +294,7 @@ uint8_t ppg_calculate( BH1790GLC *dev ){
 
 	     double turning_point_ratio = (double)turning_points / (double)(NUM_SAMPLES-2);
 
-	    // printf("Turning Point Ratio: %f\n", turning_point_ratio);
+	     //printf("Turning Point Ratio: %f\n", turning_point_ratio);
 
 	     // Check for atrial fibrillation using turning point ratio threshold
 	     double tpr_threshold = 0.375;
