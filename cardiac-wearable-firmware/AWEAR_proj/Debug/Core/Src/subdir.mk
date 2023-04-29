@@ -6,7 +6,6 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/Src/BH1790GLC.c \
-../Core/Src/ICM20948.c \
 ../Core/Src/lis2de12_reg.c \
 ../Core/Src/main.c \
 ../Core/Src/stm32l4xx_hal_msp.c \
@@ -17,7 +16,6 @@ C_SRCS += \
 
 OBJS += \
 ./Core/Src/BH1790GLC.o \
-./Core/Src/ICM20948.o \
 ./Core/Src/lis2de12_reg.o \
 ./Core/Src/main.o \
 ./Core/Src/stm32l4xx_hal_msp.o \
@@ -28,7 +26,6 @@ OBJS += \
 
 C_DEPS += \
 ./Core/Src/BH1790GLC.d \
-./Core/Src/ICM20948.d \
 ./Core/Src/lis2de12_reg.d \
 ./Core/Src/main.d \
 ./Core/Src/stm32l4xx_hal_msp.d \
@@ -45,7 +42,7 @@ Core/Src/%.o Core/Src/%.su Core/Src/%.cyclo: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/BH1790GLC.cyclo ./Core/Src/BH1790GLC.d ./Core/Src/BH1790GLC.o ./Core/Src/BH1790GLC.su ./Core/Src/ICM20948.cyclo ./Core/Src/ICM20948.d ./Core/Src/ICM20948.o ./Core/Src/ICM20948.su ./Core/Src/lis2de12_reg.cyclo ./Core/Src/lis2de12_reg.d ./Core/Src/lis2de12_reg.o ./Core/Src/lis2de12_reg.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/stm32l4xx_hal_msp.cyclo ./Core/Src/stm32l4xx_hal_msp.d ./Core/Src/stm32l4xx_hal_msp.o ./Core/Src/stm32l4xx_hal_msp.su ./Core/Src/stm32l4xx_it.cyclo ./Core/Src/stm32l4xx_it.d ./Core/Src/stm32l4xx_it.o ./Core/Src/stm32l4xx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32l4xx.cyclo ./Core/Src/system_stm32l4xx.d ./Core/Src/system_stm32l4xx.o ./Core/Src/system_stm32l4xx.su
+	-$(RM) ./Core/Src/BH1790GLC.cyclo ./Core/Src/BH1790GLC.d ./Core/Src/BH1790GLC.o ./Core/Src/BH1790GLC.su ./Core/Src/lis2de12_reg.cyclo ./Core/Src/lis2de12_reg.d ./Core/Src/lis2de12_reg.o ./Core/Src/lis2de12_reg.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/stm32l4xx_hal_msp.cyclo ./Core/Src/stm32l4xx_hal_msp.d ./Core/Src/stm32l4xx_hal_msp.o ./Core/Src/stm32l4xx_hal_msp.su ./Core/Src/stm32l4xx_it.cyclo ./Core/Src/stm32l4xx_it.d ./Core/Src/stm32l4xx_it.o ./Core/Src/stm32l4xx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32l4xx.cyclo ./Core/Src/system_stm32l4xx.d ./Core/Src/system_stm32l4xx.o ./Core/Src/system_stm32l4xx.su
 
 .PHONY: clean-Core-2f-Src
 

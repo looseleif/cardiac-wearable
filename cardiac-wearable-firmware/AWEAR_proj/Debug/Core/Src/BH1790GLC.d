@@ -26,8 +26,6 @@ Core/Src/BH1790GLC.o: ../Core/Src/BH1790GLC.c ../Core/Inc/BH1790GLC.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_lptim.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h \
- ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi.h \
- ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi_ex.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h
 ../Core/Inc/BH1790GLC.h:
@@ -58,7 +56,5 @@ Core/Src/BH1790GLC.o: ../Core/Src/BH1790GLC.c ../Core/Inc/BH1790GLC.h \
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_lptim.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h:
-../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi.h:
-../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi_ex.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h:

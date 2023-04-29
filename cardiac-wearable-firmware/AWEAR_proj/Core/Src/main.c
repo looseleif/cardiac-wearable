@@ -52,17 +52,16 @@
 
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c1;
+I2C_HandleTypeDef hi2c2;
 
 LPTIM_HandleTypeDef hlptim1;
-
-SPI_HandleTypeDef hspi2;
 
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
 //imu stuff
-#define SENSOR_BUS hi2c1
+#define SENSOR_BUS hi2c2
 #define BOOT_TIME 5
 #define FIFO_WATERMARK 10
 static int16_t data_raw_acceleration[3];
@@ -82,7 +81,7 @@ static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_LPTIM1_Init(void);
-static void MX_SPI2_Init(void);
+static void MX_I2C2_Init(void);
 /* USER CODE BEGIN PFP */
 #ifdef __GNUC__
 #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
@@ -135,7 +134,7 @@ int main(void)
   MX_I2C1_Init();
   MX_USART1_UART_Init();
   MX_LPTIM1_Init();
-  MX_SPI2_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
 
   /* Set up heart rate sensor */
@@ -158,7 +157,8 @@ int main(void)
   }
 
   /* Set up IMU */
-  HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_RESET); //CS->1 for I2C
+  HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_SET);		//set CS pin high
+  HAL_GPIO_WritePin(ICM_SA0_GPIO_Port, ICM_SA0_Pin, GPIO_PIN_RESET);		//set SA0 pin low
 
   stmdev_ctx_t dev_ctx;
   uint8_t dummy;
@@ -351,6 +351,54 @@ static void MX_I2C1_Init(void)
 }
 
 /**
+  * @brief I2C2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C2_Init(void)
+{
+
+  /* USER CODE BEGIN I2C2_Init 0 */
+
+  /* USER CODE END I2C2_Init 0 */
+
+  /* USER CODE BEGIN I2C2_Init 1 */
+
+  /* USER CODE END I2C2_Init 1 */
+  hi2c2.Instance = I2C2;
+  hi2c2.Init.Timing = 0x00000E14;
+  hi2c2.Init.OwnAddress1 = 0;
+  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c2.Init.OwnAddress2 = 0;
+  hi2c2.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure Analogue filter
+  */
+  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c2, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure Digital filter
+  */
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c2, 0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C2_Init 2 */
+
+  /* USER CODE END I2C2_Init 2 */
+
+}
+
+/**
   * @brief LPTIM1 Initialization Function
   * @param None
   * @retval None
@@ -381,46 +429,6 @@ static void MX_LPTIM1_Init(void)
   /* USER CODE BEGIN LPTIM1_Init 2 */
 
   /* USER CODE END LPTIM1_Init 2 */
-
-}
-
-/**
-  * @brief SPI2 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_SPI2_Init(void)
-{
-
-  /* USER CODE BEGIN SPI2_Init 0 */
-
-  /* USER CODE END SPI2_Init 0 */
-
-  /* USER CODE BEGIN SPI2_Init 1 */
-
-  /* USER CODE END SPI2_Init 1 */
-  /* SPI2 parameter configuration*/
-  hspi2.Instance = SPI2;
-  hspi2.Init.Mode = SPI_MODE_MASTER;
-  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi2.Init.DataSize = SPI_DATASIZE_4BIT;
-  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi2.Init.NSS = SPI_NSS_SOFT;
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
-  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
-  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
-  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-  hspi2.Init.CRCPolynomial = 7;
-  hspi2.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi2.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
-  if (HAL_SPI_Init(&hspi2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN SPI2_Init 2 */
-
-  /* USER CODE END SPI2_Init 2 */
 
 }
 
@@ -475,10 +483,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11|GPIO_PIN_15, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : PB11 */
-  GPIO_InitStruct.Pin = GPIO_PIN_11;
+  /*Configure GPIO pins : PB11 PB15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -503,10 +511,15 @@ static void MX_GPIO_Init(void)
 static int32_t platform_write(void *handle, uint8_t reg, const uint8_t *bufp,
                               uint16_t len)
 {
-	  /* Write multiple command */
-	  reg |= 0x80;
-	  HAL_I2C_Mem_Write(handle, LIS2DE12_I2C_ADD_L, reg,
-	                    I2C_MEMADD_SIZE_8BIT, (uint8_t*) bufp, len, 1000);
+	/* Write multiple command */
+//	reg = reg & 0x7F;
+//	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_RESET);	//set CS pin low
+//	HAL_SPI_Transmit(handle, &reg, 1, 1000);
+//	HAL_SPI_Transmit(handle, (uint8_t*) bufp, len, 1000);
+//	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_SET);		//set CS pin high
+
+  HAL_I2C_Mem_Write(handle, (LIS2DE12_I2C_ADD_L<<1), reg,
+					I2C_MEMADD_SIZE_8BIT, (uint8_t*) bufp, len, 1000);
 
 #if defined(NUCLEO_F411RE)
   /* Write multiple command */
@@ -542,9 +555,19 @@ static int32_t platform_read(void *handle, uint8_t reg, uint8_t *bufp,
                              uint16_t len)
 {
 	  /* Read multiple command */
-	  reg |= 0x80;
-	  HAL_I2C_Mem_Read(handle, LIS2DE12_I2C_ADD_L, reg,
-	                   I2C_MEMADD_SIZE_8BIT, bufp, len, 1000);
+//	reg = reg | 0x80;
+//	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_RESET);	//set CS pin low
+//	HAL_SPI_Transmit(handle, &reg, 1, 1000);
+//	HAL_SPI_Receive(handle, bufp, len, 1000);
+//	HAL_GPIO_WritePin(ICM_CS_GPIO_Port, ICM_CS_Pin, GPIO_PIN_SET);		//set CS pin high
+
+	HAL_StatusTypeDef ret;
+
+	//reg |= 0x80;
+	ret = HAL_I2C_Mem_Read(handle, (LIS2DE12_I2C_ADD_L<<1), reg,
+				   I2C_MEMADD_SIZE_8BIT, bufp, len, 1000);
+
+	printf("complete");
 
 #if defined(NUCLEO_F411RE)
   /* Read multiple command */

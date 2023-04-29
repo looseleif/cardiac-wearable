@@ -63,12 +63,15 @@ void Error_Handler(void);
 #define ICM_CS_Pin GPIO_PIN_11
 #define ICM_CS_GPIO_Port GPIOB
 
-#define ICM_SCK_Pin GPIO_PIN_10
-#define ICM_SCK_GPIO_Port GPIOB
-#define ICM_MISO_Pin GPIO_PIN_14
-#define ICM_MISO_GPIO_Port GPIOB
-#define ICM_MOSI_Pin GPIO_PIN_15
-#define ICM_MOSI_GPIO_Port GPIOB
+#define ICM_SA0_Pin GPIO_PIN_15
+#define ICM_SA0_GPIO_Port GPIOB
+
+//#define ICM_SCK_Pin GPIO_PIN_10
+//#define ICM_SCK_GPIO_Port GPIOB
+//#define ICM_MISO_Pin GPIO_PIN_14
+//#define ICM_MISO_GPIO_Port GPIOB
+//#define ICM_MOSI_Pin GPIO_PIN_15
+//#define ICM_MOSI_GPIO_Port GPIOB
 
 /* USER CODE END Private defines */
 
