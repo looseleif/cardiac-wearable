@@ -54,7 +54,28 @@ Atrial fibrillation is an irregular heartbeat or arrhythmia that can lead to str
 
 <details>
   <summary>Project Timeline</summary>
-  <p align="middle>
-    <img src="https://github.com/looseleif/cardiac-wearable/blob/b1c1ac140f7cf3ef0921fae44ee47110fbb615b3/cardiac~wearable~misc/images/Final%20Presentation/Slide16.png" alt= “timeline” width="80%" height="100%">
+  <p align="middle">
+    <img src="https://github.com/looseleif/cardiac-wearable/blob/b1c1ac140f7cf3ef0921fae44ee47110fbb615b3/cardiac~wearable~misc/images/Final%20Presentation/Slide16.png" alt=“firmware-breakdown” width="80%" height="100%">
   </p>
 </details>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
